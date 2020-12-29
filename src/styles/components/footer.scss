@@ -1,0 +1,10 @@
+@import "../import";
+
+.footer {
+  margin: 100px 0 30px;
+
+  &__inner {
+    @include inner;
+    text-align: center;
+  }
+}

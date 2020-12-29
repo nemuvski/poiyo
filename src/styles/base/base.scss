@@ -1,0 +1,25 @@
+@import "../import";
+
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-gray;
+  color: $color-fuscous-gray;
+  font-family: $font-family;
+  font-size: $font-size;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
