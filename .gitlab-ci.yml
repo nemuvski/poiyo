@@ -1,0 +1,17 @@
+# Node.js v12.x
+image: node:erbium-alpine3.12
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - yarn install
+
+stages:
+  - eslint
+
+linting:
+  stage: eslint
+  script:
+    - yarn run eslint src/
