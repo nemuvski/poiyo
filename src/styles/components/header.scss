@@ -1,0 +1,20 @@
+@import "../import";
+
+.header {
+  height: 65px;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-quill-gray;
+
+  &__inner {
+    @include inner;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__logo {
+    width: 150px;
+    margin: 0;
+  }
+}

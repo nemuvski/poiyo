@@ -1,8 +1,13 @@
 import React, { ReactElement } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App: React.FC = (): ReactElement => {
   return (
-    <div>Hello Poiyo</div>
+    <>
+      <Header />
+      <Footer />
+    </>
   );
 }
 
