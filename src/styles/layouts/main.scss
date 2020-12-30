@@ -1,10 +1,7 @@
 @import "../import";
 
-.footer {
-  margin: 6em 0 2em;
-
+.main {
   &__inner {
     @include inner;
-    text-align: center;
   }
 }
