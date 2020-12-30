@@ -1,20 +1,15 @@
-import React, { ReactElement, useState } from 'react';
-import clsx from 'clsx';
+import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/layouts/navigation.scss';
 
 const Navigation: React.FC = (): ReactElement => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <nav role="navigation" aria-label="header-navigation" className={clsx('navigation', {'is-open':open})}>
-      <div aria-hidden="true" className="navigation__toggle" onClick={() => setOpen(!open)}>
-        <span /><span /><span />
-      </div>
+    <nav role="navigation" aria-label="header-navigation" className='navigation'>
       <ul className="navigation__actions">
         <li className="navigation__action">
-          <button className="navigation__button">
-            ログイン
-          </button>
+          <Link to="/enter" className="navigation__link">
+            サインイン
+          </Link>
         </li>
       </ul>
     </nav>

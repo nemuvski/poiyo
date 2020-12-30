@@ -1,95 +1,32 @@
 @import "../import";
 
 .navigation {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 100%;
-
-  &.is-open {
-    .navigation__toggle > span {
-      &:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
-      }
-      &:nth-child(2) {
-        opacity: 0;
-      }
-      &:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
-      }
-    }
-    .navigation__actions {
-      display: flex;
-    }
-  }
-
-  &__toggle {
-    cursor: pointer;
-    display: block;
-    width: 36px;
-    height: 36px;
-
-    @include bp($bp-m-min) {
-      display: none;
-    }
-
-    > span {
-      position: absolute;
-      left: 8px;
-      width: 20px;
-      height: 2px;
-      background-color: $color-fuscous-gray;
-      border-radius: 1px;
-      transform-origin: center;
-      transition-property: opacity, transform;
-      transition-duration: 0.2s;
-      transition-timing-function: ease;
-      &:nth-child(1) {
-        top: calc(50% - 6px);
-      }
-      &:nth-child(2) {
-        top: calc(50%);
-      }
-      &:nth-child(3) {
-        top: calc(50% + 6px);
-      }
-    }
-  }
-
   &__actions {
-    position: absolute;
-    z-index: 10;
-    top: 64px;
-    right: -16px;
-    display: none;
-    flex-direction: column;
     margin: 0;
     padding: 0;
-    border-width: 0 0 1px 1px;
-    border-style: solid;
-    border-color: $color-quill-gray;
-    background-color: $color-white;
 
     @include bp($bp-m-min) {
-      position: static;
       display: flex;
-      flex-direction: row;
       align-items: center;
-      height: 100%;
-      border: 0;
-      background-color: transparent;
     }
   }
 
   &__action {
-    width: 110px;
-    text-align: center;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
 
-    @include bp($bp-m-min) {
-      width: auto;
-      &:not(:last-child) {
-        margin-right: 20px;
-      }
+  &__link {
+    padding: 0.5em 0.75em;
+    border-radius: 0.5em;
+    color: $color-white;
+    box-shadow: 0 3px 6px -2px $color-quill-gray;
+    background-color: $color-fountain-blue;
+
+    &:hover {
+      box-shadow: 0 0 2px -1px $color-quill-gray;
+      background-color: $color-fountain-blue-darker;
     }
   }
 }
