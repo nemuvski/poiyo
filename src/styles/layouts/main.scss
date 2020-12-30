@@ -1,0 +1,7 @@
+@import "../import";
+
+.main {
+  &__inner {
+    @include inner;
+  }
+}
