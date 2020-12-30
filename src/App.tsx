@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './layouts/Header';
+import Footer from './layouts/Footer';
 
 const App: React.FC = (): ReactElement => {
   return (
