@@ -1,15 +1,22 @@
-import React, { ReactElement } from 'react';
+import React, { useContext, ReactElement } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import '../styles/layouts/main.scss';
 
-type Props = {
-  children?: React.ReactNode;
-}
+const Main: React.FC = (): ReactElement => {
+  const { account } = useContext(AuthenticationContext);
 
-const Main: React.FC<Props> = (props: Props): ReactElement => {
   return (
     <main className="main">
       <div className="main__inner">
-        {props.children}
+        <Switch>
+          <Route path="/dashboard">
+            {!account ? <Redirect to="/" /> : <p>Dashboard</p>}
+          </Route>
+          <Route path="/">
+            {account ? <Redirect to="/dashboard" /> : <p>Home</p>}
+          </Route>
+        </Switch>
       </div>
     </main>
   );

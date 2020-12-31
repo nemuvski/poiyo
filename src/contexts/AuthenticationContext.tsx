@@ -26,11 +26,16 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
 
   const signIn: () => void = useCallback(() => {
     firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    firebase.auth().getRedirectResult().then(result => {
-      if (result.user) {
-        setAccount({ uid: result.user.uid });
-      }
-    });
+    firebase.auth().getRedirectResult()
+      .then(result => {
+        if (result.user) {
+          setAccount({ uid: result.user.uid });
+        }
+      })
+      .catch(error => {
+        console.error('サインイン中にエラーが発生しました。');
+        console.error(error);
+      });
   }, []);
 
   const signOut: () => void = useCallback(() => {
