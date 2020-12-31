@@ -1,25 +1,22 @@
 import React, { ReactElement } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthenticationProvider } from './contexts/AuthenticationContext';
 import Header from './layouts/Header';
 import Main from './layouts/Main';
 import Footer from './layouts/Footer';
+import SwitchRoute from './layouts/SwitchRoute';
 
 const App: React.FC = (): ReactElement => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Main>
-        <Switch>
-          <Route path="/enter">
-            <p>Enter</p>
-          </Route>
-          <Route path="/">
-            <p>Home</p>
-          </Route>
-        </Switch>
-      </Main>
-      <Footer />
-    </BrowserRouter>
+    <AuthenticationProvider>
+      <BrowserRouter>
+        <Header />
+        <Main>
+          <SwitchRoute />
+        </Main>
+        <Footer />
+      </BrowserRouter>
+    </AuthenticationProvider>
   );
 }
 
