@@ -3,5 +3,6 @@
 .main {
   &__inner {
     @include inner;
+    margin-top: 3em;
   }
 }
