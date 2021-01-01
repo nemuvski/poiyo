@@ -4,7 +4,8 @@ import 'normalize.css';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './styles/base/base.scss';
+import './styles/global/base.scss';
+import './styles/global/loading.scss';
 
 ReactDOM.render(
   <React.StrictMode>
