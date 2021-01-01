@@ -51,14 +51,12 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         .then(result => {
           if (result.user) {
             setAccount({ uid: result.user.uid });
+            history.replace('/dashboard');
           }
         })
         .catch(error => {
           console.error('サインイン中にエラーが発生しました。');
           console.error(error);
-        })
-        .finally(() => {
-          history.replace('/dashboard');
         });
     }
 
