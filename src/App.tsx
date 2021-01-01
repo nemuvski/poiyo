@@ -7,13 +7,15 @@ import Footer from './layouts/Footer';
 
 const App: React.FC = (): ReactElement => {
   return (
-    <AuthenticationProvider>
+    <>
       <BrowserRouter>
-        <Header />
-        <Main />
-        <Footer />
+        <AuthenticationProvider>
+          <Header />
+          <Main />
+        </AuthenticationProvider>
       </BrowserRouter>
-    </AuthenticationProvider>
+      <Footer />
+    </>
   );
 }
 
