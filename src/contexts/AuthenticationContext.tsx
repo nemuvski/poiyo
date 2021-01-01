@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useCallback, ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../firebase';
+import { hideLoading } from '../utilities/loading';
 
 type Props = {
   children?: React.ReactNode;
@@ -46,19 +47,20 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
   }, []);
 
   useEffect(() => {
-    if (!account) {
-      firebase.auth().getRedirectResult()
-        .then(result => {
-          if (result.user) {
-            setAccount({ uid: result.user.uid });
-            history.replace('/dashboard');
-          }
-        })
-        .catch(error => {
-          console.error('サインイン中にエラーが発生しました。');
-          console.error(error);
-        });
-    }
+    firebase.auth().getRedirectResult()
+      .then(result => {
+        if (result.user) {
+          setAccount({ uid: result.user.uid });
+          history.replace('/dashboard');
+        }
+      })
+      .catch(error => {
+        console.error('サインイン中にエラーが発生しました。');
+        console.error(error);
+      })
+      .finally(() => {
+        hideLoading();
+      });
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
