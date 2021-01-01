@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback, ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import firebase from '../firebase';
 
 type Props = {
@@ -23,26 +24,44 @@ export const AuthenticationContext: React.Context<Context> = createContext<Conte
 
 export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElement => {
   const [account, setAccount] = useState<Account | null>(null);
+  const history = useHistory();
 
   const signIn: () => void = useCallback(() => {
     firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    firebase.auth().getRedirectResult()
-      .then(result => {
-        if (result.user) {
-          setAccount({ uid: result.user.uid });
-        }
-      })
-      .catch(error => {
-        console.error('サインイン中にエラーが発生しました。');
-        console.error(error);
-      });
   }, []);
 
   const signOut: () => void = useCallback(() => {
-    firebase.auth().signOut();
+    firebase.auth().signOut()
+      .then(() => {
+        setAccount(null);
+      })
+      .catch(error => {
+        console.error('サインアウト中にエラーが発生しました。');
+        console.error(error);
+      })
+      .finally(() => {
+        // フロントページへ. (前画面へ戻れないようにする)
+        history.replace('/');
+      });
   }, []);
 
   useEffect(() => {
+    if (!account) {
+      firebase.auth().getRedirectResult()
+        .then(result => {
+          if (result.user) {
+            setAccount({ uid: result.user.uid });
+          }
+        })
+        .catch(error => {
+          console.error('サインイン中にエラーが発生しました。');
+          console.error(error);
+        })
+        .finally(() => {
+          history.replace('/dashboard');
+        });
+    }
+
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setAccount({ uid: user.uid });
@@ -51,7 +70,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         setAccount(null);
       }
     });
-  });
+  }, []);
 
   return (
     <AuthenticationContext.Provider value={{ account, signIn, signOut }}>

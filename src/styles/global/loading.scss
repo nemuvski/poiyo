@@ -1,0 +1,33 @@
+@import "../import";
+
+.loading {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-white;
+  background-image: url(../../assets/loading.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 300px auto;
+
+  @include bp($bp-m-min) {
+    background-size: 400px auto;
+  }
+
+  &.is-visible {
+    display: flex;
+  }
+
+  &::after {
+    display: block;
+    content: "データを読み込み中...";
+    margin-top: 7.75em;
+    font-size: 0.9em;
+  }
+}
