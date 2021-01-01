@@ -10,11 +10,14 @@ const Main: React.FC = (): ReactElement => {
     <main className="main">
       <div className="main__inner">
         <Switch>
-          <Route path="/dashboard">
+          <Route exact path="/dashboard">
             {!account ? <Redirect to="/" /> : <p>Dashboard</p>}
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             {account ? <Redirect to="/dashboard" /> : <p>Home</p>}
+          </Route>
+          <Route>
+            <p>ページが見つかりませんでした。</p>
           </Route>
         </Switch>
       </div>
