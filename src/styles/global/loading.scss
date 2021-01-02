@@ -14,11 +14,7 @@
   background-image: url(../../assets/loading.svg);
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 300px auto;
-
-  @include bp($bp-m-min) {
-    background-size: 400px auto;
-  }
+  background-size: 165px auto;
 
   &.is-visible {
     display: flex;
@@ -26,8 +22,7 @@
 
   &::after {
     display: block;
-    content: "データを読み込み中...";
-    margin-top: 7.75em;
-    font-size: 0.9em;
+    content: "ただいま処理中・・・ぽいよ";
+    margin-top: 10em;
   }
 }
