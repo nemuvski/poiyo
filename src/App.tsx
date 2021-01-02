@@ -11,15 +11,13 @@ showLoading();
 
 const App: React.FC = (): ReactElement => {
   return (
-    <>
-      <BrowserRouter>
-        <AuthenticationProvider>
-          <Header />
-          <Main />
-        </AuthenticationProvider>
-      </BrowserRouter>
+    <BrowserRouter>
+      <AuthenticationProvider>
+        <Header />
+        <Main />
+      </AuthenticationProvider>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -1,10 +1,84 @@
 @import "../import";
 
 .footer {
-  margin: 6em 0 2em;
+  margin: 2em 0;
 
   &__inner {
     @include inner;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include bp($bp-m-min) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5em;
+    }
+  }
+
+  &__brand {
+    @include bp($bp-s-max, false) {
+      text-align: center;
+    }
+
+    img {
+      width: 9.5em;
+      font-size: 1em;
+    }
+
+    > p {
+      margin: 0.5em 0 0;
+      font-size: 0.9em;
+    }
+  }
+
+  &__navigation {
     text-align: center;
+    line-height: 2.25;
+
+    @include bp($bp-s-max, false) {
+      margin: 2em 0 1.5em;
+    }
+    @include bp($bp-m-min) {
+      text-align: left;
+    }
+
+    > ul {
+      margin: 0;
+      padding: 0;
+
+      @include bp($bp-m-min) {
+        display: flex;
+        li:not(:last-child) {
+          margin-right: 1.5em;
+        }
+      }
+    }
+
+    a {
+      color: $color-fuscous-gray;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__koredana-logo {
+    width: 1.8em;
+    margin-right: 0.4em;
+  }
+
+  &__copyright {
+    margin: 0;
+    text-align: center;
+    font-size: 0.9em;
+
+    @include bp($bp-m-min) {
+      text-align: left;
+    }
   }
 }
