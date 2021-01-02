@@ -20,17 +20,28 @@
     }
   }
 
-  &__logo {
-    width: 9em;
-    font-size: 1em;
+  &__brand {
+    @include bp($bp-s-max, false) {
+      text-align: center;
+    }
+
+    img {
+      width: 9.5em;
+      font-size: 1em;
+    }
+
+    > p {
+      margin: 0.5em 0 0;
+      font-size: 0.9em;
+    }
   }
 
   &__navigation {
     text-align: center;
-    line-height: 1.9;
+    line-height: 2.25;
 
     @include bp($bp-s-max, false) {
-      margin: 1.5em 0;
+      margin: 2em 0 1.5em;
     }
     @include bp($bp-m-min) {
       text-align: left;
@@ -54,6 +65,11 @@
         text-decoration: underline;
       }
     }
+  }
+
+  &__koredana-logo {
+    width: 1.8em;
+    margin-right: 0.4em;
   }
 
   &__copyright {
