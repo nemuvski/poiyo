@@ -1,6 +1,6 @@
 @import "../import";
 
-@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap");
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:wght@400,700&display=swap");
 
 *,
 *::before,
@@ -32,6 +32,10 @@ img {
 ul,
 ol {
   list-style-type: none;
+}
+
+p {
+  line-height: 1.8;
 }
 
 button {

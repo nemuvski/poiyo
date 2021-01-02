@@ -1,8 +1,12 @@
 @import "../import";
 
 .main {
+  border-bottom: 1px solid $color-quill-gray;
+  background-color: $color-white;
+
   &__inner {
     @include inner;
-    margin-top: 3em;
+    padding-top: 5em;
+    padding-bottom: 5em;
   }
 }
