@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: $color-white;
+  background-color: $color-gray;
   color: $color-fuscous-gray;
   font-family: $font-family;
   font-size: $font-size-small;
@@ -32,6 +32,10 @@ img {
 ul,
 ol {
   list-style-type: none;
+}
+
+p {
+  line-height: 1.8;
 }
 
 button {

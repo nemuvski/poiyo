@@ -1,6 +1,7 @@
 @import "../import";
 
 .header {
+  position:relative;
   height: 4.5em;
   background-color: $color-white;
   box-shadow: 0 3px 6px -2px $color-quill-gray;
