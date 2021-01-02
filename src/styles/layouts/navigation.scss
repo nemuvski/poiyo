@@ -21,11 +21,11 @@
     padding: 0.6em 0.75em;
     border-radius: 0.5em;
     color: $color-white;
-    box-shadow: 0 3px 6px -2px $color-quill-gray;
+    box-shadow: 0 3px 6px -1px $color-quill-gray;
     background-color: $color-fountain-blue;
 
     &:hover {
-      box-shadow: 0 0 2px -1px $color-quill-gray;
+      box-shadow: 0 0 2px 0px $color-quill-gray;
       background-color: $color-fountain-blue-darker;
     }
   }
