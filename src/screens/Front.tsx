@@ -4,6 +4,9 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
 import keyVisual from '../assets/key-visual.svg';
 import googleIcon from '../assets/icons/google.svg';
+import boardIcon from '../assets/icons/board.svg';
+import searchIcon from '../assets/icons/search.svg';
+import penIcon from '../assets/icons/pen.svg';
 import '../styles/screens/page-front.scss';
 
 const Front: React.FC = (): ReactElement => {
@@ -26,7 +29,7 @@ const Front: React.FC = (): ReactElement => {
           </div>
         </section>
         <section className="page-front__section">
-          <h2>はじめかたは簡単！</h2>
+          <h2>はじめ方は簡単！</h2>
           <p>
             Googleアカウントでご利用できます。
             新規作成、サインインのどちらも以下のボタンから行えます。<br />
@@ -40,11 +43,36 @@ const Front: React.FC = (): ReactElement => {
           </div>
         </section>
         <section className="page-front__section">
-          <h2>特徴</h2>
-          <ul>
-            <li>匿名</li>
-            <li>ボード単位</li>
-          </ul>
+          <h2>使い方も簡単！</h2>
+          <div className="page-front__features">
+            <div className="page-front__feature">
+              <div className="page-front__feature-icon">
+                <img src={boardIcon} alt="ボード" />
+              </div>
+              <div className="page-front__feature-description">
+                <span className="page-front__feature-label">ボードを作成</span>
+                <p>話題にしたいことを記入して、ボードを作成しましょう。</p>
+              </div>
+            </div>
+            <div className="page-front__feature">
+              <div className="page-front__feature-icon">
+                <img src={searchIcon} alt="検索" />
+              </div>
+              <div className="page-front__feature-description">
+                <span className="page-front__feature-label">ボードを探す</span>
+                <p>気になる話題のボードを探しましょう。</p>
+              </div>
+            </div>
+            <div className="page-front__feature">
+              <div className="page-front__feature-icon">
+                <img src={penIcon} alt="コメント" />
+              </div>
+              <div className="page-front__feature-description">
+                <span className="page-front__feature-label">ボードにコメント</span>
+                <p>気になる話題のボードにコメントをして、交流しましょう。</p>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </ArticleInner>

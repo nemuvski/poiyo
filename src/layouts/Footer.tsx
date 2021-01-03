@@ -11,7 +11,6 @@ const Footer: React.FC = (): ReactElement => {
         <div className="footer__container">
           <div className="footer__brand">
             <Link to="/"><img src={logo} alt="Poiyo" /></Link>
-            <p>「ぽいよ」な情報共有コミュニティ</p>
           </div>
           <nav className="footer__navigation">
             <ul>
