@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
 import keyVisual from '../assets/key-visual.svg';
-import googleIcon from '../assets/google-icon.svg';
+import googleIcon from '../assets/icons/google.svg';
 import '../styles/screens/page-front.scss';
 
 const Front: React.FC = (): ReactElement => {
