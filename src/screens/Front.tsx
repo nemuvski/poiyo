@@ -33,7 +33,7 @@ const Front: React.FC = (): ReactElement => {
           利用規約、プライバシーポリシーに同意した上でサインインしてください。
         </p>
         <div>
-          <button onClick={handleSignIn}>
+          <button onClick={handleSignIn} className="button">
             サインイン
           </button>
         </div>
