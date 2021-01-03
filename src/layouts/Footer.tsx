@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
-import koredanaLogo from '../assets/koredana.svg';
+import koredanaLogo from '../assets/icons/koredana.svg';
 import '../styles/layouts/footer.scss';
 
 const Footer: React.FC = (): ReactElement => {
@@ -11,7 +11,6 @@ const Footer: React.FC = (): ReactElement => {
         <div className="footer__container">
           <div className="footer__brand">
             <Link to="/"><img src={logo} alt="Poiyo" /></Link>
-            <p>「ぽいよ」な情報共有コミュニティ</p>
           </div>
           <nav className="footer__navigation">
             <ul>
