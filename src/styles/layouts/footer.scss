@@ -15,7 +15,6 @@
     @include bp($bp-m-min) {
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
       margin-bottom: 1.5em;
     }
   }
@@ -63,7 +62,7 @@
   }
 
   &__koredana-logo {
-    width: 1.8em;
+    width: 1.6em;
     margin-right: 0.4em;
   }
 
@@ -71,9 +70,5 @@
     margin: 0;
     text-align: center;
     font-size: 0.9em;
-
-    @include bp($bp-m-min) {
-      text-align: left;
-    }
   }
 }
