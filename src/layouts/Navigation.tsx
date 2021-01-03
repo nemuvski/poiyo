@@ -17,7 +17,7 @@ const Navigation: React.FC = (): ReactElement => {
     <nav role="navigation" aria-label="header-navigation" className='navigation'>
       <ul className="navigation__actions">
         <li className="navigation__action">
-          <button onClick={handleClick} className="navigation__link">
+          <button onClick={handleClick}>
             {account ? 'サインアウト' : 'サインイン'}
           </button>
         </li>

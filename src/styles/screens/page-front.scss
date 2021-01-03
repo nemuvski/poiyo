@@ -1,0 +1,56 @@
+@import "../import";
+
+.page-front {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include bp($bp-m-min) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  &__key-visual {
+    width: 250px;
+
+    @include bp($bp-m-min) {
+      width: 300px;
+      margin-left: 3em;
+    }
+  }
+
+  &__signin-wrapper {
+    margin-top: 1.5em;
+    text-align: center;
+  }
+
+  &__signin-button {
+    font-weight: bold;
+
+    > img {
+      width: 1.5em;
+      margin-right: 0.75em;
+    }
+  }
+}
+
+.page-front__section {
+  p {
+    @include bp($bp-s-max, false) {
+      max-width: 475px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  & + & {
+    margin-top: 5em;
+  }
+}
