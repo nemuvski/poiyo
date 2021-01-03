@@ -1,33 +1,45 @@
 @import "../import";
 
 .page-front {
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-
   &__container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
 
     @include bp($bp-m-min) {
       flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
+    }
+  }
+
+  &__summary {
+    @include bp($bp-s-max, false) {
+      margin-top: 2.5em;
+    }
+
+    > p {
+      margin: 0;
+
+      & + p {
+        margin-top: 1.5em;
+      }
     }
   }
 
   &__key-visual {
-    width: 250px;
+    width: 16em;
 
     @include bp($bp-m-min) {
-      width: 300px;
-      margin-left: 3em;
+      margin-left: 1.5em;
+    }
+    @include bp($bp-l-min) {
+      width: 17em;
+      margin-left: 3.5em;
     }
   }
 
   &__signin-wrapper {
-    margin-top: 1.5em;
+    margin-top: 2em;
     text-align: center;
   }
 
@@ -42,15 +54,12 @@
 }
 
 .page-front__section {
-  p {
-    @include bp($bp-s-max, false) {
-      max-width: 475px;
-      margin-right: auto;
-      margin-left: auto;
-    }
-  }
+  padding: 2.25em;
+  border-radius: 0.5em;
+  box-shadow: 0 3px 6px -4px $color-quill-gray;
+  background-color: $color-gray;
 
   & + & {
-    margin-top: 5em;
+    margin-top: 3.5em;
   }
 }
