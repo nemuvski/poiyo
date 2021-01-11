@@ -10,33 +10,24 @@ type Props = {
 
 type Account = {
   uid: string;
+  token: string;
 }
 
 type Context = {
   account: Account | null;
   signIn: () => void;
   signOut: () => void;
-  getToken: () => string | null;
 }
 
 export const AuthenticationContext: React.Context<Context> = createContext<Context>({
   account: null,
   signIn: () => null,
   signOut: () => null,
-  getToken: () => null,
 });
 
 export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElement => {
   const [account, setAccount] = useState<Account | null>(null);
   const history = useHistory();
-
-  const removeToken: () => void = useCallback(() => {
-    localStorage.removeItem('token');
-  }, []);
-
-  const getToken: () => string | null = () => {
-    return localStorage.getItem('token')
-  };
 
   const signIn: () => void = useCallback(() => {
     firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
@@ -45,7 +36,6 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
   const signOut: () => void = useCallback(() => {
     firebase.auth().signOut()
       .then(() => {
-        removeToken()
         setAccount(null);
       })
       .catch(error => {
@@ -65,29 +55,25 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         if (!result.user) {
           return;
         }
+        const idToken = await result.user.getIdToken()
+        const authAccount: Account = {
+          uid: result.user.uid,
+          token: idToken.toString(),
+        };
 
-        await result.user.getIdToken().then(idToken => {
-          localStorage.setItem('token', idToken.toString())
-        })
-
-        const token = getToken();
-        const res = await axios.get(
+        await axios.get(
           'http://localhost:1323/api/v1/auth',
           {
             headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${authAccount.token}`
             }
           }
-        )
-        console.log(res);
+        );
 
-        setAccount({ uid: result.user.uid });
-
-        // ダッシュボードページへ飛ばす.
+        setAccount(authAccount);
         history.replace('/dashboard');
       })
       .catch(error => {
-        removeToken();
         setAccount(null);
         console.error('サインイン中にエラーが発生しました。');
         console.error(error);
@@ -98,17 +84,21 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setAccount({ uid: user.uid });
+        user.getIdToken().then(idToken => {
+          setAccount({
+            uid: user.uid,
+            token: idToken.toString(),
+          });
+        })
       }
       else {
-        removeToken();
         setAccount(null);
       }
     });
   }, []);
 
   return (
-    <AuthenticationContext.Provider value={{ account, signIn, signOut, getToken }}>
+    <AuthenticationContext.Provider value={{ account, signIn, signOut }}>
       {props.children}
     </AuthenticationContext.Provider>
   );
