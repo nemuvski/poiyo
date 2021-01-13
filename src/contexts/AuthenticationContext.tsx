@@ -1,14 +1,12 @@
 import React, { createContext, useState, useEffect, useCallback, ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase from '../firebase';
-import { hideLoading } from '../utilities/loading';
+import { Account } from '../libs/models/Account';
+import AuthService from "../libs/services/AuthService";
+import AuthLoading from "../layouts/AuthLoading";
 
 type Props = {
   children?: React.ReactNode;
-}
-
-type Account = {
-  uid: string;
 }
 
 type Context = {
@@ -25,6 +23,7 @@ export const AuthenticationContext: React.Context<Context> = createContext<Conte
 
 export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElement => {
   const [account, setAccount] = useState<Account | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const history = useHistory();
 
   const signIn: () => void = useCallback(() => {
@@ -41,40 +40,35 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         console.error(error);
       })
       .finally(() => {
-        // フロントページへ. (前画面へ戻れないようにする)
         history.replace('/');
       });
   }, []);
 
   useEffect(() => {
-    firebase.auth().getRedirectResult()
-      .then(result => {
-        if (result.user) {
-          setAccount({ uid: result.user.uid });
-          history.replace('/dashboard');
-        }
-      })
-      .catch(error => {
-        console.error('サインイン中にエラーが発生しました。');
-        console.error(error);
-      })
-      .finally(() => {
-        hideLoading();
-      });
-
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(async user => {
       if (user) {
-        setAccount({ uid: user.uid });
+        try {
+          const idToken = await user.getIdToken();
+          const uid = user.uid;
+          const email = user.email;
+          const authResponse = await AuthService.auth(idToken, email, uid);
+          setAccount(new Account(authResponse.id, authResponse.token));
+        } catch (error) {
+          setAccount(null);
+          console.error('アカウント認証中にエラーが発生しました。');
+          console.error(error);
+        }
       }
       else {
         setAccount(null);
       }
+      setLoading(false);
     });
   }, []);
 
   return (
     <AuthenticationContext.Provider value={{ account, signIn, signOut }}>
-      {props.children}
+      {loading ? <AuthLoading /> : props.children}
     </AuthenticationContext.Provider>
   );
 }
