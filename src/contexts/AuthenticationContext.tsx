@@ -1,16 +1,12 @@
 import React, { createContext, useState, useEffect, useCallback, ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import firebase from '../firebase';
 import { hideLoading } from '../utilities/loading';
+import { Account } from '../libs/models/Account';
+import AuthService from "../libs/services/AuthService";
 
 type Props = {
   children?: React.ReactNode;
-}
-
-type Account = {
-  uid: string;
-  token: string;
 }
 
 type Context = {
@@ -55,26 +51,16 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         if (!result.user) {
           return;
         }
-        const idToken = await result.user.getIdToken()
-        const authAccount: Account = {
-          uid: result.user.uid,
-          token: idToken.toString(),
-        };
-
-        await axios.get(
-          'http://localhost:1323/api/v1/auth',
-          {
-            headers: {
-              Authorization: `Bearer ${authAccount.token}`
-            }
-          }
-        );
-
-        setAccount(authAccount);
+        const idToken = await result.user.getIdToken();
+        const uid = result.user.uid;
+        const email = result.user.email;
+        const authResponse = await AuthService.auth(idToken, email, uid);
+        setAccount(new Account(authResponse.id, authResponse.token));
         history.replace('/dashboard');
       })
       .catch(error => {
         setAccount(null);
+        history.replace('/');
         console.error('サインイン中にエラーが発生しました。');
         console.error(error);
       })
@@ -82,17 +68,18 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
         hideLoading();
       });
 
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(async user => {
       if (user) {
-        user.getIdToken().then(idToken => {
-          setAccount({
-            uid: user.uid,
-            token: idToken.toString(),
-          });
-        })
+        const idToken = await user.getIdToken();
+        const uid = user.uid;
+        const email = user.email;
+        const authResponse = await AuthService.auth(idToken, email, uid);
+        setAccount(new Account(authResponse.id, authResponse.token));
+        history.replace('/dashboard');
       }
       else {
         setAccount(null);
+        history.replace('/');
       }
     });
   }, []);
