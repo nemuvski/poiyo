@@ -1,11 +1,13 @@
 import React, {ReactElement, useContext, useEffect} from 'react';
 import FullWideLoading from "../components/FullWideLoading";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
+import {setDocumentTitle} from "../utilities/DocumentTitle";
 
 const SignOut: React.FC = (): ReactElement => {
   const { signOut } = useContext(AuthenticationContext);
 
   useEffect(() => {
+    setDocumentTitle('サインアウト');
     // サインアウト実行後に、フロントページにリダイレクトする.
     signOut();
   }, []);

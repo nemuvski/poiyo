@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useCallback } from 'react';
+import React, {ReactElement, useContext, useCallback, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
@@ -8,12 +8,17 @@ import boardIcon from '../assets/icons/board.svg';
 import searchIcon from '../assets/icons/search.svg';
 import penIcon from '../assets/icons/pen.svg';
 import '../styles/screens/page-front.scss';
+import {setDocumentTitle} from "../utilities/DocumentTitle";
 
 const Front: React.FC = (): ReactElement => {
   const { signIn } = useContext(AuthenticationContext);
 
   const handleSignIn = useCallback(() => {
     signIn();
+  }, []);
+
+  useEffect(() => {
+    setDocumentTitle('Poiyo', false);
   }, []);
 
   return (
@@ -25,7 +30,7 @@ const Front: React.FC = (): ReactElement => {
               <p><strong>Poiyo</strong>（ぽいよ）は1つの話題ごとに、みんなでコメントし合うコミュニティサービスです。</p>
               <p>「ちょっと知っていること」や「これってどういうことなんだろう」といったことなどを投稿し、みんなからコメントをもらうことで知見を広げていきましょう。</p>
             </div>
-            <img src={keyVisual} className="page-front__key-visual" />
+            <img src={keyVisual} alt="Poiyo" className="page-front__key-visual" />
           </div>
         </section>
         <section className="page-front__section">
