@@ -54,9 +54,10 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
           const authResponse = await AuthService.auth(idToken, email, uid);
           setAccount(new Account(authResponse.id, authResponse.token));
         } catch (error) {
-          setAccount(null);
           console.error('アカウント認証中にエラーが発生しました。');
           console.error(error);
+          // JWT取得、認証API実行で問題があった場合はFirebase Authでサインアウト処理を実行する.
+          signOut();
         }
       }
       else {
