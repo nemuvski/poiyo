@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import firebase from '../firebase';
 import { Account } from '../libs/models/Account';
 import AuthService from "../libs/services/AuthService";
-import AuthLoading from "../layouts/AuthLoading";
+import FullWideLoading from "../components/FullWideLoading";
 
 type Props = {
   children?: React.ReactNode;
@@ -68,7 +68,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
 
   return (
     <AuthenticationContext.Provider value={{ account, signIn, signOut }}>
-      {loading ? <AuthLoading /> : props.children}
+      {loading ? <FullWideLoading /> : props.children}
     </AuthenticationContext.Provider>
   );
 }

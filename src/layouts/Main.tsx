@@ -5,6 +5,7 @@ import Front from '../screens/Front';
 import Terms from '../screens/Terms';
 import Privacy from '../screens/Privacy';
 import '../styles/layouts/main.scss';
+import SignOut from "../screens/SignOut";
 
 const Main: React.FC = (): ReactElement => {
   const { account } = useContext(AuthenticationContext);
@@ -18,6 +19,7 @@ const Main: React.FC = (): ReactElement => {
           </Route>
           <Route exact path="/terms"><Terms /></Route>
           <Route exact path="/privacy"><Privacy /></Route>
+          <Route exact path="/sign-out"><SignOut /></Route>
           <Route exact path="/">
             {account ? <Redirect to="/dashboard" /> : <Front />}
           </Route>
