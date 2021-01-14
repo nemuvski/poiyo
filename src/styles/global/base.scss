@@ -54,10 +54,11 @@ button {
   color: $color-white;
   box-shadow: 0 3px 6px -1px $color-quill-gray;
   background-color: $color-fountain-blue;
+  font-weight: bold;
   letter-spacing: 0.02em;
 
   &:hover {
-    box-shadow: 0 0 2px 0px $color-quill-gray;
+    box-shadow: 0 0 2px 0 $color-quill-gray;
     background-color: $color-fountain-blue-darker;
   }
 

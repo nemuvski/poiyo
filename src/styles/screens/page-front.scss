@@ -43,13 +43,9 @@
     text-align: center;
   }
 
-  &__signin-button {
-    font-weight: bold;
-
-    > img {
-      width: 1.5em;
-      margin-right: 0.75em;
-    }
+  &__signin-button > img {
+    width: 1.5em;
+    margin-right: 0.75em;
   }
 
   &__feature {
