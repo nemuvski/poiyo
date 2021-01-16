@@ -4,9 +4,9 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
 import keyVisual from '../assets/key-visual.svg';
 import googleIcon from '../assets/icons/google.svg';
-import boardIcon from '../assets/icons/board.svg';
-import searchIcon from '../assets/icons/search.svg';
-import penIcon from '../assets/icons/pen.svg';
+import boardIcon from '../assets/icons/board-feature.svg';
+import searchIcon from '../assets/icons/search-feature.svg';
+import penIcon from '../assets/icons/pen-feature.svg';
 import '../styles/screens/page-front.scss';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
