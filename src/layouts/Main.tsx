@@ -4,8 +4,9 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import Front from '../screens/Front';
 import Terms from '../screens/Terms';
 import Privacy from '../screens/Privacy';
-import '../styles/layouts/main.scss';
 import SignOut from "../screens/SignOut";
+import NotFound from "../screens/NotFound";
+import '../styles/layouts/main.scss';
 
 const Main: React.FC = (): ReactElement => {
   const { account } = useContext(AuthenticationContext);
@@ -23,9 +24,7 @@ const Main: React.FC = (): ReactElement => {
           <Route exact path="/">
             {account ? <Redirect to="/dashboard" /> : <Front />}
           </Route>
-          <Route>
-            <p>ページが見つかりませんでした。</p>
-          </Route>
+          <Route><NotFound /></Route>
         </Switch>
       </div>
     </main>
