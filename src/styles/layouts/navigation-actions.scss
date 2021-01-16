@@ -1,0 +1,107 @@
+@import "../import";
+
+.navigation-actions {
+  display: flex;
+  align-items: center;
+
+  &__search,
+  &__container {
+    width: 2.25em;
+    height: 2.25em;
+  }
+
+  &__search {
+    display: block;
+    margin-right: 1.2em;
+    text-align: center;
+    line-height: 2.25em;
+    > img {
+      width: 88%;
+    }
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__toggle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    > span {
+      position: absolute;
+      left: 0.215em;
+      width: 1.8em;
+      height: 2px;
+      background-color: $color-fuscous-gray;
+      border-radius: 1px;
+      transform-origin: center;
+      transition-property: transform;
+      transition-duration: 0.2s;
+      transition-timing-function: ease;
+      &:nth-child(1) {
+        top: calc(50% - 9px);
+      }
+      &:nth-child(2) {
+        top: calc(50%);
+      }
+      &:nth-child(3) {
+        top: calc(50% + 9px);
+      }
+    }
+  }
+  &__toggle.is-open > span {
+    &:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+  }
+
+  &__items {
+    position: absolute;
+    top: 3em;
+    right: 0;
+    z-index: 10;
+    width: 12em;
+    margin: 0;
+    padding: 0;
+    border: 1px solid $color-quill-gray;
+    border-radius: 0.5em;
+    background-color: $color-white;
+    box-shadow: 0 3px 6px -2px $color-quill-gray;
+  }
+  &__item-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75em 1em;
+    color: $color-fuscous-gray;
+
+    &::before {
+      display: block;
+      content: "";
+      width: 1.6em;
+      height: 1.6em;
+      margin-right: 0.75em;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    &--dashboard::before {
+      background-image: url(../../assets/icons/dashboard.svg);
+    }
+    &--board::before {
+      background-image: url(../../assets/icons/board.svg);
+    }
+    &--sign-out::before {
+      background-image: url(../../assets/icons/sign-out.svg);
+    }
+  }
+}
