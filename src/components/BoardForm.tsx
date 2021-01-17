@@ -77,10 +77,17 @@ const BoardForm: React.FC = (): ReactElement => {
       </label>
 
       <div className="board-form__actions">
-        <button className="is-white" type="button" onClick={() => reset()}>クリア</button>
+        <button
+          className="is-white"
+          type="button"
+          disabled={formState.isSubmitting}
+          onClick={() => reset()}
+        >
+          クリア
+        </button>
         <button
           type="submit"
-          disabled={!formState.isDirty || !formState.isValid}
+          disabled={!formState.isDirty || !formState.isValid || formState.isSubmitting}
         >
           内容を保存
         </button>
