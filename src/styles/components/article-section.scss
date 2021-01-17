@@ -1,0 +1,12 @@
+@import "../import";
+
+.article-section {
+  padding: 2.25em;
+  border-radius: 0.5em;
+  box-shadow: 0 3px 6px -4px $color-quill-gray;
+  background-color: $color-gray;
+
+  & + & {
+    margin-top: 3.5em;
+  }
+}
