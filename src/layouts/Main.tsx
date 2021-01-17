@@ -2,6 +2,7 @@ import React, { useContext, ReactElement } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import Front from '../screens/Front';
+import CreateBoard from "../screens/CreateBoard";
 import Terms from '../screens/Terms';
 import Privacy from '../screens/Privacy';
 import SignOut from "../screens/SignOut";
@@ -15,6 +16,7 @@ const Main: React.FC = (): ReactElement => {
     <main className="main">
       <div className="main__inner">
         <Switch>
+          <Route exact path="/create-board"><CreateBoard /></Route>
           <Route exact path="/dashboard">
             {!account ? <Redirect to="/" /> : <p>Dashboard</p>}
           </Route>
