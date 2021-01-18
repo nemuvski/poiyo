@@ -10,7 +10,7 @@ export interface AuthRequest {
 }
 
 // レスポンス.
-export interface Auth {
+export interface AuthResponse {
   account_id: string;
   service_type: string;
   service_id: string;
