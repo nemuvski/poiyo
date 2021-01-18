@@ -1,7 +1,11 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useContext, useState} from 'react';
 import {useForm} from "react-hook-form";
-import '../styles/components/board-form.scss';
+import {useHistory} from "react-router-dom";
 import clsx from "clsx";
+import {AuthenticationContext} from "../contexts/AuthenticationContext";
+import BoardService from "../libs/services/BoardService";
+import FullWideLoading from "./FullWideLoading";
+import '../styles/components/board-form.scss';
 
 // inputまたはtextareaのnameに相当する.
 type BoardFormFields = {
@@ -10,6 +14,9 @@ type BoardFormFields = {
 };
 
 const BoardForm: React.FC = (): ReactElement => {
+  const { account } = useContext(AuthenticationContext);
+  const [loading, setLoading] = useState<boolean>(false);
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -22,8 +29,22 @@ const BoardForm: React.FC = (): ReactElement => {
   });
 
   const onSubmit = (data: BoardFormFields) => {
-    console.log(data);
-    reset();
+    if (!account) {
+      console.error('アカウント情報がないため、投稿できませんでした。');
+      return;
+    }
+    setLoading(true);
+    BoardService.create(account.token, data.title, data.body, account.id)
+      .then(board => {
+        history.replace(`/board/${board.boardId}`);
+      })
+      .catch(error => {
+        console.error('ボード作成に失敗しました。');
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -32,6 +53,7 @@ const BoardForm: React.FC = (): ReactElement => {
       autoComplete="none"
       onSubmit={handleSubmit(onSubmit)}
     >
+      {loading && <FullWideLoading />}
 
       <label className="board-form__field">
         <span className="board-form__field-label">タイトル</span>

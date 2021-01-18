@@ -1,15 +1,22 @@
 /**
- * カウントデータの取得して、データを
+ * 認証をして、アカウント情報を取得.
  */
 
 import AuthApi from '../api/AuthApi';
-import { Account } from '../models/Account';
+import {Account} from '../models/Account';
+import {AuthRequest} from "../models/Auth";
 
 const auth = (token: string, email: string | null, serviceId: string, serviceType = 'ggl'): Promise<Account> => {
-  return AuthApi.post(token, email, serviceId, serviceType)
+  const authRequest: AuthRequest = {
+    serviceType,
+    serviceId,
+    email,
+  };
+  return AuthApi.post(token, authRequest)
     .then(response => {
       const id = response.data.account_id;
-      return new Account(id, token);
+      const account: Account = {id, token};
+      return account;
     });
 }
 

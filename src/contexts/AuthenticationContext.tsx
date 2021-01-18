@@ -1,7 +1,7 @@
-import React, { createContext, useState, useEffect, useCallback, ReactElement } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {createContext, useState, useEffect, useCallback, ReactElement} from 'react';
+import {useHistory} from 'react-router-dom';
 import firebase from '../firebase';
-import { Account } from '../libs/models/Account';
+import {Account} from '../libs/models/Account';
 import AuthService from "../libs/services/AuthService";
 import FullWideLoading from "../components/FullWideLoading";
 
@@ -51,8 +51,8 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
           const idToken = await user.getIdToken();
           const uid = user.uid;
           const email = user.email;
-          const authResponse = await AuthService.auth(idToken, email, uid);
-          setAccount(new Account(authResponse.id, authResponse.token));
+          const accountResponse = await AuthService.auth(idToken, email, uid);
+          setAccount(accountResponse);
         } catch (error) {
           console.error('アカウント認証中にエラーが発生しました。');
           console.error(error);
