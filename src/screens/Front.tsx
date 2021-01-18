@@ -2,6 +2,7 @@ import React, {ReactElement, useContext, useCallback, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
+import ArticleSection from '../components/ArticleSection';
 import keyVisual from '../assets/key-visual.svg';
 import googleIcon from '../assets/icons/google.svg';
 import boardIcon from '../assets/icons/board-feature.svg';
@@ -24,7 +25,7 @@ const Front: React.FC = (): ReactElement => {
   return (
     <ArticleInner>
       <div className="page-front">
-        <section className="page-front__section">
+        <ArticleSection>
           <div className="page-front__container">
             <div className="page-front__summary">
               <p><strong>Poiyo</strong>（ぽいよ）は1つの話題ごとに、みんなでコメントし合うコミュニティサービスです。</p>
@@ -32,8 +33,8 @@ const Front: React.FC = (): ReactElement => {
             </div>
             <img src={keyVisual} alt="Poiyo" className="page-front__key-visual" />
           </div>
-        </section>
-        <section className="page-front__section">
+        </ArticleSection>
+        <ArticleSection>
           <h2>はじめ方は簡単！</h2>
           <p>
             Googleアカウントでご利用できます。
@@ -46,8 +47,8 @@ const Front: React.FC = (): ReactElement => {
               <span>Googleでサインイン</span>
             </button>
           </div>
-        </section>
-        <section className="page-front__section">
+        </ArticleSection>
+        <ArticleSection>
           <h2>使い方も簡単！</h2>
           <div className="page-front__features">
             <div className="page-front__feature">
@@ -78,7 +79,7 @@ const Front: React.FC = (): ReactElement => {
               </div>
             </div>
           </div>
-        </section>
+        </ArticleSection>
       </div>
     </ArticleInner>
   );
