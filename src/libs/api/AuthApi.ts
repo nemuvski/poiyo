@@ -3,14 +3,14 @@
  */
 
 import Axios from '../common/Axios';
-import { AxiosPromise } from 'axios';
-import { Auth } from "../models/Auth";
+import {AxiosPromise} from 'axios';
+import {Auth, AuthRequest} from "../models/Auth";
 
-const post = (token: string, email: string | null, serviceId: string, serviceType: string): AxiosPromise<Auth> => {
+const post = (token: string, requestBody: AuthRequest): AxiosPromise<Auth> => {
   return Axios(token).post('/auth', {
-    'service_id': serviceId,
-    'service_type': serviceType,
-    'email': email,
+    'service_type': requestBody.serviceType,
+    'service_id': requestBody.serviceId,
+    'email': requestBody.email,
   });
 }
 

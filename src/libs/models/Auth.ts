@@ -1,7 +1,15 @@
 /**
- * 認証APIレスポンスデータのモデル.
+ * 認証APIレスポンス・リクエストデータのモデル.
  */
 
+// リクエスト.
+export interface AuthRequest {
+  serviceType: string;
+  serviceId: string;
+  email: string | null;
+}
+
+// レスポンス.
 export interface Auth {
   account_id: string;
   service_type: string;
