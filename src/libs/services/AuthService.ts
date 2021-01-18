@@ -15,7 +15,8 @@ const auth = (token: string, email: string | null, serviceId: string, serviceTyp
   return AuthApi.post(token, authRequest)
     .then(response => {
       const id = response.data.account_id;
-      return new Account(id, token);
+      const account: Account = {id, token};
+      return account;
     });
 }
 
