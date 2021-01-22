@@ -6,6 +6,7 @@ import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import BoardService from "../libs/services/BoardService";
 import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
+import {BoardLocationState} from "../libs/models/Board";
 
 // inputまたはtextareaのnameに相当する.
 type BoardFormFields = {
@@ -36,7 +37,11 @@ const BoardForm: React.FC = (): ReactElement => {
     setLoading(true);
     BoardService.create(account.token, data.title, data.body, account.id)
       .then(board => {
-        history.replace(`/board/${board.boardId}`);
+        const state: BoardLocationState = {board};
+        history.replace({
+          pathname: `/board/${board.boardId}`,
+          state,
+        });
       })
       .catch(error => {
         console.error('ボード作成に失敗しました。');

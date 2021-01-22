@@ -20,6 +20,11 @@ export interface BoardResponse {
   updated_at: string | null;
 }
 
+// ボード詳細ページへ遷移するときに渡すデータの型.
+export interface BoardLocationState {
+  board: Board;
+}
+
 // 処理で利用するモデル.
 export interface Board {
   boardId: string;
