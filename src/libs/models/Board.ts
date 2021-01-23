@@ -26,11 +26,20 @@ export interface BoardLocationState {
 }
 
 // 処理で利用するモデル.
-export interface Board {
+export class Board {
   boardId: string;
   title: string;
   body: string;
   ownerAccountId: string;
   createdAt: string;
   updatedAt: string | null;
+
+  constructor(boardResponse: BoardResponse) {
+    this.boardId = boardResponse.board_id;
+    this.title = boardResponse.title;
+    this.body = boardResponse.body;
+    this.ownerAccountId = boardResponse.owner_account_id;
+    this.createdAt = boardResponse.created_at;
+    this.updatedAt = boardResponse.updated_at;
+  }
 }

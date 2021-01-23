@@ -6,6 +6,12 @@ import Axios from '../common/Axios';
 import {AxiosPromise} from 'axios';
 import {AuthRequest, AuthResponse} from "../models/Auth";
 
+/**
+ * 認証APIを実行する.
+ *
+ * @param token トークン.
+ * @param requestBody リクエストボディ.
+ */
 const post = (token: string, requestBody: AuthRequest): AxiosPromise<AuthResponse> => {
   return Axios(token).post('/auth', {
     'service_type': requestBody.serviceType,
