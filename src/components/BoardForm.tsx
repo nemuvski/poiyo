@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import clsx from "clsx";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
-import BoardService from "../libs/services/BoardService";
+import BoardsService from "../libs/services/BoardsService";
 import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
 import {BoardLocationState} from "../libs/models/Board";
@@ -35,7 +35,7 @@ const BoardForm: React.FC = (): ReactElement => {
       return;
     }
     setLoading(true);
-    BoardService.create(account.token, data.title, data.body, account.id)
+    BoardsService.create(account.token, data.title, data.body, account.id)
       .then(board => {
         const state: BoardLocationState = {board};
         history.replace({

@@ -7,7 +7,7 @@ import {AxiosPromise} from 'axios';
 import {BoardRequest, BoardResponse} from "../models/Board";
 
 const post = (token: string, requestBody: BoardRequest): AxiosPromise<BoardResponse> => {
-  return Axios(token).post('/board', {
+  return Axios(token).post('/boards', {
     'title': requestBody.title,
     'body': requestBody.body,
     'owner_account_id': requestBody.ownerAccountId,
