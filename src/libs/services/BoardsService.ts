@@ -2,7 +2,7 @@
  * 認証をして、アカウント情報を取得.
  */
 
-import BoardApi from "../api/BoardApi";
+import BoardsApi from "../api/BoardsApi";
 import {Board, BoardRequest} from "../models/Board";
 
 const create = (token: string, title: string, body: string, ownerAccountId: string): Promise<Board> => {
@@ -12,7 +12,7 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
     body,
     ownerAccountId,
   };
-  return BoardApi.post(token, boardRequest)
+  return BoardsApi.post(token, boardRequest)
     .then(response => {
       const board: Board = {
         boardId: response.data.board_id,
