@@ -5,6 +5,14 @@
 import BoardsApi from "../api/BoardsApi";
 import {Board, BoardRequest} from "../models/Board";
 
+/**
+ * ボードを登録する.
+ *
+ * @param token トークン.
+ * @param title 登録するボードのタイトル.
+ * @param body 登録するボードの本文.
+ * @param ownerAccountId 登録するボードの所有者のアカウントID.
+ */
 const create = (token: string, title: string, body: string, ownerAccountId: string): Promise<Board> => {
   const boardRequest: BoardRequest = {
     boardId: null,
@@ -14,16 +22,25 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
   };
   return BoardsApi.post(token, boardRequest)
     .then(response => {
-      const board: Board = {
-        boardId: response.data.board_id,
-        title: response.data.title,
-        body: response.data.body,
-        ownerAccountId: response.data.owner_account_id,
-        createdAt: response.data.created_at,
-        updatedAt: response.data.updated_at,
-      };
-      return board;
+      return new Board(response.data);
     });
 }
 
-export default { create };
+/**
+ * ボードを1件取得する.
+ *
+ * @param token トークン
+ * @param boardId ボードID.
+ */
+const getSingle = (token: string, boardId: string): Promise<Board | null> => {
+  return BoardsApi.getSingle(token, boardId)
+    .then(response => {
+      // HTTPステータスコード 204 (NoContent)
+      if (response.status == 204) {
+        return null;
+      }
+      return new Board(response.data);
+    });
+}
+
+export default { create, getSingle };
