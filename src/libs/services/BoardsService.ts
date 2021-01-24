@@ -3,7 +3,7 @@
  */
 
 import BoardsApi from "../api/BoardsApi";
-import {Board, BoardRequest} from "../models/Board";
+import {Board, BoardRequest, Boards, BoardsQueryParams} from "../models/Board";
 
 /**
  * ボードを登録する.
@@ -43,4 +43,28 @@ const getSingle = (token: string, boardId: string): Promise<Board | null> => {
     });
 }
 
-export default { create, getSingle };
+const getByKeyword = (token: string, keyword: string, page: number, numPerPage = 50): Promise<Boards> => {
+  const queryParams: BoardsQueryParams = {
+    page: page,
+    num_per_page: numPerPage,
+    search: keyword,
+  };
+  return BoardsApi.get(token, queryParams)
+    .then(response => {
+      return new Boards(response.data);
+    });
+}
+
+const getByAccountId = (token: string, accountId: string, page: number, numPerPage = 50): Promise<Boards> => {
+  const queryParams: BoardsQueryParams = {
+    page: page,
+    num_per_page: numPerPage,
+    owner_account_id: accountId,
+  };
+  return BoardsApi.get(token, queryParams)
+    .then(response => {
+      return new Boards(response.data);
+    });
+}
+
+export default { create, getSingle, getByKeyword, getByAccountId };

@@ -20,6 +20,19 @@ export interface BoardResponse {
   updated_at: string | null;
 }
 
+export interface BoardsQueryParams {
+  page: number;
+  num_per_page: number;
+  owner_account_id?: string;
+  search?: string;
+}
+
+export interface BoardsResponse {
+  items: Array<Board>;
+  current_page: number;
+  next_page?: number;
+}
+
 // ボード詳細ページへ遷移するときに渡すデータの型.
 export interface BoardLocationState {
   board: Board;
@@ -41,5 +54,20 @@ export class Board {
     this.ownerAccountId = boardResponse.owner_account_id;
     this.createdAt = boardResponse.created_at;
     this.updatedAt = boardResponse.updated_at;
+  }
+}
+
+export class Boards {
+  items: Array<Board>;
+  currentPage: number;
+  nextPage?: number;
+
+  constructor(boardsResponse: BoardsResponse) {
+    this.items = boardsResponse.items;
+    this.currentPage = boardsResponse.current_page;
+
+    if (boardsResponse.next_page) {
+      this.nextPage = boardsResponse.next_page
+    }
   }
 }
