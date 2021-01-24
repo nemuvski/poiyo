@@ -4,7 +4,7 @@
 
 import Axios from '../common/Axios';
 import {AxiosPromise} from 'axios';
-import {BoardRequest, BoardResponse} from "../models/Board";
+import {BoardRequest, BoardResponse, BoardsQueryParams, BoardsResponse} from "../models/Board";
 
 const path = '/boards';
 
@@ -32,4 +32,14 @@ const getSingle = (token: string, boardId: string): AxiosPromise<BoardResponse> 
   return Axios(token).get(`${path}/${boardId}`);
 }
 
-export default { post, getSingle };
+/**
+ * ボード複数件取得のAPIを実行する。
+ *
+ * @param token トークン.
+ * @param params パラメータ.
+ */
+const get = (token: string, params: BoardsQueryParams): AxiosPromise<BoardsResponse> => {
+  return Axios(token).get(path, {params});
+}
+
+export default { post, getSingle, get };
