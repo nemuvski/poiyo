@@ -9,6 +9,7 @@ import SignOut from "../screens/SignOut";
 import NotFound from "../screens/NotFound";
 import '../styles/layouts/main.scss';
 import BoardDetail from "../screens/BoardDetail";
+import Search from "../screens/Search";
 
 const Main: React.FC = (): ReactElement => {
   const { account } = useContext(AuthenticationContext);
@@ -17,7 +18,13 @@ const Main: React.FC = (): ReactElement => {
     <main className="main">
       <div className="main__inner">
         <Switch>
-
+          <Route exact path="/terms" component={Terms} />
+          <Route exact path="/privacy" component={Privacy} />
+          <Route exact path="/sign-out" component={SignOut} />
+          <Route exact path="/search" render={() => !account
+            ? <Redirect to="/" />
+            : <Search />
+          } />
           <Route exact path="/create-board" render={() => !account
             ? <Redirect to="/" />
             : <CreateBoard />
@@ -26,9 +33,6 @@ const Main: React.FC = (): ReactElement => {
             ? <Redirect to="/" />
             : <p>Dashboard</p>
           } />
-          <Route exact path="/terms" component={Terms} />
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/sign-out" component={SignOut} />
           <Route path="/board/:bid" render={props => !account
             ? <Redirect to="/" />
             : <BoardDetail {...props} />
