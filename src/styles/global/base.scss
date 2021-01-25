@@ -76,6 +76,15 @@ button {
       background-color: $color-gray;
     }
   }
+
+  &.is-black {
+    background-color: $color-fuscous-gray;
+
+    &:not(:disabled):hover {
+      box-shadow: 0 0 2px 0 $color-quill-gray;
+      background-color: $color-fuscous-gray;
+    }
+  }
 }
 
 h1 {

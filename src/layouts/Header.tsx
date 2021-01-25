@@ -6,7 +6,7 @@ import Navigation from './Navigation';
 
 const Header: React.FC = (): ReactElement => {
   return (
-    <header className="header">
+    <header id="header" className="header">
       <div className="header__inner">
         <h1 className="header__logo">
           <Link to="/">
