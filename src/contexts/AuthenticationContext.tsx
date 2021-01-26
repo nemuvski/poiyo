@@ -31,6 +31,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
   };
 
   const signOut = () => {
+    setLoading(true);
     firebase.auth().signOut()
       .then(() => {
         setAccount(null);
@@ -41,6 +42,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
       })
       .finally(() => {
         history.replace('/');
+        setLoading(false);
       });
   };
 
