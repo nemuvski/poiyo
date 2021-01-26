@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react';
+import React, {useContext} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import Front from '../screens/Front';
@@ -11,7 +11,7 @@ import '../styles/layouts/main.scss';
 import BoardDetail from "../screens/BoardDetail";
 import Search from "../screens/Search";
 
-const Main: React.FC = (): ReactElement => {
+const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
 
   return (

@@ -1,7 +1,7 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const Search: React.FC = (): ReactElement => {
+const Search: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('ボードを探す');
   }, []);

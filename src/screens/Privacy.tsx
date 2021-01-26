@@ -1,7 +1,7 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const Privacy: React.FC = (): ReactElement => {
+const Privacy: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('プライバシーポリシー');
   }, []);

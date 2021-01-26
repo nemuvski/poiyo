@@ -1,4 +1,4 @@
-import React, {ReactElement, useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
@@ -11,7 +11,7 @@ import penIcon from '../assets/icons/pen-feature.svg';
 import '../styles/screens/page-front.scss';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const Front: React.FC = (): ReactElement => {
+const Front: React.FC = () => {
   const { signIn } = useContext(AuthenticationContext);
 
   useEffect(() => {

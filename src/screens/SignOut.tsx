@@ -1,9 +1,9 @@
-import React, {ReactElement, useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import FullWideLoading from "../components/FullWideLoading";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const SignOut: React.FC = (): ReactElement => {
+const SignOut: React.FC = () => {
   const { signOut } = useContext(AuthenticationContext);
 
   useEffect(() => {

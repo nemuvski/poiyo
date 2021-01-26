@@ -1,4 +1,4 @@
-import React, {ReactElement, useContext, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import clsx from "clsx";
@@ -14,7 +14,7 @@ type BoardFormFields = {
   body: string;
 };
 
-const BoardForm: React.FC = (): ReactElement => {
+const BoardForm: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();

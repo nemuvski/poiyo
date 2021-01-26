@@ -1,11 +1,11 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 import ArticleInner from "../components/ArticleInner";
 import ArticleSection from "../components/ArticleSection";
 import BoardForm from "../components/BoardForm";
 import '../styles/screens/page-create-board.scss';
 
-const CreateBoard: React.FC = (): ReactElement => {
+const CreateBoard: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('ボード作成');
   }, []);

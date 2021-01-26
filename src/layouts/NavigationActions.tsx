@@ -1,10 +1,10 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import clsx from "clsx";
 import searchIcon from '../assets/icons/search.svg';
 import '../styles/layouts/navigation-actions.scss';
 
-const NavigationActions: React.FC = (): ReactElement => {
+const NavigationActions: React.FC = () => {
   const [open, setOpen] = useState(false);
   const history = useHistory();
 

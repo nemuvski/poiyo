@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/layouts/header.scss';
 import logo from '../assets/logo.svg';
 import Navigation from './Navigation';
 
-const Header: React.FC = (): ReactElement => {
+const Header: React.FC = () => {
   return (
     <header id="header" className="header">
       <div className="header__inner">

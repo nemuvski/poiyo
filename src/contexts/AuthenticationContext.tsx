@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect, ReactElement} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import firebase from '../firebase';
 import {Account} from '../libs/models/Account';
@@ -21,7 +21,7 @@ export const AuthenticationContext: React.Context<Context> = createContext<Conte
   signOut: () => null,
 });
 
-export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElement => {
+export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
   const [account, setAccount] = useState<Account | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const history = useHistory();

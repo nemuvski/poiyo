@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import clsx from "clsx";
 import arrowUpIcon from '../assets/icons/arrow-up.svg';
 import '../styles/layouts/scroll-to-top.scss';
 
-const ScrollToTop: React.FC = (): ReactElement => {
+const ScrollToTop: React.FC = () => {
   const [hidden, setHidden] = useState(true);
   // スクロール処理の間引き用フラグ.
   const isProcessing = useRef(false);

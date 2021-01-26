@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 import {Link} from "react-router-dom";
 import ArticleInner from "../components/ArticleInner";
 
-const NotFound: React.FC = (): ReactElement => {
+const NotFound: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('ページが見つかりません');
   }, []);

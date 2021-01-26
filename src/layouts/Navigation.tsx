@@ -1,8 +1,8 @@
-import React, {ReactElement, useContext} from 'react';
+import React, {useContext} from 'react';
 import {AuthenticationContext} from '../contexts/AuthenticationContext';
 import NavigationActions from "./NavigationActions";
 
-const Navigation: React.FC = (): ReactElement => {
+const Navigation: React.FC = () => {
   const { account, signIn } = useContext(AuthenticationContext);
 
   return (
