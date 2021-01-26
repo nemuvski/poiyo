@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect, useCallback, ReactElement} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import firebase from '../firebase';
 import {Account} from '../libs/models/Account';
@@ -21,16 +21,17 @@ export const AuthenticationContext: React.Context<Context> = createContext<Conte
   signOut: () => null,
 });
 
-export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElement => {
+export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
   const [account, setAccount] = useState<Account | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const history = useHistory();
 
-  const signIn: () => void = useCallback(() => {
+  const signIn = () => {
     firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-  }, []);
+  };
 
-  const signOut: () => void = useCallback(() => {
+  const signOut = () => {
+    setLoading(true);
     firebase.auth().signOut()
       .then(() => {
         setAccount(null);
@@ -41,8 +42,9 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props): ReactElem
       })
       .finally(() => {
         history.replace('/');
+        setLoading(false);
       });
-  }, []);
+  };
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async user => {

@@ -1,18 +1,21 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import clsx from "clsx";
 import searchIcon from '../assets/icons/search.svg';
 import '../styles/layouts/navigation-actions.scss';
 
-const NavigationActions: React.FC = (): ReactElement => {
+const NavigationActions: React.FC = () => {
   const [open, setOpen] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     // ルーティングの変更を検知し、メニューを閉じる.
-    history.listen(() => {
+    const unsubscribe =  history.listen(() => {
       setOpen(false);
     });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const actions = [

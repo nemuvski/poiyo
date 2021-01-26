@@ -1,4 +1,4 @@
-import React, {ReactElement, useContext, useCallback, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
@@ -11,12 +11,8 @@ import penIcon from '../assets/icons/pen-feature.svg';
 import '../styles/screens/page-front.scss';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const Front: React.FC = (): ReactElement => {
+const Front: React.FC = () => {
   const { signIn } = useContext(AuthenticationContext);
-
-  const handleSignIn = useCallback(() => {
-    signIn();
-  }, []);
 
   useEffect(() => {
     setDocumentTitle('Poiyo', false);
@@ -42,7 +38,7 @@ const Front: React.FC = (): ReactElement => {
             <Link to="/privacy">プライバシーポリシー</Link>、<Link to="/terms">利用規約</Link>に同意した上でサインインしてください。
           </p>
           <div className="page-front__signin-wrapper">
-            <button onClick={handleSignIn} className="is-white page-front__signin-button">
+            <button onClick={() => signIn()} className="is-white page-front__signin-button">
               <img src={googleIcon} alt="Google" />
               <span>Googleでサインイン</span>
             </button>

@@ -1,7 +1,7 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
 
-const Terms: React.FC = (): ReactElement => {
+const Terms: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('利用規約');
   }, []);
