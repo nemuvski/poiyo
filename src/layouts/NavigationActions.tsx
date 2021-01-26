@@ -10,9 +10,12 @@ const NavigationActions: React.FC = () => {
 
   useEffect(() => {
     // ルーティングの変更を検知し、メニューを閉じる.
-    history.listen(() => {
+    const unsubscribe =  history.listen(() => {
       setOpen(false);
     });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const actions = [
