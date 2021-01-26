@@ -1,16 +1,27 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {ReactElement, useEffect, useRef, useState} from 'react';
 import clsx from "clsx";
 import arrowUpIcon from '../assets/icons/arrow-up.svg';
 import '../styles/layouts/scroll-to-top.scss';
 
 const ScrollToTop: React.FC = (): ReactElement => {
   const [hidden, setHidden] = useState(true);
+  // スクロール処理の間引き用フラグ.
+  const isProcessing = useRef(false);
 
   useEffect(() => {
     // スクロール時のイベントを登録する.
     document.addEventListener('scroll', () => {
-      setHidden(window.scrollY < 100);
-    });
+      // 処理中の場合はスキップ.
+      if (isProcessing.current) {
+        return;
+      }
+      isProcessing.current = true;
+      requestAnimationFrame(() => {
+        setHidden(window.scrollY < 300);
+        isProcessing.current = false;
+      });
+    }, {passive: true});
+
   }, []);
 
   const handleClick = () => {
