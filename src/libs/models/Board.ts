@@ -28,7 +28,7 @@ export interface BoardsQueryParams {
 }
 
 export interface BoardsResponse {
-  items: Array<Board>;
+  items: Array<BoardResponse>;
   current_page: number;
   next_page?: number;
 }
@@ -63,7 +63,9 @@ export class Boards {
   nextPage?: number;
 
   constructor(boardsResponse: BoardsResponse) {
-    this.items = boardsResponse.items;
+    this.items = boardsResponse.items.map((singleResponseData) => {
+      return new Board(singleResponseData);
+    });
     this.currentPage = boardsResponse.current_page;
 
     if (boardsResponse.next_page) {
