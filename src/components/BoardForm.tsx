@@ -16,7 +16,7 @@ type BoardFormFields = {
 
 const BoardForm: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const {
     register,
@@ -55,7 +55,7 @@ const BoardForm: React.FC = () => {
   return (
     <form
       className="board-form"
-      autoComplete="none"
+      autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
     >
       {loading && <FullWideLoading />}
