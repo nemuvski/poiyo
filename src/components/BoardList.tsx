@@ -12,8 +12,6 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
   const [loading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(-1);
 
-  console.log('test');
-
   const getResources = async (targetPage: number) => {
     if (!(account && account.token)) {
       throw new Error('アカウント情報がないため、検索できませんでした。');
