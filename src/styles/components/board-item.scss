@@ -1,0 +1,62 @@
+@import "../import";
+
+.board-item {
+  width: 100%;
+  border-bottom: 1px solid $color-quill-gray;
+
+  &:first-child {
+    border-top: 1px solid $color-quill-gray;
+  }
+
+  &__link {
+    display: block;
+    padding: 0.75em;
+    color: $color-fuscous-gray;
+
+    &:hover {
+      text-decoration: none;
+      background-color: $color-gray;
+    }
+
+    @include bp($bp-m-min) {
+      display: flex;
+      align-items: center;
+      padding: 1em;
+    }
+  }
+
+  &__title {
+    display: block;
+    overflow-wrap: break-word;
+
+    @include bp($bp-m-min) {
+      flex: 1 1 auto;
+    }
+  }
+
+  &__date {
+    display: block;
+    margin-top: 0.75em;
+    text-align: right;
+    font-size: 0.8em;
+    color: $color-storm-dust;
+
+    &::before {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 0.3em;
+      content: "";
+      background-image: url(../../assets/icons/pen.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+
+    @include bp($bp-m-min) {
+      flex: 0 0 130px;
+      margin-top: 0;
+    }
+  }
+}

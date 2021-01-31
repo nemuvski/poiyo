@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Board, Boards} from "../libs/models/Board";
-import Dayjs, {formatYMD} from '../libs/common/Dayjs';
+import BoardItem from "./BoardItem";
 
 type Props = {
   resource: Boards | null;
@@ -20,9 +20,12 @@ const BoardList: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="board-list">
-      {boards.map((board) => {
-        return (<div key={board.boardId}>{board.title} {formatYMD(Dayjs(board.createdAt))}</div>);
-      })}
+      {boards.length == 0
+        ? <p className="board-list__not-found">ボードが見つかりませんでした。</p>
+        : boards.map((board) => {
+          return (<BoardItem key={board.boardId} board={board} />);
+        })
+      }
     </div>
   );
 }
