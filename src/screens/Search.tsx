@@ -6,6 +6,7 @@ import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import {Boards} from "../libs/models/Board";
 import BoardList from "../components/BoardList";
 import searchIcon from '../assets/icons/search-form.svg';
+import '../styles/screens/page-search.scss';
 
 type SearchFormFields = {
   keyword: string;
@@ -15,6 +16,7 @@ const Search: React.FC = () => {
   const {
     handleSubmit,
     formState,
+    register,
   } = useForm();
   const { account } = useContext(AuthenticationContext);
   const [resource, setResource] = useState<Boards | null>(null);
@@ -33,7 +35,6 @@ const Search: React.FC = () => {
   };
 
   const onSubmit = async (data: SearchFormFields) => {
-    console.log(data);
     await getBoards(data.keyword);
   };
 
@@ -66,6 +67,7 @@ const Search: React.FC = () => {
           name="keyword"
           maxLength={200}
           tabIndex={0}
+          ref={register()}
           placeholder="ボードのタイトルで探す"
           className="page-search__form-keyword"
         />
@@ -77,6 +79,7 @@ const Search: React.FC = () => {
           <img src={searchIcon} alt="検索" />
         </button>
       </form>
+
       <BoardList resource={resource} />
     </div>
   );
