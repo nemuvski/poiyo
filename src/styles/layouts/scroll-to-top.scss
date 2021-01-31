@@ -1,10 +1,10 @@
 @import "../import";
 
 .scroll-to-top {
+  z-index: 90;
   position: fixed;
   right: 0;
   bottom: 7em;
-  z-index: 5;
   display: block;
   width: 3.25em;
   height: 3.25em;
