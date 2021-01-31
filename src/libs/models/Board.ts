@@ -38,6 +38,12 @@ export interface BoardLocationState {
   board: Board;
 }
 
+// ボード一覧コンポーネントへ渡すプロパティ.
+export interface BoardListProps {
+  keyword?: string;
+  accountId?: string;
+}
+
 // 処理で利用するモデル.
 export class Board {
   boardId: string;
@@ -56,7 +62,6 @@ export class Board {
     this.updatedAt = boardResponse.updated_at;
   }
 }
-
 export class Boards {
   items: Array<Board>;
   currentPage: number;

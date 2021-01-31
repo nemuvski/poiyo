@@ -1,9 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {setDocumentTitle} from "../utilities/DocumentTitle";
-import BoardsService from "../libs/services/BoardsService";
-import {AuthenticationContext} from "../contexts/AuthenticationContext";
-import {Boards} from "../libs/models/Board";
 import BoardList from "../components/BoardList";
 import searchIcon from '../assets/icons/search-form.svg';
 import '../styles/screens/page-search.scss';
@@ -18,41 +15,15 @@ const Search: React.FC = () => {
     formState,
     register,
   } = useForm();
-  const { account } = useContext(AuthenticationContext);
-  const [resource, setResource] = useState<Boards | null>(null);
 
-  const getBoards = async (keyword: string, page = 1) => {
-    try {
-      if (!(account && account.token)) {
-        console.error('アカウント情報がないため、検索できませんでした。');
-        return;
-      }
-      const responseBoards = await BoardsService.getByKeyword(account.token, keyword, page);
-      setResource(responseBoards);
-    } catch(error) {
-      console.error(error);
-    }
-  };
+  const [keyword, setKeyword] = useState('');
 
-  const onSubmit = async (data: SearchFormFields) => {
-    await getBoards(data.keyword);
+  const onSubmit = (data: SearchFormFields) => {
+    setKeyword(data.keyword);
   };
 
   useEffect(() => {
     setDocumentTitle('ボードを探す');
-
-    // コンポーネントがアンマウントされた後に実行されることを防ぐためのフラグ.
-    let unmounted = false;
-    const initResource = async () => {
-      // 初期化処理は空文字(つまり、キーワード制限なし)で取得する.
-      if (!unmounted) {
-        await getBoards('');
-      }
-    };
-    initResource();
-    return () => {
-      unmounted = true;
-    };
   }, []);
 
   return (
@@ -80,7 +51,7 @@ const Search: React.FC = () => {
         </button>
       </form>
 
-      <BoardList resource={resource} />
+      <BoardList keyword={keyword} />
     </div>
   );
 }
