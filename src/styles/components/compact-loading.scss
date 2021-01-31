@@ -1,0 +1,21 @@
+@import "../import";
+
+.compact-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 7em;
+  background-color: $color-white;
+  background-image: url(../../assets/loading.svg);
+  background-repeat: no-repeat;
+  background-position: center 1em;
+  background-size: 100px auto;
+
+  &::after {
+    display: block;
+    content: "読み込み中";
+    margin-top: 5.5em;
+    font-size: 0.9em;
+  }
+}

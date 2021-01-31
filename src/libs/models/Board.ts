@@ -28,7 +28,7 @@ export interface BoardsQueryParams {
 }
 
 export interface BoardsResponse {
-  items: Array<Board>;
+  items: Array<BoardResponse>;
   current_page: number;
   next_page?: number;
 }
@@ -36,6 +36,12 @@ export interface BoardsResponse {
 // ボード詳細ページへ遷移するときに渡すデータの型.
 export interface BoardLocationState {
   board: Board;
+}
+
+// ボード一覧コンポーネントへ渡すプロパティ.
+export interface BoardListProps {
+  keyword?: string;
+  accountId?: string;
 }
 
 // 処理で利用するモデル.
@@ -56,14 +62,15 @@ export class Board {
     this.updatedAt = boardResponse.updated_at;
   }
 }
-
 export class Boards {
   items: Array<Board>;
   currentPage: number;
   nextPage?: number;
 
   constructor(boardsResponse: BoardsResponse) {
-    this.items = boardsResponse.items;
+    this.items = boardsResponse.items.map((singleResponseData) => {
+      return new Board(singleResponseData);
+    });
     this.currentPage = boardsResponse.current_page;
 
     if (boardsResponse.next_page) {

@@ -27,7 +27,7 @@ const NavigationActions: React.FC = () => {
   return (
     <div className="navigation-actions">
       <Link to="/search" className="navigation-actions__search">
-        <img alt="検索ページへ" src={searchIcon} />
+        <img alt="ボードを探す" title="ボードを探す" src={searchIcon} />
       </Link>
 
       <div className="navigation-actions__container">

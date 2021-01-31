@@ -1,0 +1,99 @@
+@import "../import";
+
+.board-item {
+  width: 100%;
+  margin-bottom: 1.5em;
+  box-shadow: 0 3px 6px -1px $color-quill-gray;
+  border-radius: 0.5em;
+  border: 1px solid $color-quill-gray;
+  background-color: $color-white;
+
+  &:hover {
+    background-color: $color-gray;
+    box-shadow: 0 0 2px 0 $color-quill-gray;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__link {
+    position: relative;
+    display: block;
+    padding: 1em 1em 1em 2.5em;
+    color: $color-fuscous-gray;
+
+    @include bp($bp-m-min) {
+      display: flex;
+      align-items: center;
+      padding-left: 3em;
+    }
+
+    &:hover {
+      text-decoration: none;
+
+      &::before {
+        transform: rotate(10deg);
+      }
+    }
+
+    &::before {
+      position: absolute;
+      top: 0.8em;
+      left: 0.6em;
+      display: block;
+      width: 20px;
+      height: 20px;
+      content: "";
+      background-image: url(../../assets/icons/board.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+
+      @include bp($bp-m-min) {
+        top: 0.875em;
+        left: 0.875em;
+      }
+    }
+
+    &.is-mine::before {
+      background-image: url(../../assets/icons/flag.svg);
+    }
+  }
+
+  &__title {
+    display: block;
+    overflow-wrap: break-word;
+
+    @include bp($bp-m-min) {
+      flex: 1 1 auto;
+    }
+  }
+
+  &__date {
+    display: block;
+    margin-top: 0.75em;
+    text-align: right;
+    font-size: 0.8em;
+    color: $color-storm-dust;
+
+    &::before {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 0.3em;
+      content: "";
+      background-image: url(../../assets/icons/pen.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+
+    @include bp($bp-m-min) {
+      flex: 0 0 130px;
+      margin-top: 0;
+    }
+  }
+}

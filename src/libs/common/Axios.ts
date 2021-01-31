@@ -12,6 +12,7 @@ export default (token: string): AxiosInstance => {
 
   return axios.create({
     baseURL: process.env.REACT_APP_API_ENDPOINT,
+    timeout: 60000,
     headers,
     responseType: 'json',
   });
