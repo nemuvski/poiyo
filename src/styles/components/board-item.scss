@@ -29,6 +29,14 @@
       padding-left: 3em;
     }
 
+    &:hover {
+      text-decoration: none;
+
+      &::before {
+        transform: rotate(10deg);
+      }
+    }
+
     &::before {
       position: absolute;
       top: 0.8em;
@@ -49,12 +57,8 @@
       }
     }
 
-    &:hover {
-      text-decoration: none;
-
-      &::before {
-        transform: rotate(10deg);
-      }
+    &.is-mine::before {
+      background-image: url(../../assets/icons/flag.svg);
     }
   }
 
