@@ -1,0 +1,12 @@
+@import "../import";
+
+.page-not-found {
+  &__container {
+    margin: 2.5em 0 0;
+    text-align: center;
+  }
+
+  &__image {
+    width: 13em;
+  }
+}
