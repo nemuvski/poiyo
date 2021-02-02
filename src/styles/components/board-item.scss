@@ -1,17 +1,10 @@
 @import "../import";
 
 .board-item {
+  @include shadow(true);
+
   width: 100%;
   margin-bottom: 1.5em;
-  box-shadow: 0 3px 6px -1px $color-quill-gray;
-  border-radius: 0.5em;
-  border: 1px solid $color-quill-gray;
-  background-color: $color-white;
-
-  &:hover {
-    background-color: $color-gray;
-    box-shadow: 0 0 2px 0 $color-quill-gray;
-  }
 
   &:last-child {
     margin-bottom: 0;

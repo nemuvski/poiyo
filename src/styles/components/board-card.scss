@@ -1,0 +1,73 @@
+@import "../import";
+
+.board-card {
+  @include bp($bp-m-min) {
+    position: sticky;
+    top: 3.5em;
+  }
+
+  &__inner {
+    padding: 1.5em 1em;
+
+    @include bp($bp-m-min) {
+      padding: 2em 1.25em;
+    }
+  }
+
+  &__title {
+    position: relative;
+    margin-bottom: 0;
+    padding-left: 1.7em;
+    overflow-wrap: break-word;
+    text-align: left;
+    font-size: 1.05em;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 21px;
+      height: 21px;
+      content: "";
+      background-image: url(../../assets/icons/board.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+  }
+
+  &__meta {
+    margin: 1.5em 0;
+    text-align: right;
+  }
+
+  &__date {
+    font-size: 0.85em;
+    color: $color-storm-dust;
+
+    &::before {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 0.4em;
+      content: "";
+      background-image: url(../../assets/icons/pen.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+  }
+
+  &__body {
+    font-size: 0.95em;
+    line-height: 1.7;
+  }
+
+  &__actions {
+    margin-top: 1.5em;
+    text-align: center;
+  }
+}
