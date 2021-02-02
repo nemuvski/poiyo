@@ -1,0 +1,15 @@
+@import '../variables';
+
+@mixin shadow($hover: false) {
+  box-shadow: 0 3px 6px -1px $color-quill-gray;
+  border-radius: 0.5em;
+  border: 1px solid $color-quill-gray;
+  background-color: $color-white;
+
+  @if $hover {
+    &:hover {
+      background-color: $color-gray;
+      box-shadow: 0 0 2px 0 $color-quill-gray;
+    }
+  }
+}

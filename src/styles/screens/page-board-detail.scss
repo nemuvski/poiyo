@@ -1,0 +1,18 @@
+@import "../import";
+
+.page-board-detail {
+
+  &__inner {
+    @include bp($bp-m-min) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__card,
+  &__comment-list {
+    @include bp($bp-m-min) {
+      width: calc((100% - 1.5em) / 2);
+    }
+  }
+}

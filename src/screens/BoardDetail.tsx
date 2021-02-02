@@ -6,6 +6,8 @@ import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import BoardsService from "../libs/services/BoardsService";
 import FullWideLoading from "../components/FullWideLoading";
 import NotFound from "./NotFound";
+import '../styles/screens/page-board-detail.scss';
+import BoardCard from "../components/BoardCard";
 
 type Params = {
   bid: string;
@@ -50,20 +52,22 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  // ここでboardがかわるタイミングで実行される副作用を定義しておくか.
-
   return (
-    <>
+    <div className="page-board-detail">
       {loading && <FullWideLoading />}
       {board
         ? (
-          <div className="page-board-detail">
-            <h1>{board.title}</h1>
+          <div className="page-board-detail__inner">
+            <div className="page-board-detail__card">
+              <BoardCard board={board} />
+            </div>
+            <div className="page-board-detail__comment-list">
+            </div>
           </div>
         )
         : <NotFound />
       }
-    </>
+    </div>
   );
 }
 
