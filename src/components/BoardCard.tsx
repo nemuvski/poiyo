@@ -6,6 +6,7 @@ import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import CompactLoading from "./CompactLoading";
 import '../styles/components/board-card.scss';
 import ShadowBox from "./ShadowBox";
+import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 
 type Props = {
   board: Board | null;
@@ -23,7 +24,10 @@ const BoardCard: React.FC<Props> = (props: Props) => {
               <div className="board-card__meta">
                 <time className="board-card__date">{formatYMD(Dayjs(props.board.createdAt))}</time>
               </div>
-              <div className="board-card__body">{props.board.body}</div>
+              <div
+                className="board-card__body"
+                dangerouslySetInnerHTML={convertMarkdownTextToHTML(props.board.body)}
+              />
 
               {(account && account.id && account.id == props.board.ownerAccountId) && (
                 <div className="board-card__actions">

@@ -62,7 +62,8 @@
   }
 
   &__body {
-    font-size: 0.95em;
+    overflow-wrap: break-word;
+    font-size: 0.925em;
     line-height: 1.7;
   }
 
