@@ -6,6 +6,15 @@
   box-shadow: 0 3px 6px -4px $color-quill-gray;
   background-color: $color-gray;
 
+  &.is-wider {
+    padding: 2.25em 1.0em;
+
+    @include bp($bp-m-min) {
+      padding-right: 1.75em;
+      padding-left: 1.75em;
+    }
+  }
+
   & + & {
     margin-top: 3.5em;
   }

@@ -4,7 +4,21 @@
   &__field {
     position: relative;
     display: block;
-    margin-top: 2.5em;
+    margin-top: 1.75em;
+  }
+
+  &__field-label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    > button {
+      width: 13em;
+      margin-bottom: 0.6em;
+      padding: 0.5em 0;
+      font-size: 0.825em;
+      font-weight: normal;
+    }
   }
 
   &__field-label {
@@ -17,6 +31,27 @@
       margin-left: 0.25em;
       content: "*";
       color: $color-chestnut;
+    }
+  }
+
+  &__field-value {
+    &.is-hidden {
+      display: none;
+    }
+  }
+
+  &__field-preview {
+    @include shadow();
+
+    height: 400px;
+    padding: 0.75em 1em;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+    font-size: 0.925em;
+    line-height: 1.7;
+
+    &.is-invalid {
+      border-color: $color-chestnut;
     }
   }
 
@@ -39,7 +74,7 @@
   &__actions {
     display: flex;
     justify-content: center;
-    margin-top: 2.5em;
+    margin-top: 1.75em;
     > button:not(:first-child) {
       margin-left: 1.5em;
     }

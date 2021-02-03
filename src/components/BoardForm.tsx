@@ -7,6 +7,7 @@ import BoardsService from "../libs/services/BoardsService";
 import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
 import {BoardLocationState} from "../libs/models/Board";
+import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 
 // inputまたはtextareaのnameに相当する.
 type BoardFormFields = {
@@ -17,6 +18,7 @@ type BoardFormFields = {
 const BoardForm: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
   const history = useHistory();
   const {
     register,
@@ -24,10 +26,12 @@ const BoardForm: React.FC = () => {
     reset,
     formState,
     errors,
+    watch,
   } = useForm({
     // formState.isValidを使うため.
     mode: 'onChange',
   });
+  const watchBody = watch('body', '');
 
   const onSubmit = (data: BoardFormFields) => {
     if (!account) {
@@ -83,9 +87,25 @@ const BoardForm: React.FC = () => {
       </label>
 
       <label className="board-form__field">
-        <span className="board-form__field-label">本文</span>
+        <div className="board-form__field-label-container">
+          <span className="board-form__field-label">本文</span>
+          <button
+            className={clsx([{'is-black':!previewMode}])}
+            type="button"
+            onClick={() => setPreviewMode(!previewMode)}
+          >
+            {previewMode ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
+          </button>
+        </div>
         <textarea
-          className={clsx(['board-form__field-value', 'board-form__field-value--body', {'is-invalid':errors.body}])}
+          className={
+            clsx([
+              'board-form__field-value',
+              'board-form__field-value--body',
+              {'is-invalid':errors.body},
+              {'is-hidden':previewMode},
+            ])
+          }
           name="body"
           maxLength={1000}
           ref={register({
@@ -99,6 +119,17 @@ const BoardForm: React.FC = () => {
             },
           })}
         />
+        {previewMode && (
+          <div
+            className={
+              clsx([
+                'board-form__field-preview',
+                {'is-invalid':errors.body},
+              ])
+            }
+            dangerouslySetInnerHTML={convertMarkdownTextToHTML(watchBody)}
+          />
+        )}
         <p className="board-form__field-help">1000文字以内</p>
         {errors.body && <p className="board-form__field-invalid">{ errors.body.message }</p>}
       </label>

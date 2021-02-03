@@ -14,7 +14,7 @@ const CreateBoard: React.FC = () => {
     <ArticleInner>
       <div className="page-create-board">
         <h1>ボード作成</h1>
-        <ArticleSection>
+        <ArticleSection wider={true}>
           <p className="page-create-board__description">
             話題にしたいことを記入して、ボードを作成しましょう。
           </p>
