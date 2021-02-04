@@ -25,7 +25,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                 <time className="board-card__date">{formatYMD(Dayjs(props.board.createdAt))}</time>
               </div>
               <div
-                className="board-card__body"
+                className="md board-card__body"
                 dangerouslySetInnerHTML={convertMarkdownTextToHTML(props.board.body)}
               />
 

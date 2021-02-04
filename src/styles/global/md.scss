@@ -1,0 +1,81 @@
+///
+/// マークダウンテキストをHTMLに変換した要素に対してのスタイル。
+///
+
+@import "../import";
+
+.md {
+  overflow-wrap: break-word;
+  font-size: 0.925em;
+  line-height: 1.7;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  hr,
+  pre {
+    margin: 0.75em 0;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  ul {
+    padding-left: 2em;
+    list-style-type: disc;
+  }
+
+  ol {
+    padding-left: 2em;
+    list-style-type: decimal;
+  }
+
+  blockquote {
+    padding-left: 1em;
+    border-left: 3px solid $color-quill-gray;
+    color: $color-storm-dust;
+
+    & & {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 1em;
+    }
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid $color-quill-gray;
+  }
+
+  pre {
+    padding: 0.3em 0.5em;
+    overflow-x: auto;
+    border-radius: 0.5em;
+    background-color: $color-gray;
+    font-family: $code-font-family;
+
+    code {
+      display: inline;
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+
+  code {
+    display: inline-block;
+    margin: 0 0.25em;
+    padding: 0 0.5em;
+    border-radius: 0.5em;
+    background-color: $color-gray;
+    font-family: $code-font-family;
+  }
+}

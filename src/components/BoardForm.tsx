@@ -123,6 +123,7 @@ const BoardForm: React.FC = () => {
           <div
             className={
               clsx([
+                'md',
                 'board-form__field-preview',
                 {'is-invalid':errors.body},
               ])
