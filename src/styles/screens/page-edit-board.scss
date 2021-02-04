@@ -1,0 +1,11 @@
+@import "../import";
+
+.page-edit-board {
+  &__delete-action {
+    text-align: center;
+
+    > p {
+      margin-top: 0;
+    }
+  }
+}

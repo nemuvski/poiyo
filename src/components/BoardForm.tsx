@@ -6,8 +6,12 @@ import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import BoardsService from "../libs/services/BoardsService";
 import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
-import {BoardLocationState} from "../libs/models/Board";
+import {Board, BoardLocationState} from "../libs/models/Board";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
+
+type Props = {
+  board?: Board;
+};
 
 // inputまたはtextareaのnameに相当する.
 type BoardFormFields = {
@@ -15,7 +19,7 @@ type BoardFormFields = {
   body: string;
 };
 
-const BoardForm: React.FC = () => {
+const BoardForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
@@ -31,7 +35,7 @@ const BoardForm: React.FC = () => {
     // formState.isValidを使うため.
     mode: 'onChange',
   });
-  const watchBody = watch('body', '');
+  const watchBody = watch('body', props.board ? props.board.body : '');
 
   const onSubmit = (data: BoardFormFields) => {
     if (!account) {
@@ -71,6 +75,7 @@ const BoardForm: React.FC = () => {
           type="text"
           name="title"
           maxLength={200}
+          defaultValue={props.board ? props.board.title : ''}
           ref={register({
             required: {
               value: true,
@@ -108,6 +113,7 @@ const BoardForm: React.FC = () => {
           }
           name="body"
           maxLength={1000}
+          defaultValue={props.board ? props.board.body : ''}
           ref={register({
             required: {
               value: true,
@@ -142,11 +148,11 @@ const BoardForm: React.FC = () => {
           disabled={formState.isSubmitting}
           onClick={() => reset()}
         >
-          クリア
+          {props.board ? '元に戻す' : 'クリア'}
         </button>
         <button
           type="submit"
-          disabled={!formState.isDirty || !formState.isValid || formState.isSubmitting}
+          disabled={!formState.isValid || formState.isSubmitting}
         >
           内容を保存
         </button>

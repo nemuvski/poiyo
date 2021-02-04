@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Board} from "../libs/models/Board";
+import {Board, BoardLocationState} from "../libs/models/Board";
 import Dayjs, {formatYMD} from '../libs/common/Dayjs';
 import '../styles/components/board-item.scss';
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
@@ -7,6 +7,7 @@ import CompactLoading from "./CompactLoading";
 import '../styles/components/board-card.scss';
 import ShadowBox from "./ShadowBox";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
+import {useHistory} from "react-router-dom";
 
 type Props = {
   board: Board | null;
@@ -14,6 +15,14 @@ type Props = {
 
 const BoardCard: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
+  const history = useHistory();
+
+  const handleEditButtonClick = () => {
+    history.push('/edit-board', {
+      board: props.board
+    } as BoardLocationState);
+  };
+
   return (
     <div className="board-card">
       <ShadowBox>
@@ -31,7 +40,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
 
               {(account && account.id && account.id == props.board.ownerAccountId) && (
                 <div className="board-card__actions">
-                  <button type="button">ボードを編集</button>
+                  <button type="button" onClick={handleEditButtonClick}>ボードを編集</button>
                 </div>
               )}
             </div>
