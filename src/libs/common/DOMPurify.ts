@@ -9,15 +9,25 @@ type InnerHTML = {
   __html: string;
 };
 
+const renderer = new marked.Renderer();
+// 出力されるanchorタグにtarget属性とrel属性を付与.
+renderer.link = (href, title, text) => {
+  return `<a rel="noopener noreferrer" target="_blank" href="${href}">${text}</a>`;
+};
+
 export const convertMarkdownTextToHTML = (markdownText: string): InnerHTML => {
   // マークダウン記法のテキストをHTMLの文字列に変換.
-  const markedText = marked(markdownText, { silent: true });
+  const markedText = marked(markdownText, {
+    silent: true,
+    renderer,
+  });
 
   // DOMPurifyでサニタイズするときのオプションを定義.
   const config: Config = {
     ALLOWED_ATTR: [
       'href',
       'target',
+      'rel',
     ],
     ALLOWED_TAGS: [
       'p',
