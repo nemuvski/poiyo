@@ -18,6 +18,6 @@ const post = (token: string, requestBody: AuthRequest): AxiosPromise<AuthRespons
     'service_id': requestBody.serviceId,
     'email': requestBody.email,
   });
-}
+};
 
 export default { post };
