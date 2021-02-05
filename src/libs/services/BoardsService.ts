@@ -111,4 +111,37 @@ const get = (token: string, keyword: string | null | undefined, accountId: strin
     });
 };
 
-export default { create, getSingle, getByKeyword, getByAccountId, get };
+/**
+ * ボードを1件削除する.
+ *
+ * @param token トークン.
+ * @param boardId ボードID.
+ */
+const remove = (token: string, boardId: string): Promise<Board | null> => {
+  return BoardsApi.remove(token, boardId)
+    .then(response => {
+      // ボードデータは返ってくるが、各プロパティの内容は空.
+      return new Board(response.data);
+    });
+};
+
+/**
+ * ボードを更新する.
+ *
+ * @param token トークン.
+ * @param board ボードのオブジェクト.
+ */
+const update = (token: string, board: Board): Promise<Board> => {
+  const boardRequest: BoardRequest = {
+    boardId: board.boardId,
+    title: board.title,
+    body: board.body,
+    ownerAccountId: board.ownerAccountId,
+  };
+  return BoardsApi.patch(token, boardRequest)
+    .then(response => {
+      return new Board(response.data);
+    });
+};
+
+export default { create, getSingle, getByKeyword, getByAccountId, get, remove, update };
