@@ -26,7 +26,7 @@ const NotFound: React.FC = () => {
           一時的にアクセスできない状況か、移動もしくは削除された可能性があります。
         </p>
         <p className="page-not-found__container">
-          <button type="button" onClick={() => history.push(!account ? '/' : '/dashboard')}>
+          <button type="button" onClick={() => history.replace(!account ? '/' : '/dashboard')}>
             {!account ? 'トップページへ' : 'ダッシュボードへ'}
           </button>
         </p>

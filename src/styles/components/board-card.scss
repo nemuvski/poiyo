@@ -64,5 +64,9 @@
   &__actions {
     margin-top: 1.5em;
     text-align: center;
+
+    > button {
+      margin: 0 0.75em;
+    }
   }
 }

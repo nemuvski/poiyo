@@ -81,7 +81,7 @@ button {
     background-color: $color-fuscous-gray;
 
     &:not(:disabled):hover {
-      background-color: $color-fuscous-gray;
+      background-color: $color-fuscous-gray-darker;
     }
   }
 
@@ -89,7 +89,7 @@ button {
     background-color: $color-chestnut;
 
     &:not(:disabled):hover {
-      background-color: $color-chestnut;
+      background-color: $color-chestnut-darker;
     }
   }
 }
