@@ -24,7 +24,7 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
     .then(response => {
       return new Board(response.data);
     });
-}
+};
 
 /**
  * ボードを1件取得する.
@@ -41,7 +41,7 @@ const getSingle = (token: string, boardId: string): Promise<Board | null> => {
       }
       return new Board(response.data);
     });
-}
+};
 
 /**
  * ボードをタイトルについてキーワードで絞り込んで取得する.
@@ -61,7 +61,7 @@ const getByKeyword = (token: string, keyword: string, page: number, numPerPage =
     .then(response => {
       return new Boards(response.data);
     });
-}
+};
 
 /**
  * ボードをアカウントIDについて絞り込んで取得する.
@@ -81,7 +81,7 @@ const getByAccountId = (token: string, accountId: string, page: number, numPerPa
     .then(response => {
       return new Boards(response.data);
     });
-}
+};
 
 /**
  * ボードを取得する.
@@ -109,6 +109,6 @@ const get = (token: string, keyword: string | null | undefined, accountId: strin
     .then(response => {
       return new Boards(response.data);
     });
-}
+};
 
 export default { create, getSingle, getByKeyword, getByAccountId, get };
