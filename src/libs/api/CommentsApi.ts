@@ -36,10 +36,11 @@ const get = (token: string, params: CommentsQueryParams): AxiosPromise<CommentsR
  * コメント1件削除のAPIを実行する。
  *
  * @param token トークン.
+ * @param boardId ボードID.
  * @param commentId コメントID.
  */
-const remove = (token: string, commentId: string): AxiosPromise<CommentResponse> => {
-  return Axios(token).delete(`${path}/${commentId}`);
+const remove = (token: string, boardId: string, commentId: string): AxiosPromise<CommentResponse> => {
+  return Axios(token).delete(`${path}/${boardId}/${commentId}`);
 };
 
 /**
