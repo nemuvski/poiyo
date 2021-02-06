@@ -1,10 +1,8 @@
 /**
- * 認証APIレスポンス・リクエストデータのモデル.
+ * ボードAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
 
-// POSTリクエスト.
 export interface BoardRequest {
-  // NOTE: 新規作成の場合はboardIdがないため、nullを許容.
   boardId: string | null;
   title: string;
   body: string;
@@ -20,17 +18,17 @@ export interface BoardResponse {
   updated_at: string | null;
 }
 
+export interface BoardsResponse {
+  items: Array<BoardResponse>;
+  current_page: number;
+  next_page?: number;
+}
+
 export interface BoardsQueryParams {
   page: number;
   num_per_page: number;
   owner_account_id?: string;
   search?: string;
-}
-
-export interface BoardsResponse {
-  items: Array<BoardResponse>;
-  current_page: number;
-  next_page?: number;
 }
 
 // ボード詳細ページへ遷移するときに渡すデータの型.
@@ -72,7 +70,6 @@ export class Boards {
       return new Board(singleResponseData);
     });
     this.currentPage = boardsResponse.current_page;
-
     if (boardsResponse.next_page) {
       this.nextPage = boardsResponse.next_page
     }
