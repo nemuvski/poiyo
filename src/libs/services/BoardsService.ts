@@ -1,12 +1,12 @@
 /**
- * 認証をして、アカウント情報を取得.
+ * ボードに関するサービス関数を定義.
  */
 
 import BoardsApi from "../api/BoardsApi";
 import {Board, BoardRequest, Boards, BoardsQueryParams} from "../models/Board";
 
 /**
- * ボードを登録する.
+ * ボードを1件登録する.
  *
  * @param token トークン.
  * @param title 登録するボードのタイトル.
@@ -126,7 +126,7 @@ const remove = (token: string, boardId: string): Promise<Board | null> => {
 };
 
 /**
- * ボードを更新する.
+ * ボードを1件更新する.
  *
  * @param token トークン.
  * @param board ボードのオブジェクト.

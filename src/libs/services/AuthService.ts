@@ -1,5 +1,5 @@
 /**
- * 認証をして、アカウント情報を取得.
+ * 認証に関するサービス関数を定義.
  */
 
 import AuthApi from '../api/AuthApi';
