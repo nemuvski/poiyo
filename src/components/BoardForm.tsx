@@ -118,8 +118,8 @@ const BoardForm: React.FC<Props> = (props: Props) => {
     >
       {loading && <FullWideLoading />}
 
-      <label className="board-form__field">
-        <span className="board-form__field-label">タイトル</span>
+      <div className="board-form__field">
+        <label className="board-form__field-label">タイトル</label>
         <input
           className={clsx(['board-form__field-value', {'is-invalid':errors.title}])}
           type="text"
@@ -130,19 +130,17 @@ const BoardForm: React.FC<Props> = (props: Props) => {
         />
         <p className="board-form__field-help">200文字以内</p>
         {errors.title && <p className="board-form__field-invalid">{ errors.title.message }</p>}
-      </label>
+      </div>
 
-      <label className="board-form__field">
-        <div className="board-form__field-label-container">
-          <span className="board-form__field-label">本文</span>
-          <button
-            className={clsx([{'is-black':!previewMode}])}
-            type="button"
-            onClick={() => setPreviewMode(!previewMode)}
-          >
-            {previewMode ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
-          </button>
-        </div>
+      <div className="board-form__field">
+        <label className="board-form__field-label">本文</label>
+        <button
+          className={clsx([{'is-black':!previewMode}])}
+          type="button"
+          onClick={() => setPreviewMode(!previewMode)}
+        >
+          {previewMode ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
+        </button>
         <textarea
           className={
             clsx([
@@ -163,15 +161,16 @@ const BoardForm: React.FC<Props> = (props: Props) => {
               clsx([
                 'md',
                 'board-form__field-preview',
-                {'is-invalid':errors.body},
               ])
             }
             dangerouslySetInnerHTML={convertMarkdownTextToHTML(watchBody)}
+            // プレビューの領域をクリックするとモードが切り替わる.
+            onClick={() => setPreviewMode(false)}
           />
         )}
         <p className="board-form__field-help">1000文字以内</p>
         {errors.body && <p className="board-form__field-invalid">{ errors.body.message }</p>}
-      </label>
+      </div>
 
       <div className="board-form__actions">
         <button
