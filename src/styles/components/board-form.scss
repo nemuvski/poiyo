@@ -6,19 +6,14 @@
     display: block;
     margin-top: 1.75em;
   }
-
-  &__field-label-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    > button {
-      width: 13em;
-      margin-bottom: 0.6em;
-      padding: 0.5em 0;
-      font-size: 0.825em;
-      font-weight: normal;
-    }
+  &__field > button {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: 13em;
+    padding: 0.5em 0;
+    font-size: 0.825em;
+    font-weight: normal;
   }
 
   &__field-label {
@@ -41,7 +36,7 @@
   }
 
   &__field-preview {
-    @include shadow();
+    @include shadow(false, $color-fountain-blue);
 
     height: 400px;
     padding: 0.75em 1em;
