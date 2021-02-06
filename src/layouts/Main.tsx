@@ -10,6 +10,7 @@ import NotFound from "../screens/NotFound";
 import '../styles/layouts/main.scss';
 import BoardDetail from "../screens/BoardDetail";
 import Search from "../screens/Search";
+import EditBoard from "../screens/EditBoard";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -28,6 +29,10 @@ const Main: React.FC = () => {
           <Route exact path="/create-board" render={() => !account
             ? <Redirect to="/" />
             : <CreateBoard />
+          } />
+          <Route exact path="/edit-board" render={() => !account
+            ? <Redirect to="/" />
+            : <EditBoard />
           } />
           <Route exact path="/dashboard" render={() => !account
             ? <Redirect to="/" />

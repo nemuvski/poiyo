@@ -20,7 +20,7 @@ const post = (token: string, requestBody: BoardRequest): AxiosPromise<BoardRespo
     'body': requestBody.body,
     'owner_account_id': requestBody.ownerAccountId,
   });
-}
+};
 
 /**
  * ボード1件取得のAPIを実行する.
@@ -30,7 +30,7 @@ const post = (token: string, requestBody: BoardRequest): AxiosPromise<BoardRespo
  */
 const getSingle = (token: string, boardId: string): AxiosPromise<BoardResponse> => {
   return Axios(token).get(`${path}/${boardId}`);
-}
+};
 
 /**
  * ボード複数件取得のAPIを実行する。
@@ -40,6 +40,29 @@ const getSingle = (token: string, boardId: string): AxiosPromise<BoardResponse> 
  */
 const get = (token: string, params: BoardsQueryParams): AxiosPromise<BoardsResponse> => {
   return Axios(token).get(path, {params});
-}
+};
 
-export default { post, getSingle, get };
+/**
+ * ボード1件削除のAPIを実行する。
+ *
+ * @param token トークン.
+ * @param boardId ボードID.
+ */
+const remove = (token: string, boardId: string): AxiosPromise<BoardResponse> => {
+  return Axios(token).delete(`${path}/${boardId}`);
+};
+
+/**
+ * ボード1件更新のAPIを実行する。
+ *
+ * @param token トークン.
+ * @param requestBody リクエストボディ.
+ */
+const patch = (token: string, requestBody: BoardRequest): AxiosPromise<BoardResponse> => {
+  return Axios(token).patch(`${path}/${requestBody.boardId}`, {
+    'title': requestBody.title,
+    'body': requestBody.body,
+  });
+};
+
+export default { post, getSingle, get, remove, patch };
