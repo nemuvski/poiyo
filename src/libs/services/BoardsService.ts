@@ -1,5 +1,5 @@
 /**
- * 認証をして、アカウント情報を取得.
+ * ボードに関するサービス関数を定義.
  */
 
 import BoardsApi from "../api/BoardsApi";
