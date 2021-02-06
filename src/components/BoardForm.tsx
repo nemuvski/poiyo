@@ -19,6 +19,30 @@ type BoardFormFields = {
   body: string;
 };
 
+// 各フィールドのルール.
+const fieldRules = {
+  text: {
+    required: {
+      value: true,
+      message: '必須項目です。',
+    },
+    maxLength: {
+      value: 200,
+      message: '文字数オーバーです。',
+    }
+  },
+  body: {
+    required: {
+      value: true,
+        message: '必須項目です。',
+    },
+    maxLength: {
+      value: 1000,
+        message: '文字数オーバーです。',
+    },
+  },
+};
+
 const BoardForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(false);
@@ -32,9 +56,12 @@ const BoardForm: React.FC<Props> = (props: Props) => {
     errors,
     watch,
   } = useForm({
-    // formState.isValidを使うため.
-    mode: 'onChange',
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    criteriaMode: "firstError",
   });
+
+  // プレビューで利用.
   const watchBody = watch('body', props.board ? props.board.body : '');
 
   const onSubmit = (data: BoardFormFields) => {
@@ -43,21 +70,44 @@ const BoardForm: React.FC<Props> = (props: Props) => {
       return;
     }
     setLoading(true);
-    BoardsService.create(account.token, data.title, data.body, account.id)
-      .then(board => {
-        const state: BoardLocationState = {board};
-        history.replace({
-          pathname: `/board/${board.boardId}`,
-          state,
+    if (props.board) {
+      // ボードを更新する.
+      const newBoard = props.board;
+      newBoard.title = data.title;
+      newBoard.body = data.body;
+      BoardsService.update(account.token, newBoard)
+        .then(updatedBoard => {
+          const state: BoardLocationState = {board: updatedBoard};
+          history.replace({
+            pathname: `/board/${updatedBoard.boardId}`,
+            state,
+          });
+        })
+        .catch(error => {
+          console.error('ボード更新に失敗しました。');
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-      })
-      .catch(error => {
-        console.error('ボード作成に失敗しました。');
-        console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    } else {
+      // ボードを新規作成する.
+      BoardsService.create(account.token, data.title, data.body, account.id)
+        .then(createdBoard => {
+          const state: BoardLocationState = {board: createdBoard};
+          history.replace({
+            pathname: `/board/${createdBoard.boardId}`,
+            state,
+          });
+        })
+        .catch(error => {
+          console.error('ボード作成に失敗しました。');
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   return (
@@ -76,16 +126,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           name="title"
           maxLength={200}
           defaultValue={props.board ? props.board.title : ''}
-          ref={register({
-            required: {
-              value: true,
-              message: '必須項目です。',
-            },
-            maxLength: {
-              value: 200,
-              message: '文字数オーバーです。',
-            }
-          })}
+          ref={register(fieldRules.text)}
         />
         <p className="board-form__field-help">200文字以内</p>
         {errors.title && <p className="board-form__field-invalid">{ errors.title.message }</p>}
@@ -114,16 +155,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           name="body"
           maxLength={1000}
           defaultValue={props.board ? props.board.body : ''}
-          ref={register({
-            required: {
-              value: true,
-              message: '必須項目です。',
-            },
-            maxLength: {
-              value: 1000,
-              message: '文字数オーバーです。',
-            },
-          })}
+          ref={register(fieldRules.body)}
         />
         {previewMode && (
           <div
@@ -152,7 +184,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
         </button>
         <button
           type="submit"
-          disabled={!formState.isValid || formState.isSubmitting}
+          disabled={formState.isSubmitting}
         >
           内容を保存
         </button>
