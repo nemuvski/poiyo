@@ -14,8 +14,6 @@ import {CommentListContext} from "../contexts/CommentListContext";
 type Props = {
   board: Board;
   comment?: Comment;
-  afterCreated: (comment: Comment) => void;
-  afterUpdated: (comment: Comment) => void;
 };
 
 // inputまたはtextareaのnameに相当する.
@@ -67,8 +65,9 @@ const CommentForm: React.FC<Props> = (props: Props) => {
     setLoading(true);
 
     CommentsService.create(account.token, props.board.boardId, account.id, data.body)
-      .then(createComment => {
-        props.afterCreated(createComment);
+      .then(() => {
+        // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
+        loadLatestPage(props.board.boardId);
       })
       .catch(error => {
         console.error('ボード作成に失敗しました。');
@@ -77,8 +76,6 @@ const CommentForm: React.FC<Props> = (props: Props) => {
       .finally(() => {
         setLoading(false);
         closeModal();
-        // 終了後、最新のコメントを読み込みコメント一覧に反映する.
-        loadLatestPage(props.board.boardId);
       });
   };
 
