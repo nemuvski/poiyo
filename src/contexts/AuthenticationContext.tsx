@@ -7,13 +7,13 @@ import FullWideLoading from "../components/FullWideLoading";
 
 type Props = {
   children?: React.ReactNode;
-}
+};
 
 type Context = {
   account: Account | null;
   signIn: () => void;
   signOut: () => void;
-}
+};
 
 export const AuthenticationContext: React.Context<Context> = createContext<Context>({
   account: null,
