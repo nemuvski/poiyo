@@ -19,11 +19,13 @@ const Modal: React.FC<Props> = (props: Props) => {
       <>
         {isModalOpen && (
           <div className="modal" onClick={() => closeModal()}>
-            <div className="modal__content" onClick={event => event.stopPropagation()}>
-              {props.children}
-            </div>
-            <div className="modal__close">
-              <img alt="×" src={closeIcon} /><span>閉じる</span>
+            <div className="modal__inner">
+              <div className="modal__content" onClick={event => event.stopPropagation()}>
+                {props.children}
+              </div>
+              <div className="modal__close">
+                <img alt="×" src={closeIcon} /><span>閉じる</span>
+              </div>
             </div>
           </div>
         )}

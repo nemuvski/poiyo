@@ -8,15 +8,18 @@
   bottom: 0;
   left: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2em $inner-margin;
+  padding: 1.5em $inner-margin;
+  overflow: hidden auto;
   background-color: rgba($color-storm-dust, 0.75);
 
-  &__content {
+  &__inner {
     max-width: 800px;
     width: 100%;
+    margin: auto;
+  }
+
+  &__content {
     margin-bottom: 1.5em;
     padding: 1em;
     background-color: $color-white;
@@ -24,6 +27,7 @@
   }
 
   &__close {
+    text-align: center;
     color: $color-white;
     font-size: 1.2em;
     font-weight: bold;
