@@ -23,7 +23,7 @@ const CommentItem: React.FC<Props> = (props: Props) => {
       history.replace('/dashboard');
       return;
     }
-    if (!confirm('ボードを削除しますがよろしいですか？')) {
+    if (!confirm('コメントを削除しますがよろしいですか？')) {
       return;
     }
     deleteComment(props.comment);
@@ -42,8 +42,8 @@ const CommentItem: React.FC<Props> = (props: Props) => {
 
       {props.comment.ownerAccountId == account?.id && (
         <div className="comment-item__actions">
-          <button type="button">編集</button>
           <button type="button" className="is-red" onClick={() => handleDeleteButtonClick()}>削除</button>
+          <button type="button">編集</button>
         </div>
       )}
     </div>

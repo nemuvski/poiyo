@@ -3,8 +3,9 @@
 .comment-item {
   @include shadow;
 
+  position: relative;
   width: 100%;
-  padding: 0.75em;
+  padding: 1em;
   margin-bottom: 1.5em;
 
   &:last-child {
@@ -13,7 +14,7 @@
 
   &__date {
     display: block;
-    margin-top: 0.75em;
+    margin-top: 1em;
     text-align: right;
     font-size: 0.8em;
     color: $color-storm-dust;
@@ -29,6 +30,21 @@
       background-position: center;
       background-size: contain;
       vertical-align: middle;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    bottom: 0.75em;
+    left: 1em;
+
+    > button {
+      padding: 0.4em 0.6em;
+      font-size: 0.8em;
+      font-weight: normal;
+    }
+    > button:not(:first-child) {
+      margin-left: 0.5em;
     }
   }
 }
