@@ -3,7 +3,7 @@
 .board-card {
   @include bp($bp-m-min) {
     position: sticky;
-    top: 3.5em;
+    top: $inner-margin;
   }
 
   &__inner {

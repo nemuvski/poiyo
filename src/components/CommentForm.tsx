@@ -9,12 +9,11 @@ import "../styles/components/comment-form.scss";
 import CommentsService from "../libs/services/CommentsService";
 import {ModalContext} from "../contexts/ModalContext";
 import CompactLoading from "./CompactLoading";
+import {CommentListContext} from "../contexts/CommentListContext";
 
 type Props = {
   board: Board;
   comment?: Comment;
-  afterCreated: (comment: Comment) => void;
-  afterUpdated: (comment: Comment) => void;
 };
 
 // inputまたはtextareaのnameに相当する.
@@ -38,6 +37,7 @@ const fieldRules = {
 
 const CommentForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
+  const { loadLatestPage } = useContext(CommentListContext);
   const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
@@ -65,8 +65,9 @@ const CommentForm: React.FC<Props> = (props: Props) => {
     setLoading(true);
 
     CommentsService.create(account.token, props.board.boardId, account.id, data.body)
-      .then(createComment => {
-        props.afterCreated(createComment);
+      .then(() => {
+        // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
+        loadLatestPage(props.board.boardId);
       })
       .catch(error => {
         console.error('ボード作成に失敗しました。');

@@ -1,0 +1,50 @@
+@import "../import";
+
+.comment-item {
+  @include shadow;
+
+  position: relative;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1.5em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__date {
+    display: block;
+    margin-top: 1em;
+    text-align: right;
+    font-size: 0.8em;
+    color: $color-storm-dust;
+
+    &::before {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 0.3em;
+      content: "";
+      background-image: url(../../assets/icons/pen.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      vertical-align: middle;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    bottom: 0.75em;
+    left: 1em;
+
+    > button {
+      padding: 0.4em 0.6em;
+      font-size: 0.8em;
+      font-weight: normal;
+    }
+    > button:not(:first-child) {
+      margin-left: 0.5em;
+    }
+  }
+}
