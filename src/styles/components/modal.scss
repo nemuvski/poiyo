@@ -1,0 +1,41 @@
+@import "../import";
+
+.modal {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 1.5em $inner-margin;
+  overflow: hidden auto;
+  background-color: rgba($color-storm-dust, 0.75);
+
+  &__inner {
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+  }
+
+  &__content {
+    margin-bottom: 1.5em;
+    padding: 1em;
+    background-color: $color-white;
+    border-radius: 0.5em;
+  }
+
+  &__close {
+    text-align: center;
+    color: $color-white;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    > img {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+    }
+  }
+}

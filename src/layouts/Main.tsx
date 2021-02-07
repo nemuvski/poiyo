@@ -11,6 +11,7 @@ import '../styles/layouts/main.scss';
 import BoardDetail from "../screens/BoardDetail";
 import Search from "../screens/Search";
 import EditBoard from "../screens/EditBoard";
+import {ModalProvider} from "../contexts/ModalContext";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -40,7 +41,7 @@ const Main: React.FC = () => {
           } />
           <Route path="/board/:bid" render={props => !account
             ? <Redirect to="/" />
-            : <BoardDetail {...props} />
+            : <ModalProvider><BoardDetail {...props} /></ModalProvider>
           }/>
           <Route exact path="/" render={() => account
             ? <Redirect to="/dashboard" />
