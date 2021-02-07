@@ -58,7 +58,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
-    criteriaMode: "firstError",
+    criteriaMode: 'firstError',
   });
 
   // プレビューで利用.

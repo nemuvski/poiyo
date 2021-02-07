@@ -1,0 +1,76 @@
+@import "../import";
+
+.comment-form {
+  &__field {
+    position: relative;
+  }
+  &__field > button {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: 13em;
+    padding: 0.5em 0;
+    font-size: 0.825em;
+    font-weight: normal;
+  }
+
+  &__field-label {
+    display: block;
+    margin-bottom: 0.75em;
+    font-weight: bold;
+
+    &::after {
+      display: inline-block;
+      margin-left: 0.25em;
+      content: "*";
+      color: $color-chestnut;
+    }
+  }
+
+  &__field-value {
+    min-height: 200px;
+    max-height: 200px;
+    height: 200px;
+
+    &.is-hidden {
+      display: none;
+    }
+  }
+
+  &__field-preview {
+    @include shadow(false, $color-fountain-blue);
+
+    height: 200px;
+    padding: 0.75em 1em;
+    overflow-y: auto;
+
+    &.is-invalid {
+      border-color: $color-chestnut;
+    }
+  }
+
+  &__field-help {
+    margin: 0.25em 0 0;
+    font-size: 0.9em;
+    text-align: right;
+  }
+
+  &__field-invalid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10em;
+    margin: 0;
+    font-size: 0.9em;
+    color: $color-chestnut;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.75em;
+    > button:not(:first-child) {
+      margin-left: 1.5em;
+    }
+  }
+}

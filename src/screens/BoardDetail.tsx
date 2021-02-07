@@ -8,6 +8,10 @@ import FullWideLoading from "../components/FullWideLoading";
 import NotFound from "./NotFound";
 import '../styles/screens/page-board-detail.scss';
 import BoardCard from "../components/BoardCard";
+import Modal from "../components/Modal";
+import {ModalContext} from "../contexts/ModalContext";
+import commentIcon from "../assets/icons/comment.svg";
+import CommentForm from "../components/CommentForm";
 
 type Params = {
   bid: string;
@@ -17,6 +21,7 @@ type Props = RouteComponentProps<Params>;
 const BoardDetail: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const {account} = useContext(AuthenticationContext);
+  const {openModal} = useContext(ModalContext);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
 
@@ -57,13 +62,35 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
       {loading && <FullWideLoading />}
       {board
         ? (
-          <div className="page-board-detail__inner">
-            <div className="page-board-detail__card">
-              <BoardCard board={board} />
+          <>
+            <div className="page-board-detail__inner">
+              <div className="page-board-detail__card">
+                <BoardCard board={board} />
+              </div>
+              <div className="page-board-detail__comment-list">
+                <button
+                  type="button"
+                  className="page-board-detail__comment-button is-black"
+                  onClick={() => openModal()}
+                >
+                  <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
+                  ボードにコメントする
+                </button>
+              </div>
             </div>
-            <div className="page-board-detail__comment-list">
-            </div>
-          </div>
+
+            <button
+              type="button"
+              className="page-board-detail__fixed-comment-button is-black"
+              onClick={() => openModal()}
+            >
+              <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
+            </button>
+
+            <Modal>
+              <CommentForm board={board} />
+            </Modal>
+          </>
         )
         : <NotFound />
       }
