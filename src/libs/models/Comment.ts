@@ -1,6 +1,7 @@
 /**
  * コメントAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
+import {Board} from "./Board";
 
 export interface CommentRequest {
   commentId: string | null;
@@ -28,6 +29,11 @@ export interface CommentsQueryParams {
   page: number;
   num_per_page: number;
   board_id: string;
+}
+
+// ボード一覧コンポーネントへ渡すプロパティ.
+export interface CommentListProps {
+  board: Board;
 }
 
 // 処理で利用するモデル.

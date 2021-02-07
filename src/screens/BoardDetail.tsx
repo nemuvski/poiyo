@@ -12,6 +12,7 @@ import Modal from "../components/Modal";
 import {ModalContext} from "../contexts/ModalContext";
 import commentIcon from "../assets/icons/comment.svg";
 import CommentForm from "../components/CommentForm";
+import CommentList from "../components/CommentList";
 
 type Params = {
   bid: string;
@@ -76,6 +77,8 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
                   <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
                   ボードにコメントする
                 </button>
+
+                <CommentList board={board} />
               </div>
             </div>
 
