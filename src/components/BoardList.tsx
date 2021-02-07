@@ -68,7 +68,7 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
 
       {(boardList != null && nextPage >= 1) && (
         <div className="board-list__more">
-          <button type="button" onClick={handleClickMore} disabled={loading}>さらにボードを読み込む</button>
+          <button type="button" onClick={() => handleClickMore()} disabled={loading}>さらにボードを読み込む</button>
         </div>
       )}
     </div>
