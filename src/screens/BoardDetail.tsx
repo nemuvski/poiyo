@@ -88,7 +88,15 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
             </button>
 
             <Modal>
-              <CommentForm board={board} />
+              <CommentForm
+                board={board}
+                afterCreated={(comment) => {
+                  console.log(comment);
+                }}
+                afterUpdated={(comment) => {
+                  console.log(comment);
+                }}
+              />
             </Modal>
           </>
         )
