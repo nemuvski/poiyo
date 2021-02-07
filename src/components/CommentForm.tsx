@@ -9,6 +9,7 @@ import "../styles/components/comment-form.scss";
 import CommentsService from "../libs/services/CommentsService";
 import {ModalContext} from "../contexts/ModalContext";
 import CompactLoading from "./CompactLoading";
+import {CommentListContext} from "../contexts/CommentListContext";
 
 type Props = {
   board: Board;
@@ -38,6 +39,7 @@ const fieldRules = {
 
 const CommentForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
+  const { loadLatestPage } = useContext(CommentListContext);
   const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
@@ -75,6 +77,8 @@ const CommentForm: React.FC<Props> = (props: Props) => {
       .finally(() => {
         setLoading(false);
         closeModal();
+        // 終了後、最新のコメントを読み込みコメント一覧に反映する.
+        loadLatestPage(props.board.boardId);
       });
   };
 

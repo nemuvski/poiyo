@@ -59,6 +59,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
 
   const loadLatestPage = (boardId: string) => {
     setLoading(true);
+    setCommentList(null);
     getResources(1, boardId)
       .then(resources => {
         setCommentList(resources.items);
