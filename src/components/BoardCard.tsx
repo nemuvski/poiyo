@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Board, BoardLocationState} from "../libs/models/Board";
 import Dayjs, {formatYMD} from '../libs/common/Dayjs';
 import '../styles/components/board-item.scss';
@@ -9,6 +9,7 @@ import ShadowBox from "./ShadowBox";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 import {useHistory} from "react-router-dom";
 import BoardsService from "../libs/services/BoardsService";
+import settingsIcon from "../assets/icons/settings.svg";
 
 type Props = {
   board: Board | null;
@@ -17,6 +18,7 @@ type Props = {
 const BoardCard: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
   const history = useHistory();
+  const [isOpenActions, setIsOpenActions] = useState(false);
 
   const handleEditButtonClick = () => {
     history.push('/edit-board', {
@@ -50,19 +52,25 @@ const BoardCard: React.FC<Props> = (props: Props) => {
             <div className="board-card__inner">
               <h1 className="board-card__title">{props.board.title}</h1>
               <div className="board-card__meta">
+                {(account && account.id && account.id == props.board.ownerAccountId) && (
+                  <div className="board-card__action-area">
+                    <div className="board-card__toggle" onClick={() => setIsOpenActions(!isOpenActions)}>
+                      <img alt="設定" title="編集/削除のメニューを開閉をします。" src={settingsIcon} />
+                    </div>
+                    {isOpenActions && (
+                      <ul className="board-card__actions">
+                        <li onClick={() => handleEditButtonClick()}>編集</li>
+                        <li onClick={() => handleDeleteButtonClick()}>削除</li>
+                      </ul>
+                    )}
+                  </div>
+                )}
                 <time className="board-card__date">{formatYMD(Dayjs(props.board.createdAt))}</time>
               </div>
               <div
                 className="md board-card__body"
                 dangerouslySetInnerHTML={convertMarkdownTextToHTML(props.board.body)}
               />
-
-              {(account && account.id && account.id == props.board.ownerAccountId) && (
-                <div className="board-card__actions">
-                  <button className="is-red" type="button" onClick={handleDeleteButtonClick}>削除</button>
-                  <button type="button" onClick={handleEditButtonClick}>編集</button>
-                </div>
-              )}
             </div>
           )
           : <CompactLoading />
