@@ -1,12 +1,13 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
+import {useHistory} from "react-router-dom";
 import Dayjs, {formatYMD} from '../libs/common/Dayjs';
 import {Comment} from "../libs/models/Comment";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
-import "../styles/components/comment-item.scss";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import {CommentListContext} from "../contexts/CommentListContext";
 import CommentsService from "../libs/services/CommentsService";
-import {useHistory} from "react-router-dom";
+import "../styles/components/comment-item.scss";
+import settingsIcon from "../assets/icons/settings.svg";
 
 type Props = {
   comment: Comment;
@@ -16,6 +17,7 @@ const CommentItem: React.FC<Props> = (props: Props) => {
   const history = useHistory();
   const { account } = useContext(AuthenticationContext);
   const { deleteComment } = useContext(CommentListContext);
+  const [isOpenActions, setIsOpenActions] = useState(false);
 
   const handleDeleteButtonClick = () => {
     if (!account) {
@@ -41,9 +43,16 @@ const CommentItem: React.FC<Props> = (props: Props) => {
       </time>
 
       {props.comment.ownerAccountId == account?.id && (
-        <div className="comment-item__actions">
-          <button type="button" className="is-red" onClick={() => handleDeleteButtonClick()}>削除</button>
-          <button type="button">編集</button>
+        <div className="comment-item__action-area">
+          <div className="comment-item__toggle" onClick={() => setIsOpenActions(!isOpenActions)}>
+            <img alt="設定" title="編集/削除のメニューを開閉をします。" src={settingsIcon} />
+          </div>
+          {isOpenActions && (
+            <ul className="comment-item__actions">
+              <li>編集</li>
+              <li onClick={() => handleDeleteButtonClick()}>削除</li>
+            </ul>
+          )}
         </div>
       )}
     </div>
