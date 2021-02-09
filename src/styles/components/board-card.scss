@@ -39,6 +39,7 @@
   }
 
   &__meta {
+    position: relative;
     margin: 1.5em 0;
     text-align: right;
   }
@@ -61,12 +62,42 @@
     }
   }
 
+  &__action-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__toggle {
+    width: 1.25em;
+    height: 1.25em;
+    cursor: pointer;
+  }
+
   &__actions {
-    margin-top: 1.5em;
+    @include shadow;
+
+    z-index: 80;
+    position: absolute;
+    bottom: 1.6em;
+    left: 0;
+    width: 4em;
+    margin: 0;
+    padding: 0;
     text-align: center;
 
-    > button {
-      margin: 0 0.75em;
+    > li {
+      padding: 0.5em 0;
+      cursor: pointer;
+      font-size: 0.85em;
+
+      &:not(:first-child) {
+        border-top: 1px dotted $color-quill-gray;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

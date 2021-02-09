@@ -33,18 +33,42 @@
     }
   }
 
-  &__actions {
+  &__action-area {
     position: absolute;
-    bottom: 0.75em;
+    bottom: 0.9em;
     left: 1em;
+  }
 
-    > button {
-      padding: 0.4em 0.6em;
-      font-size: 0.8em;
-      font-weight: normal;
-    }
-    > button:not(:first-child) {
-      margin-left: 0.5em;
+  &__toggle {
+    width: 1.125em;
+    height: 1.125em;
+    cursor: pointer;
+  }
+
+  &__actions {
+    @include shadow;
+
+    z-index: 80;
+    position: absolute;
+    bottom: 1.3em;
+    left: 0;
+    width: 4em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    > li {
+      padding: 0.5em 0;
+      cursor: pointer;
+      font-size: 0.85em;
+
+      &:not(:first-child) {
+        border-top: 1px dotted $color-quill-gray;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
