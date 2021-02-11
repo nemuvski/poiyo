@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=https://poiyo.app react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint src/",
     "test": "jest",

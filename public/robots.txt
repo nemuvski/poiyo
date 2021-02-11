@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow: /sign-out
+Disallow: /dashboard
+Disallow: /create-board
+Disallow: /edit-board
+Disallow: /search
+Disallow: /board/*
+Sitemap: https://poiyo.app/sitemap.xml
