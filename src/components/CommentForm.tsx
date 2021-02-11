@@ -3,7 +3,6 @@ import {useForm} from "react-hook-form";
 import clsx from "clsx";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import {Board} from "../libs/models/Board";
-import {Comment} from "../libs/models/Comment";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 import "../styles/components/comment-form.scss";
 import CommentsService from "../libs/services/CommentsService";
@@ -13,7 +12,6 @@ import {CommentListContext} from "../contexts/CommentListContext";
 
 type Props = {
   board: Board;
-  comment?: Comment;
 };
 
 // inputまたはtextareaのnameに相当する.
@@ -37,7 +35,7 @@ const fieldRules = {
 
 const CommentForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
-  const { loadLatestPage } = useContext(CommentListContext);
+  const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
   const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
@@ -55,7 +53,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
   });
 
   // プレビューで利用.
-  const watchBody = watch('body', props.comment ? props.comment.body : '');
+  const watchBody = watch('body', operatingComment ? operatingComment.body : '');
 
   const onSubmit = (data: CommentFormFields) => {
     if (!account) {
@@ -64,19 +62,35 @@ const CommentForm: React.FC<Props> = (props: Props) => {
     }
     setLoading(true);
 
-    CommentsService.create(account.token, props.board.boardId, account.id, data.body)
-      .then(() => {
-        // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
-        loadLatestPage(props.board.boardId);
-      })
-      .catch(error => {
-        console.error('ボード作成に失敗しました。');
-        console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
-        closeModal();
-      });
+    // 操作対象のCommentオブジェクトが設定されているときは更新処理と判定.
+    // ※CommentListContextを参照.
+    if (operatingComment) {
+      const editedComment = {...operatingComment};
+      editedComment.body = data.body;
+      updateComment(editedComment)
+        .catch(error => {
+          console.error('コメント更新に失敗しました。');
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+          closeModal();
+        });
+    } else {
+      CommentsService.create(account.token, props.board.boardId, account.id, data.body)
+        .then(() => {
+          // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
+          loadLatestPage(props.board.boardId);
+        })
+        .catch(error => {
+          console.error('コメント作成に失敗しました。');
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+          closeModal();
+        });
+    }
   };
 
   return (
@@ -108,7 +122,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
                 }
                 name="body"
                 maxLength={500}
-                defaultValue={props.comment ? props.comment.body : ''}
+                defaultValue={operatingComment ? operatingComment.body : ''}
                 ref={register(fieldRules.body)}
               />
               {previewMode && (
@@ -135,7 +149,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
                 disabled={formState.isSubmitting}
                 onClick={() => reset()}
               >
-                {props.comment ? '元に戻す' : 'クリア'}
+                {operatingComment ? '元に戻す' : 'クリア'}
               </button>
               <button
                 type="submit"
