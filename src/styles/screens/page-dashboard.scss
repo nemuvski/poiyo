@@ -1,0 +1,48 @@
+@import "../import";
+
+.page-dashboard {
+  > h2 {
+    position: relative;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: calc((100% - 9em) / 2);
+      content: "";
+      height: 1px;
+      //background-color: $color-quill-gray;
+      border-bottom: 1px dashed $color-quill-gray;
+    }
+    &::before {
+      left: 0;
+    }
+    &::after {
+      right: 0;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 3em;
+  }
+  &__links > button {
+    width: 100%;
+
+    @include bp($bp-xs-max, false) {
+      &:not(:first-child) {
+        margin-top: 1.5em;
+      }
+    }
+    @include bp($bp-s-min) {
+      width: calc((100% - 1.5em) / 2);
+    }
+  }
+  &__links img {
+    width: 1.75em;
+    margin-right: 0.75em;
+  }
+}

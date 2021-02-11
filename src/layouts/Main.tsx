@@ -13,6 +13,7 @@ import Search from "../screens/Search";
 import EditBoard from "../screens/EditBoard";
 import {ModalProvider} from "../contexts/ModalContext";
 import {CommentListProvider} from "../contexts/CommentListContext";
+import Dashboard from "../screens/Dashboard";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -39,7 +40,7 @@ const Main: React.FC = () => {
             } />
             <Route exact path="/dashboard" render={() => !account
               ? <Redirect to="/" />
-              : <p>Dashboard</p>
+              : <Dashboard />
             } />
             <Route path="/board/:bid" render={props => !account
               ? <Redirect to="/" />
