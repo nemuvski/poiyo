@@ -1,36 +1,39 @@
 import React, {useContext, useState} from 'react';
-import {useHistory} from "react-router-dom";
 import Dayjs, {formatYMD} from '../libs/common/Dayjs';
 import {Comment} from "../libs/models/Comment";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import {CommentListContext} from "../contexts/CommentListContext";
-import CommentsService from "../libs/services/CommentsService";
-import "../styles/components/comment-item.scss";
+import {ModalContext} from "../contexts/ModalContext";
 import settingsIcon from "../assets/icons/settings.svg";
+import "../styles/components/comment-item.scss";
 
 type Props = {
   comment: Comment;
 };
 
 const CommentItem: React.FC<Props> = (props: Props) => {
-  const history = useHistory();
   const { account } = useContext(AuthenticationContext);
-  const { deleteComment } = useContext(CommentListContext);
+  const { deleteComment, setupOperatingComment } = useContext(CommentListContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
+  const {openModal} = useContext(ModalContext);
+
+  const handleEditButtonClick = () => {
+    // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
+    setupOperatingComment(props.comment);
+    setIsOpenActions(false);
+    openModal();
+  };
 
   const handleDeleteButtonClick = () => {
-    if (!account) {
-      console.error('問題が発生したため処理を中断し、ダッシュボードへ遷移します。');
-      history.replace('/dashboard');
-      return;
-    }
     if (!confirm('コメントを削除しますがよろしいですか？')) {
       return;
     }
-    deleteComment(props.comment);
-    CommentsService.remove(account.token, props.comment.boardId, props.comment.commentId)
+    setupOperatingComment(props.comment);
+    setIsOpenActions(false);
+    deleteComment()
       .catch(error => {
+        console.error('コメント削除に失敗しました。');
         console.error(error);
       });
   };
@@ -49,7 +52,7 @@ const CommentItem: React.FC<Props> = (props: Props) => {
           </div>
           {isOpenActions && (
             <ul className="comment-item__actions">
-              <li>編集</li>
+              <li onClick={() => handleEditButtonClick()}>編集</li>
               <li onClick={() => handleDeleteButtonClick()}>削除</li>
             </ul>
           )}

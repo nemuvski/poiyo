@@ -9,8 +9,11 @@ type Props = {
 
 type Context = {
   commentList: Array<Comment>|null;
-  updateComment: (comment: Comment) => void;
-  deleteComment: (comment: Comment) => void;
+  // 編集・削除するCommentオブジェクト.
+  operatingComment: Comment|null;
+  setupOperatingComment: (comment: Comment|null) => void;
+  updateComment: (editedComment: Comment) => Promise<void>;
+  deleteComment: () => Promise<void>;
   nextPage: number;
   loading: boolean;
   loadLatestPage: (boardId: string) => void;
@@ -19,8 +22,10 @@ type Context = {
 
 export const CommentListContext: React.Context<Context> = createContext<Context>({
   commentList: [],
-  updateComment: () => null,
-  deleteComment: () => null,
+  operatingComment: null,
+  setupOperatingComment: () => null,
+  updateComment: async () => { return; },
+  deleteComment: async () => { return; },
   nextPage: -1,
   loading: false,
   loadLatestPage: () => null,
@@ -30,6 +35,7 @@ export const CommentListContext: React.Context<Context> = createContext<Context>
 export const CommentListProvider: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
   const [commentList, setCommentList] = useState<Array<Comment>|null>(null);
+  const [operatingComment, setOperatingComment] = useState<Comment|null>(null);
   const [loading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(-1);
 
@@ -70,33 +76,59 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
       });
   };
 
-  const updateComment = (comment: Comment) => {
-    if (commentList == null) {
-      return;
-    }
-    for (let index = 0; index < commentList.length; index++) {
-      if (commentList[index].commentId == comment.commentId) {
-        const tempCommentList = commentList;
-        tempCommentList[index] = comment;
-        setCommentList(tempCommentList);
-        break;
-      }
-    }
+  const setupOperatingComment = (comment: Comment|null) => {
+    setOperatingComment(comment);
   };
 
-  const deleteComment = (comment: Comment) => {
-    if (commentList == null) {
-      return;
+  const updateComment = async (editedComment: Comment) => {
+    if (!account || commentList == null || operatingComment == null) {
+      setOperatingComment(null);
+      throw new Error('処理中に問題があったため、コメントの更新処理は中断されました。');
     }
-    setCommentList(commentList.filter((c) => {
-      return c.commentId != comment.commentId;
-    }));
+    return await CommentsService.update(account.token, editedComment)
+      .then((responseComment) => {
+        for (let index = 0; index < commentList.length; index++) {
+          if (commentList[index].commentId == responseComment.commentId) {
+            const tempCommentList = commentList;
+            tempCommentList[index] = responseComment;
+            setCommentList(tempCommentList);
+            break;
+          }
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        setOperatingComment(null);
+      });
+  };
+
+  const deleteComment = async () => {
+    if (!account || commentList == null || operatingComment == null) {
+      setOperatingComment(null);
+      throw new Error('処理中に問題があったため、コメントの削除処理は中断されました。');
+    }
+    return await CommentsService.remove(account.token, operatingComment.boardId, operatingComment.commentId)
+      .then(() => {
+        setCommentList(commentList.filter((c) => {
+          return c.commentId != operatingComment.commentId;
+        }));
+      })
+      .catch(error => {
+        console.error(error);
+      })
+      .finally(() => {
+        setOperatingComment(null);
+      });
   };
 
   return (
     <CommentListContext.Provider value={
       {
         commentList,
+        operatingComment,
+        setupOperatingComment,
         updateComment,
         deleteComment,
         nextPage,
