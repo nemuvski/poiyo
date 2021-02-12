@@ -16,6 +16,7 @@ const Footer: React.FC = () => {
             <ul>
               <li><Link to="/terms">利用規約</Link></li>
               <li><Link to="/privacy">プライバシーポリシー</Link></li>
+              <li><Link to="/help">ヘルプ</Link></li>
               <li>
                 <a href="https://koredana.info/" target="_blank" rel="noreferrer noopener">
                   <img src={koredanaLogo} alt="コレ棚" className="footer__koredana-logo" />

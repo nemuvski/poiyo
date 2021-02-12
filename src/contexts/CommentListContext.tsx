@@ -9,11 +9,11 @@ type Props = {
 
 type Context = {
   commentList: Array<Comment>|null;
-  // 編集・削除するCommentオブジェクト.
+  // 編集するCommentオブジェクト. (編集モーダルで対象のCommentオブジェクトを特定するために必要)
   operatingComment: Comment|null;
   setupOperatingComment: (comment: Comment|null) => void;
   updateComment: (editedComment: Comment) => Promise<void>;
-  deleteComment: () => Promise<void>;
+  deleteComment: (targetComment: Comment) => Promise<void>;
   nextPage: number;
   loading: boolean;
   loadLatestPage: (boardId: string) => void;
@@ -104,22 +104,18 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
       });
   };
 
-  const deleteComment = async () => {
-    if (!account || commentList == null || operatingComment == null) {
-      setOperatingComment(null);
+  const deleteComment = async (targetComment: Comment) => {
+    if (!account || commentList == null) {
       throw new Error('処理中に問題があったため、コメントの削除処理は中断されました。');
     }
-    return await CommentsService.remove(account.token, operatingComment.boardId, operatingComment.commentId)
+    return await CommentsService.remove(account.token, targetComment.boardId, targetComment.commentId)
       .then(() => {
         setCommentList(commentList.filter((c) => {
-          return c.commentId != operatingComment.commentId;
+          return c.commentId != targetComment.commentId;
         }));
       })
       .catch(error => {
         console.error(error);
-      })
-      .finally(() => {
-        setOperatingComment(null);
       });
   };
 

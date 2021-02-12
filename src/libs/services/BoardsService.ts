@@ -32,12 +32,11 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
  * @param token トークン.
  * @param boardId ボードID.
  */
-const getSingle = (token: string, boardId: string): Promise<Board | null> => {
+const getSingle = (token: string, boardId: string): Promise<Board> => {
   return BoardsApi.getSingle(token, boardId)
     .then(response => {
-      // HTTPステータスコード 204 (NoContent)
       if (response.status == 204) {
-        return null;
+        throw new Error('ボードが見つかりませんでした。');
       }
       return new Board(response.data);
     });
@@ -117,11 +116,12 @@ const get = (token: string, keyword: string | null | undefined, accountId: strin
  * @param token トークン.
  * @param boardId ボードID.
  */
-const remove = (token: string, boardId: string): Promise<Board | null> => {
+const remove = (token: string, boardId: string): Promise<void> => {
   return BoardsApi.remove(token, boardId)
     .then(response => {
-      // ボードデータは返ってくるが、各プロパティの内容は空.
-      return new Board(response.data);
+      if (response.status == 204) {
+        throw new Error('ボードが見つからなかったため、削除されませんでした。');
+      }
     });
 };
 
@@ -140,6 +140,9 @@ const update = (token: string, board: Board): Promise<Board> => {
   };
   return BoardsApi.patch(token, boardRequest)
     .then(response => {
+      if (response.status == 204) {
+        throw new Error('ボードが見つからなかったため、更新されませんでした。');
+      }
       return new Board(response.data);
     });
 };

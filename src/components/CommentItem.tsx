@@ -29,11 +29,9 @@ const CommentItem: React.FC<Props> = (props: Props) => {
     if (!confirm('コメントを削除しますがよろしいですか？')) {
       return;
     }
-    setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    deleteComment()
+    deleteComment(props.comment)
       .catch(error => {
-        console.error('コメント削除に失敗しました。');
         console.error(error);
       });
   };
