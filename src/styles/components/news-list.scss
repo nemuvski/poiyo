@@ -1,0 +1,23 @@
+@import "../import";
+
+.news-list {
+  max-height: 20em;
+  overflow-y: auto;
+
+  &__item {
+    padding: 0.6em 0;
+    @include bp($bp-m-min) {
+      display: flex;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px dotted $color-quill-gray;
+    }
+  }
+  &__item-date {
+    font-weight: bold;
+    @include bp($bp-m-min) {
+      flex: 0 0 160px;
+    }
+  }
+}
