@@ -28,8 +28,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
 
   const handleDeleteButtonClick = () => {
     if (!account || !props.board) {
-      console.error('問題が発生したため処理を中断し、ダッシュボードへ遷移します。');
-      history.replace('/dashboard');
+      console.error('処理中に問題があたったため、ボードの削除処理は中断されました。');
       return;
     }
     if (!confirm('ボードを削除しますがよろしいですか？')) {

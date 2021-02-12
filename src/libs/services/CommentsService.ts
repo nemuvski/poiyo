@@ -53,11 +53,12 @@ const get = (token: string, boardId: string, page: number, numPerPage = 50): Pro
  * @param boardId ボードID.
  * @param commentId コメントID.
  */
-const remove = (token: string, boardId: string, commentId: string): Promise<Comment | null> => {
+const remove = (token: string, boardId: string, commentId: string): Promise<void> => {
   return CommentsApi.remove(token, boardId, commentId)
     .then(response => {
-      // ボードデータは返ってくるが、各プロパティの内容は空.
-      return new Comment(response.data);
+      if (response.status == 204) {
+        throw new Error('コメントが見つからなかったため、削除されませんでした。');
+      }
     });
 };
 
@@ -76,6 +77,9 @@ const update = (token: string, comment: Comment): Promise<Comment> => {
   };
   return CommentsApi.patch(token, commentRequest)
     .then(response => {
+      if (response.status == 204) {
+        throw new Error('コメントが見つからなかったため、更新されませんでした。');
+      }
       return new Comment(response.data)
     });
 };
