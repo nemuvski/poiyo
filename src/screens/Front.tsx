@@ -26,7 +26,8 @@ const Front: React.FC = () => {
           <div className="page-front__container">
             <div className="page-front__summary">
               <p><strong>Poiyo</strong>（ぽいよ）は1つの話題ごとに、みんなでコメントし合うコミュニティサービスです。</p>
-              <p>「ちょっと知っていること」や「これってどういうことなんだろう」といったことなどを投稿し、みんなからコメントをもらうことで知見を広げていきましょう。</p>
+              <p>「ちょっと知っていること」や「これってどういうことなんだろう」といったことなどを投稿し、コメントでやりとりしましょう。</p>
+              <p>匿名で気軽にご利用いただけます！</p>
             </div>
             <img src={keyVisual} alt="Poiyo" className="page-front__key-visual" />
           </div>
