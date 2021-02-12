@@ -4,6 +4,7 @@ import firebase from '../firebase';
 import {Account} from '../libs/models/Account';
 import AuthService from "../libs/services/AuthService";
 import FullWideLoading from "../components/FullWideLoading";
+import Tracking from "../utilities/Tracking";
 
 type Props = {
   children?: React.ReactNode;
@@ -37,7 +38,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
         setAccount(null);
       })
       .catch(error => {
-        console.error('サインアウト中にエラーが発生しました。');
+        Tracking.exception('サインアウト中にエラーが発生しました。');
         console.error(error);
       })
       .finally(() => {
@@ -56,7 +57,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
           const accountResponse = await AuthService.auth(idToken, email, uid);
           setAccount(accountResponse);
         } catch (error) {
-          console.error('アカウント認証中にエラーが発生しました。');
+          Tracking.exception('アカウント認証中にエラーが発生しました。');
           console.error(error);
           // JWT取得、認証API実行で問題があった場合はFirebase Authでサインアウト処理を実行する.
           signOut();

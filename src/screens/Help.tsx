@@ -5,13 +5,14 @@ import ArticleInner from "../components/ArticleInner";
 import ArticleSection from "../components/ArticleSection";
 import ArticleSectionContent from "../components/ArticleSectionContent";
 import AccountsService from "../libs/services/AccountsService";
+import Tracking from "../utilities/Tracking";
 
 const Help: React.FC = () => {
   const { account, signOut } = useContext(AuthenticationContext);
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {
-      console.error('アカウント情報がないため、退会処理は実行されませんでした。');
+      Tracking.exception('アカウント情報がないため、退会処理は実行されませんでした。');
       return;
     }
     if (!confirm('サービスを退会しますがよろしいですか？')) {
