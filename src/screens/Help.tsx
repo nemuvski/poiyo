@@ -4,9 +4,27 @@ import {setDocumentTitle} from "../utilities/DocumentTitle";
 import ArticleInner from "../components/ArticleInner";
 import ArticleSection from "../components/ArticleSection";
 import ArticleSectionContent from "../components/ArticleSectionContent";
+import AccountsService from "../libs/services/AccountsService";
 
 const Help: React.FC = () => {
-  const { account } = useContext(AuthenticationContext);
+  const { account, signOut } = useContext(AuthenticationContext);
+
+  const handleSignOffButtonClick = () => {
+    if (!account || !account.token || !account.id) {
+      console.error('アカウント情報がないため、退会処理は実行されませんでした。');
+      return;
+    }
+    if (!confirm('サービスを退会しますがよろしいですか？')) {
+      return;
+    }
+    AccountsService.remove(account.token, account.id)
+      .then(() => {
+        signOut();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     setDocumentTitle('ヘルプ');
@@ -52,7 +70,7 @@ const Help: React.FC = () => {
             <p>退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。</p>
             <div className="align-center">
               {account
-                ? <button className="is-red" type="button">退会する</button>
+                ? <button className="is-red" type="button" onClick={() => handleSignOffButtonClick()}>退会する</button>
                 : <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
               }
             </div>
