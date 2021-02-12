@@ -32,51 +32,49 @@ const Help: React.FC = () => {
 
   return (
     <ArticleInner>
-      <div className="page-help">
-        <h1>ヘルプ</h1>
+      <h1>ヘルプ</h1>
 
-        <ArticleSection>
-          <ArticleSectionContent>
-            <h2>ボードやコメントで使えるマークダウン</h2>
-            <p>制限をかけていますが、以下のものがご利用いただけます。</p>
-            <ul>
-              <li>段落</li>
-              <li>改行</li>
-              <li>太文字</li>
-              <li>斜体</li>
-              <li>取り消し線</li>
-              <li>コード / インラインコード（シンタックスハイライトはされません）</li>
-              <li>リスト</li>
-              <li>引用</li>
-              <li>リンク（デフォルトで別タブで開くようにしています）</li>
-              <li>水平線</li>
-            </ul>
-            <p>class属性やstyle属性は削除されます。</p>
-            <p>記述方法については <a href="https://ja.wikipedia.org/wiki/Markdown" target="_blank" rel="noreferrer noopener">Markdown - Wikipedia</a> をご覧ください。</p>
-          </ArticleSectionContent>
-        </ArticleSection>
+      <ArticleSection>
+        <ArticleSectionContent>
+          <h2>ボードやコメントで使えるマークダウン</h2>
+          <p>制限をかけていますが、以下のものがご利用いただけます。</p>
+          <ul>
+            <li>段落</li>
+            <li>改行</li>
+            <li>太文字</li>
+            <li>斜体</li>
+            <li>取り消し線</li>
+            <li>コード / インラインコード（シンタックスハイライトはされません）</li>
+            <li>リスト</li>
+            <li>引用</li>
+            <li>リンク（デフォルトで別タブで開くようにしています）</li>
+            <li>水平線</li>
+          </ul>
+          <p>class属性やstyle属性は削除されます。</p>
+          <p>記述方法については <a href="https://ja.wikipedia.org/wiki/Markdown" target="_blank" rel="noreferrer noopener">Markdown - Wikipedia</a> をご覧ください。</p>
+        </ArticleSectionContent>
+      </ArticleSection>
 
-        <ArticleSection>
-          <ArticleSectionContent>
-            <h2>ボードとコメントの公開範囲</h2>
-            <p>本サービスのユーザーであればボードとコメントが閲覧できますが、ユーザーでない場合は閲覧できません。</p>
-            <p>機密情報等はトラブルに繋がるため、載せないようよろしくお願いいたします。</p>
-          </ArticleSectionContent>
-        </ArticleSection>
+      <ArticleSection>
+        <ArticleSectionContent>
+          <h2>ボードとコメントの公開範囲</h2>
+          <p>本サービスのユーザーであればボードとコメントが閲覧できますが、ユーザーでない場合は閲覧できません。</p>
+          <p>機密情報等はトラブルに繋がるため、載せないようよろしくお願いいたします。</p>
+        </ArticleSectionContent>
+      </ArticleSection>
 
-        <ArticleSection>
-          <ArticleSectionContent>
-            <h2>退会</h2>
-            <p>退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。</p>
-            <div className="align-center">
-              {account
-                ? <button className="is-red" type="button" onClick={() => handleSignOffButtonClick()}>退会する</button>
-                : <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
-              }
-            </div>
-          </ArticleSectionContent>
-        </ArticleSection>
-      </div>
+      <ArticleSection>
+        <ArticleSectionContent>
+          <h2>退会</h2>
+          <p>退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。</p>
+          <div className="align-center">
+            {account
+              ? <button className="is-red" type="button" onClick={() => handleSignOffButtonClick()}>退会する</button>
+              : <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
+            }
+          </div>
+        </ArticleSectionContent>
+      </ArticleSection>
     </ArticleInner>
   );
 };

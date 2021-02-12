@@ -2,7 +2,7 @@
 
 .article-section-content {
   overflow-wrap: break-word;
-  line-height: 1.7;
+  line-height: 1.9;
 
   > *:first-child {
     margin-top: 0;
@@ -17,17 +17,21 @@
     margin: 0.75em 0;
   }
 
-  p {
-    line-height: 1.7;
+  ul,
+  ol {
+    ul,
+    ol {
+      margin: 0;
+    }
   }
 
   ul {
-    padding-left: 2em;
+    padding-left: 1.7em;
     list-style-type: disc;
   }
 
   ol {
-    padding-left: 2em;
+    padding-left: 1.7em;
     list-style-type: decimal;
   }
 
