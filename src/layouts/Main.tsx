@@ -14,6 +14,7 @@ import EditBoard from "../screens/EditBoard";
 import {ModalProvider} from "../contexts/ModalContext";
 import {CommentListProvider} from "../contexts/CommentListContext";
 import Dashboard from "../screens/Dashboard";
+import Help from "../screens/Help";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -23,6 +24,7 @@ const Main: React.FC = () => {
       <div className="main__inner">
         <ModalProvider>
           <Switch>
+            <Route exact path="/help" component={Help} />
             <Route exact path="/terms" component={Terms} />
             <Route exact path="/privacy" component={Privacy} />
             <Route exact path="/sign-out" component={SignOut} />
