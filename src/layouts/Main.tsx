@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import React, {useContext, useEffect} from 'react';
+import {Route, Switch, Redirect, useHistory} from 'react-router-dom';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import Front from '../screens/Front';
 import CreateBoard from "../screens/CreateBoard";
@@ -15,9 +15,20 @@ import {ModalProvider} from "../contexts/ModalContext";
 import {CommentListProvider} from "../contexts/CommentListContext";
 import Dashboard from "../screens/Dashboard";
 import Help from "../screens/Help";
+import Tracking from "../utilities/Tracking";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    const unsubscribe =  history.listen(() => {
+      Tracking.screenView(window.location.pathname);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <main className="main">

@@ -4,6 +4,7 @@ import {setDocumentTitle} from "../utilities/DocumentTitle";
 import BoardList from "../components/BoardList";
 import searchIcon from '../assets/icons/search-form.svg';
 import '../styles/screens/page-search.scss';
+import Tracking from "../utilities/Tracking";
 
 type SearchFormFields = {
   keyword: string;
@@ -20,6 +21,7 @@ const Search: React.FC = () => {
 
   const onSubmit = (data: SearchFormFields) => {
     setKeyword(data.keyword);
+    Tracking.search(data.keyword);
   };
 
   useEffect(() => {
