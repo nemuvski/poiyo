@@ -10,6 +10,7 @@ import searchIcon from '../assets/icons/search-feature.svg';
 import penIcon from '../assets/icons/pen-feature.svg';
 import '../styles/screens/page-front.scss';
 import {setDocumentTitle} from "../utilities/DocumentTitle";
+import NewsList from "../components/NewsList";
 
 const Front: React.FC = () => {
   const { signIn } = useContext(AuthenticationContext);
@@ -30,6 +31,12 @@ const Front: React.FC = () => {
             <img src={keyVisual} alt="Poiyo" className="page-front__key-visual" />
           </div>
         </ArticleSection>
+
+        <ArticleSection>
+          <h2>お知らせ</h2>
+          <NewsList />
+        </ArticleSection>
+
         <ArticleSection>
           <h2>はじめ方は簡単！</h2>
           <p>
@@ -44,6 +51,7 @@ const Front: React.FC = () => {
             </button>
           </div>
         </ArticleSection>
+
         <ArticleSection>
           <h2>使い方も簡単！</h2>
           <div className="page-front__features">
