@@ -8,7 +8,7 @@ import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
 import {Board, BoardLocationState} from "../libs/models/Board";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
-import Tracking from "../utilities/Tracking";
+import SentryTracking from "../utilities/SentryTracking";
 
 type Props = {
   board?: Board;
@@ -67,7 +67,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
 
   const onSubmit = (data: BoardFormFields) => {
     if (!account) {
-      Tracking.exception('アカウント情報がないため、投稿できませんでした。');
+      SentryTracking.exception('アカウント情報がないため、ボード更新・作成ができませんでした。');
       return;
     }
     setLoading(true);
@@ -85,8 +85,8 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           });
         })
         .catch(error => {
-          Tracking.exception('ボード更新に失敗しました。');
-          console.error(error);
+          SentryTracking.exception('ボード更新に失敗しました。');
+          SentryTracking.exception(error);
         })
         .finally(() => {
           setLoading(false);
@@ -102,8 +102,8 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           });
         })
         .catch(error => {
-          Tracking.exception('ボード作成に失敗しました。');
-          console.error(error);
+          SentryTracking.exception('ボード作成に失敗しました。');
+          SentryTracking.exception(error);
         })
         .finally(() => {
           setLoading(false);

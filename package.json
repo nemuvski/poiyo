@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@firebase/testing": "^0.20.11",
+    "@sentry/react": "^6.1.0",
+    "@sentry/tracing": "^6.1.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",

@@ -15,7 +15,7 @@ import {ModalProvider} from "../contexts/ModalContext";
 import {CommentListProvider} from "../contexts/CommentListContext";
 import Dashboard from "../screens/Dashboard";
 import Help from "../screens/Help";
-import Tracking from "../utilities/Tracking";
+import AnalyticsTracking from "../utilities/AnalyticsTracking";
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -23,7 +23,7 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe =  history.listen(() => {
-      Tracking.screenView(window.location.pathname);
+      AnalyticsTracking.screenView(window.location.pathname);
     });
     return () => {
       unsubscribe();

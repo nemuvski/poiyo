@@ -13,7 +13,7 @@ import {ModalContext} from "../contexts/ModalContext";
 import commentIcon from "../assets/icons/comment.svg";
 import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
-import Tracking from "../utilities/Tracking";
+import SentryTracking from "../utilities/SentryTracking";
 
 type Params = {
   bid: string;
@@ -40,8 +40,8 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
           }
         }
       } catch (error) {
-        Tracking.exception('ボード情報の取得に失敗しました。');
-        console.error(error);
+        SentryTracking.exception('ボード情報の取得に失敗しました。');
+        SentryTracking.exception(error);
       }
     }
 

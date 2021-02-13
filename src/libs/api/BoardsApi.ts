@@ -6,7 +6,7 @@ import Axios from '../common/Axios';
 import {AxiosPromise} from 'axios';
 import {BoardRequest, BoardResponse, BoardsQueryParams, BoardsResponse} from "../models/Board";
 
-const path = '/boards';
+const path = '/api/v1/boards';
 
 /**
  * ボード登録のAPIを実行する。

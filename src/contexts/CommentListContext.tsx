@@ -2,6 +2,7 @@ import React, {createContext, useContext, useState} from 'react';
 import {Comment} from "../libs/models/Comment";
 import CommentsService from "../libs/services/CommentsService";
 import {AuthenticationContext} from "./AuthenticationContext";
+import SentryTracking from "../utilities/SentryTracking";
 
 type Props = {
   children?: React.ReactNode;
@@ -54,7 +55,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
         setCommentList([]);
         setNextPage(-1);
       })
@@ -97,7 +98,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
         }
       })
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
       })
       .finally(() => {
         setOperatingComment(null);
@@ -115,7 +116,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
         }));
       })
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
       });
   };
 
