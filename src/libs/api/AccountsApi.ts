@@ -5,7 +5,7 @@
 import Axios from '../common/Axios';
 import {AxiosPromise} from 'axios';
 
-const path = '/accounts';
+const path = '/api/v1/accounts';
 
 /**
  * アカウント削除のAPIを実行する.

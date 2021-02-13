@@ -6,7 +6,7 @@ import Axios from '../common/Axios';
 import {AxiosPromise} from 'axios';
 import {CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams} from "../models/Comment";
 
-const path = '/comments';
+const path = '/api/v1/comments';
 
 /**
  * コメント登録のAPIを実行する。
