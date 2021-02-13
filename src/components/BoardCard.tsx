@@ -10,7 +10,6 @@ import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
 import {useHistory} from "react-router-dom";
 import BoardsService from "../libs/services/BoardsService";
 import settingsIcon from "../assets/icons/settings.svg";
-import Tracking from "../utilities/Tracking";
 
 type Props = {
   board: Board | null;
@@ -29,7 +28,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
 
   const handleDeleteButtonClick = () => {
     if (!account || !props.board) {
-      Tracking.exception('処理中に問題があたったため、ボードの削除処理は中断されました。');
+      console.error('処理中に問題があたったため、ボードの削除処理は中断されました。');
       return;
     }
     if (!confirm('ボードを削除しますがよろしいですか？')) {

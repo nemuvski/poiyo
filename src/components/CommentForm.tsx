@@ -9,7 +9,6 @@ import CommentsService from "../libs/services/CommentsService";
 import {ModalContext} from "../contexts/ModalContext";
 import CompactLoading from "./CompactLoading";
 import {CommentListContext} from "../contexts/CommentListContext";
-import Tracking from "../utilities/Tracking";
 
 type Props = {
   board: Board;
@@ -58,7 +57,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
 
   const onSubmit = (data: CommentFormFields) => {
     if (!account) {
-      Tracking.exception('アカウント情報がないため、投稿できませんでした。');
+      console.error('アカウント情報がないため、投稿できませんでした。');
       return;
     }
     setLoading(true);
@@ -70,8 +69,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
       editedComment.body = data.body;
       updateComment(editedComment)
         .catch(error => {
-          Tracking.exception('コメント更新に失敗しました。');
-          console.error(error);
+          console.error('コメント更新に失敗しました。', error);
         })
         .finally(() => {
           setLoading(false);
@@ -84,8 +82,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
           loadLatestPage(props.board.boardId);
         })
         .catch(error => {
-          Tracking.exception('コメント作成に失敗しました。');
-          console.error(error);
+          console.error('コメント作成に失敗しました。', error);
         })
         .finally(() => {
           setLoading(false);

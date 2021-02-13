@@ -13,7 +13,6 @@ import {ModalContext} from "../contexts/ModalContext";
 import commentIcon from "../assets/icons/comment.svg";
 import CommentForm from "../components/CommentForm";
 import CommentList from "../components/CommentList";
-import Tracking from "../utilities/Tracking";
 
 type Params = {
   bid: string;
@@ -40,8 +39,7 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
           }
         }
       } catch (error) {
-        Tracking.exception('ボード情報の取得に失敗しました。');
-        console.error(error);
+        console.error('ボード情報の取得に失敗しました。', error);
       }
     }
 

@@ -1,6 +1,7 @@
 /**
  * Firebase Analyticsのトラッキングのヘルパー関数を定義.
  */
+
 import firebase from "../libs/common/Firebase";
 
 const appName = 'poiyo';
@@ -22,13 +23,4 @@ const search = (term: string): void => {
   });
 };
 
-const exception = (description: string, outputConsole = true): void => {
-  if (outputConsole) {
-    console.error(description);
-  }
-  firebase.analytics().logEvent('exception', {
-    description
-  });
-};
-
-export default { screenView, search, exception };
+export default { screenView, search };

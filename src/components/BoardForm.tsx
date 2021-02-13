@@ -8,7 +8,6 @@ import FullWideLoading from "./FullWideLoading";
 import '../styles/components/board-form.scss';
 import {Board, BoardLocationState} from "../libs/models/Board";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
-import Tracking from "../utilities/Tracking";
 
 type Props = {
   board?: Board;
@@ -67,7 +66,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
 
   const onSubmit = (data: BoardFormFields) => {
     if (!account) {
-      Tracking.exception('アカウント情報がないため、投稿できませんでした。');
+      console.error('アカウント情報がないため、投稿できませんでした。');
       return;
     }
     setLoading(true);
@@ -85,8 +84,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           });
         })
         .catch(error => {
-          Tracking.exception('ボード更新に失敗しました。');
-          console.error(error);
+          console.error('ボード更新に失敗しました。', error);
         })
         .finally(() => {
           setLoading(false);
@@ -102,8 +100,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           });
         })
         .catch(error => {
-          Tracking.exception('ボード作成に失敗しました。');
-          console.error(error);
+          console.error('ボード作成に失敗しました。', error);
         })
         .finally(() => {
           setLoading(false);
