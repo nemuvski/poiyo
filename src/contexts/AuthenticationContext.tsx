@@ -1,6 +1,6 @@
 import React, {createContext, useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import firebase from '../firebase';
+import firebase from '../libs/common/Firebase';
 import {Account} from '../libs/models/Account';
 import AuthService from "../libs/services/AuthService";
 import FullWideLoading from "../components/FullWideLoading";
