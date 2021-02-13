@@ -4,6 +4,7 @@ import firebase from '../libs/common/Firebase';
 import {Account} from '../libs/models/Account';
 import AuthService from "../libs/services/AuthService";
 import FullWideLoading from "../components/FullWideLoading";
+import SentryTracking from "../utilities/SentryTracking";
 
 type Props = {
   children?: React.ReactNode;
@@ -37,7 +38,8 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
         setAccount(null);
       })
       .catch(error => {
-        console.error('サインアウト中にエラーが発生しました。', error);
+        SentryTracking.exception('サインアウト中にエラーが発生しました。');
+        SentryTracking.exception(error);
       })
       .finally(() => {
         history.replace('/');
@@ -55,7 +57,8 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
           const accountResponse = await AuthService.auth(idToken, email, uid);
           setAccount(accountResponse);
         } catch (error) {
-          console.error('アカウント認証中にエラーが発生しました。', error);
+          SentryTracking.exception('アカウント認証中にエラーが発生しました。');
+          SentryTracking.exception(error);
           // JWT取得、認証API実行で問題があった場合はFirebase Authでサインアウト処理を実行する.
           signOut();
         }

@@ -7,6 +7,7 @@ import {CommentListContext} from "../contexts/CommentListContext";
 import {ModalContext} from "../contexts/ModalContext";
 import settingsIcon from "../assets/icons/settings.svg";
 import "../styles/components/comment-item.scss";
+import SentryTracking from "../utilities/SentryTracking";
 
 type Props = {
   comment: Comment;
@@ -32,7 +33,7 @@ const CommentItem: React.FC<Props> = (props: Props) => {
     setIsOpenActions(false);
     deleteComment(props.comment)
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
       });
   };
 

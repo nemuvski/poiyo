@@ -5,6 +5,7 @@ import BoardsService from "../libs/services/BoardsService";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import CompactLoading from "./CompactLoading";
 import '../styles/components/board-list.scss';
+import SentryTracking from "../utilities/SentryTracking";
 
 const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
   const { account } = useContext(AuthenticationContext);
@@ -27,7 +28,7 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
         setBoardList([]);
         setNextPage(-1);
       })
@@ -45,7 +46,7 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
       .catch(error => {
-        console.error(error);
+        SentryTracking.exception(error);
         setBoardList(null);
         setNextPage(-1);
       })
