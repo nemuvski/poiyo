@@ -6,6 +6,13 @@
 
   &__not-found {
     margin: 0;
+    text-align: center;
+
+    > img {
+      display: block;
+      width: 14em;
+      margin: 0 auto 1.5em;
+    }
   }
 
   &__more {

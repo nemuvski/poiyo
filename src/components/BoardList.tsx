@@ -4,8 +4,9 @@ import BoardItem from "./BoardItem";
 import BoardsService from "../libs/services/BoardsService";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import CompactLoading from "./CompactLoading";
-import '../styles/components/board-list.scss';
 import SentryTracking from "../utilities/SentryTracking";
+import notFound from "../assets/not-found.svg";
+import '../styles/components/board-list.scss';
 
 const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
   const { account } = useContext(AuthenticationContext);
@@ -59,7 +60,12 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
     <div className="board-list">
       {boardList != null && (
         boardList.length == 0
-          ? <p className="board-list__not-found">ボードが見つかりませんでした。</p>
+          ? (
+            <p className="board-list__not-found">
+              <img alt="何も見つかりませんでした。" src={notFound} />
+              ボードが見つかりませんでした。
+            </p>
+          )
           : boardList.map((board) => {
             return (<BoardItem key={board.boardId} board={board} />);
           })

@@ -3,6 +3,7 @@ import {CommentListProps} from "../libs/models/Comment";
 import CompactLoading from "./CompactLoading";
 import CommentItem from "./CommentItem";
 import {CommentListContext} from "../contexts/CommentListContext";
+import notFound from "../assets/not-found.svg";
 import "../styles/components/comment-list.scss";
 
 const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
@@ -22,7 +23,12 @@ const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
     <div className="comment-list">
       {commentList != null && (
         commentList.length == 0
-          ? <p className="comment-list__not-found">まだコメントされていません。</p>
+          ? (
+            <p className="comment-list__not-found">
+              <img alt="何も見つかりませんでした。" src={notFound} />
+              まだコメントされていません。
+            </p>
+          )
           : commentList.map((comment) => {
             return (<CommentItem key={comment.commentId} comment={comment} />);
           })
