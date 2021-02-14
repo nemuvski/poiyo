@@ -3,6 +3,16 @@
 .board-list {
   width: 100%;
 
+  &__not-found {
+    text-align: center;
+
+    > img {
+      display: block;
+      width: 14em;
+      margin: 0 auto 1.5em;
+    }
+  }
+
   &__more {
     margin-top: 1em;
     text-align: center;
