@@ -23,6 +23,8 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe =  history.listen(() => {
+      // パスが変わったらスクロール位置を先頭にする.
+      window.scrollTo(0, 0);
       AnalyticsTracking.screenView(window.location.pathname);
     });
     return () => {
