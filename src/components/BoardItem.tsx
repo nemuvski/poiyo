@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {Board, BoardLocationState} from "../libs/models/Board";
-import Dayjs, {formatYMD} from '../libs/common/Dayjs';
+import Dayjs, {formatYMDHm} from '../libs/common/Dayjs';
 import '../styles/components/board-item.scss';
 import clsx from "clsx";
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
@@ -24,7 +24,7 @@ const BoardItem: React.FC<Props> = (props: Props) => {
       >
         <span className="board-item__title">{props.board.title}</span>
         <time className="board-item__date">
-          {formatYMD(Dayjs(props.board.createdAt))}
+          {formatYMDHm(Dayjs(props.board.createdAt))}
         </time>
       </Link>
     </div>
