@@ -1,24 +1,27 @@
 import React, {useContext, useState} from 'react';
+import {useHistory} from "react-router-dom";
 import {Board, BoardLocationState} from "../libs/models/Board";
 import Dayjs, {formatYMD} from '../libs/common/Dayjs';
-import '../styles/components/board-item.scss';
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import CompactLoading from "./CompactLoading";
-import '../styles/components/board-card.scss';
 import ShadowBox from "./ShadowBox";
 import {convertMarkdownTextToHTML} from "../libs/common/DOMPurify";
-import {useHistory} from "react-router-dom";
+import {ModalContext} from "../contexts/ModalContext";
 import BoardsService from "../libs/services/BoardsService";
 import settingsIcon from "../assets/icons/settings.svg";
 import SentryTracking from "../utilities/SentryTracking";
+import Modal from "./Modal";
+import Confirm from "./Confirm";
+import '../styles/components/board-card.scss';
 
 type Props = {
   board: Board | null;
 };
 
 const BoardCard: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
   const history = useHistory();
+  const { account } = useContext(AuthenticationContext);
+  const { openModal, closeModal } = useContext(ModalContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
 
   const handleEditButtonClick = () => {
@@ -32,15 +35,13 @@ const BoardCard: React.FC<Props> = (props: Props) => {
       SentryTracking.exception('処理中に問題があたったため、ボードの削除処理は中断されました。');
       return;
     }
-    if (!confirm('ボードを削除しますがよろしいですか？')) {
-      return;
-    }
     BoardsService.remove(account.token, props.board.boardId)
       .catch(error => {
         SentryTracking.exception('ボード削除に失敗しました。');
         SentryTracking.exception(error);
       })
       .finally(() => {
+        closeModal('delete-board');
         history.replace('/search');
       });
   };
@@ -61,7 +62,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                     {isOpenActions && (
                       <ul className="board-card__actions">
                         <li onClick={() => handleEditButtonClick()}>編集</li>
-                        <li onClick={() => handleDeleteButtonClick()}>削除</li>
+                        <li onClick={() => {setIsOpenActions(false); openModal('delete-board')}}>削除</li>
                       </ul>
                     )}
                   </div>
@@ -77,6 +78,15 @@ const BoardCard: React.FC<Props> = (props: Props) => {
           : <CompactLoading />
         }
       </ShadowBox>
+
+      <Modal name="delete-board">
+        <Confirm
+          message="ボードを削除しますがよろしいですか？"
+          cancelAction={() => closeModal('delete-board')}
+          okAction={() => handleDeleteButtonClick()}
+          okLabel="削除"
+        />
+      </Modal>
     </div>
   );
 }

@@ -73,7 +73,7 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
                 <button
                   type="button"
                   className="page-board-detail__comment-button is-black"
-                  onClick={() => openModal()}
+                  onClick={() => openModal('edit-comment')}
                 >
                   <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
                   ボードにコメントする
@@ -86,12 +86,12 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
             <button
               type="button"
               className="page-board-detail__fixed-comment-button is-black"
-              onClick={() => openModal()}
+              onClick={() => openModal('edit-comment')}
             >
               <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
             </button>
 
-            <Modal>
+            <Modal name="edit-comment">
               <CommentForm board={board} />
             </Modal>
           </>

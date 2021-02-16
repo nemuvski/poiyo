@@ -1,0 +1,13 @@
+@import "../import";
+
+.confirm {
+  text-align: center;
+
+  &__message {
+    margin-top: 0;
+  }
+
+  &__actions > button:not(:first-child) {
+    margin-left: 1.5em;
+  }
+}
