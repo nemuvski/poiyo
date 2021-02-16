@@ -7,19 +7,16 @@ import {CommentListContext} from "../contexts/CommentListContext";
 import {ModalContext} from "../contexts/ModalContext";
 import settingsIcon from "../assets/icons/settings.svg";
 import "../styles/components/comment-item.scss";
-import SentryTracking from "../utilities/SentryTracking";
-import Confirm from "./Confirm";
-import Modal from "./Modal";
 
 type Props = {
   comment: Comment;
 };
 
 const CommentItem: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
-  const { deleteComment, setupOperatingComment } = useContext(CommentListContext);
+  const {account} = useContext(AuthenticationContext);
+  const {setupOperatingComment} = useContext(CommentListContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
-  const {openModal, closeModal} = useContext(ModalContext);
+  const {openModal} = useContext(ModalContext);
 
   const handleEditButtonClick = () => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
@@ -29,10 +26,9 @@ const CommentItem: React.FC<Props> = (props: Props) => {
   };
 
   const handleDeleteButtonClick = () => {
-    deleteComment(props.comment)
-      .catch(error => {
-        SentryTracking.exception(error);
-      });
+    setupOperatingComment(props.comment);
+    setIsOpenActions(false);
+    openModal('delete-comment');
   };
 
   return (
@@ -50,19 +46,11 @@ const CommentItem: React.FC<Props> = (props: Props) => {
           {isOpenActions && (
             <ul className="comment-item__actions">
               <li onClick={() => handleEditButtonClick()}>編集</li>
-              <li onClick={() => {setIsOpenActions(false); openModal('delete-comment');}}>削除</li>
+              <li onClick={() => handleDeleteButtonClick()}>削除</li>
             </ul>
           )}
         </div>
       )}
-      <Modal name="delete-comment">
-        <Confirm
-          message="コメントを削除しますがよろしいですか？"
-          cancelAction={() => closeModal('delete-comment')}
-          okAction={() => handleDeleteButtonClick()}
-          okLabel="削除"
-        />
-      </Modal>
     </div>
   );
 }
