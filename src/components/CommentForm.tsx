@@ -75,7 +75,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal();
+          closeModal('edit-comment');
         });
     } else {
       CommentsService.create(account.token, props.board.boardId, account.id, data.body)
@@ -89,7 +89,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal();
+          closeModal('edit-comment');
         });
     }
   };

@@ -6,16 +6,17 @@ import ArticleSection from "../components/ArticleSection";
 import ArticleSectionContent from "../components/ArticleSectionContent";
 import AccountsService from "../libs/services/AccountsService";
 import SentryTracking from "../utilities/SentryTracking";
+import Confirm from "../components/Confirm";
+import Modal from "../components/Modal";
+import {ModalContext} from "../contexts/ModalContext";
 
 const Help: React.FC = () => {
   const { account, signOut } = useContext(AuthenticationContext);
+  const { openModal, closeModal } = useContext(ModalContext);
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {
       SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。');
-      return;
-    }
-    if (!confirm('サービスを退会しますがよろしいですか？')) {
       return;
     }
     AccountsService.remove(account.token, account.id)
@@ -70,12 +71,21 @@ const Help: React.FC = () => {
           <p>退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。</p>
           <div className="align-center">
             {account
-              ? <button className="is-red" type="button" onClick={() => handleSignOffButtonClick()}>退会する</button>
+              ? <button className="is-red" type="button" onClick={() => openModal('sign-off')}>退会する</button>
               : <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
             }
           </div>
         </ArticleSectionContent>
       </ArticleSection>
+
+      <Modal name="sign-off">
+        <Confirm
+          message="サービスを退会しますがよろしいですか？"
+          cancelAction={() => closeModal('sign-off')}
+          okAction={() => handleSignOffButtonClick()}
+          okLabel="退会"
+        />
+      </Modal>
     </ArticleInner>
   );
 };

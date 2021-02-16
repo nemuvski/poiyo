@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {createPortal} from "react-dom";
 import {ModalContext} from "../contexts/ModalContext";
 import closeIcon from "../assets/icons/modal-close.svg";
@@ -6,19 +6,29 @@ import '../styles/components/modal.scss';
 
 type Props = {
   children?: React.ReactNode;
+  name: string;
 }
 
 /**
  * Modalの表示切り替えはModalContext経由で操作する.
  */
 const Modal: React.FC<Props> = (props: Props) => {
-  const {isModalOpen, closeModal} = useContext(ModalContext);
+  const {isOpen, closeModal, setupModal} = useContext(ModalContext);
   const rootElement = document.getElementById('root');
+
+  useEffect(() => {
+    setupModal(props.name);
+
+    return () => {
+      closeModal(props.name);
+    };
+  }, []);
+
   return (
     createPortal(
       <>
-        {isModalOpen && (
-          <div className="modal" onClick={() => closeModal()}>
+        {isOpen(props.name) && (
+          <div className="modal" onClick={() => closeModal(props.name)}>
             <div className="modal__inner">
               <div className="modal__content" onClick={event => event.stopPropagation()}>
                 {props.children}
