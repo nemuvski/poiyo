@@ -14,7 +14,7 @@ type Context = {
   operatingComment: Comment|null;
   setupOperatingComment: (comment: Comment|null) => void;
   updateComment: (editedComment: Comment) => Promise<void>;
-  deleteComment: (targetComment: Comment) => Promise<void>;
+  deleteComment: () => Promise<void>;
   nextPage: number;
   loading: boolean;
   loadLatestPage: (boardId: string) => void;
@@ -105,18 +105,22 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
       });
   };
 
-  const deleteComment = async (targetComment: Comment) => {
-    if (!account || commentList == null) {
+  const deleteComment = async () => {
+    if (!account || commentList == null || operatingComment == null) {
+      setOperatingComment(null);
       throw new Error('処理中に問題があったため、コメントの削除処理は中断されました。');
     }
-    return await CommentsService.remove(account.token, targetComment.boardId, targetComment.commentId)
+    return await CommentsService.remove(account.token, operatingComment.boardId, operatingComment.commentId)
       .then(() => {
         setCommentList(commentList.filter((c) => {
-          return c.commentId != targetComment.commentId;
+          return c.commentId != operatingComment.commentId;
         }));
       })
       .catch(error => {
         SentryTracking.exception(error);
+      })
+      .finally(() => {
+        setOperatingComment(null);
       });
   };
 
