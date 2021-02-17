@@ -9,7 +9,7 @@ const NewsList: React.FC = () => {
       {NewsService.data.map((news, index) => {
         return (
           <div className="news-list__item" key={index}>
-            <time className="news-list__item-date">{formatYMD(news.day)}</time>
+            <time className="news-list__item-date">{formatYMD(news.day, true)}</time>
             <div className="news-list__item-title">{news.title}</div>
           </div>
         );
