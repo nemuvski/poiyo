@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Board, BoardLocationState} from "../libs/models/Board";
-import Dayjs, {formatYMD} from '../libs/common/Dayjs';
+import Dayjs, {formatYMDHm} from '../libs/common/Dayjs';
 import '../styles/components/board-item.scss';
 import {AuthenticationContext} from "../contexts/AuthenticationContext";
 import CompactLoading from "./CompactLoading";
@@ -66,7 +66,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                     )}
                   </div>
                 )}
-                <time className="board-card__date">{formatYMD(Dayjs(props.board.createdAt))}</time>
+                <time className="board-card__date">{formatYMDHm(Dayjs(props.board.createdTimestamp))}</time>
               </div>
               <div
                 className="md board-card__body"

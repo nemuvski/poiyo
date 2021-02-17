@@ -35,7 +35,7 @@ const CommentItem: React.FC<Props> = (props: Props) => {
     <div className="comment-item">
       <div className="md comment-item__body" dangerouslySetInnerHTML={convertMarkdownTextToHTML(props.comment.body)} />
       <time className="comment-item__date">
-        {formatYMDHm(Dayjs(props.comment.createdAt))}
+        {formatYMDHm(Dayjs(props.comment.createdTimestamp))}
       </time>
 
       {props.comment.ownerAccountId == account?.id && (

@@ -24,7 +24,7 @@ const BoardItem: React.FC<Props> = (props: Props) => {
       >
         <span className="board-item__title">{props.board.title}</span>
         <time className="board-item__date">
-          {formatYMDHm(Dayjs(props.board.createdAt))}
+          {formatYMDHm(Dayjs(props.board.createdTimestamp))}
         </time>
       </Link>
     </div>
