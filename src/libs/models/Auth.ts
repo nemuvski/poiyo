@@ -15,5 +15,5 @@ export interface AuthResponse {
   service_type: string;
   service_id: string;
   email: string;
-  created_at: string;
+  created_timestamp: string;
 }

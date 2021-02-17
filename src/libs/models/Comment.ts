@@ -15,8 +15,8 @@ export interface CommentResponse {
   board_id: string;
   owner_account_id: string;
   body: string;
-  created_at: string;
-  update_at: string | null;
+  created_timestamp: string;
+  update_timestamp: string | null;
 }
 
 export interface CommentsResponse {
@@ -50,8 +50,8 @@ export class Comment {
     this.boardId = commentResponse.board_id;
     this.ownerAccountId = commentResponse.owner_account_id;
     this.body = commentResponse.body;
-    this.createdAt = commentResponse.created_at;
-    this.updatedAt = commentResponse.update_at;
+    this.createdAt = commentResponse.created_timestamp;
+    this.updatedAt = commentResponse.update_timestamp;
   }
 }
 export class Comments {

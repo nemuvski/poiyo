@@ -14,8 +14,8 @@ export interface BoardResponse {
   title: string;
   body: string;
   owner_account_id: string;
-  created_at: string;
-  updated_at: string | null;
+  created_timestamp: string;
+  updated_timestamp: string | null;
 }
 
 export interface BoardsResponse {
@@ -56,8 +56,8 @@ export class Board {
     this.title = boardResponse.title;
     this.body = boardResponse.body;
     this.ownerAccountId = boardResponse.owner_account_id;
-    this.createdAt = boardResponse.created_at;
-    this.updatedAt = boardResponse.updated_at;
+    this.createdAt = boardResponse.created_timestamp;
+    this.updatedAt = boardResponse.updated_timestamp;
   }
 }
 export class Boards {
