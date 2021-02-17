@@ -2,6 +2,7 @@
  * コメントAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
 import {Board} from "./Board";
+import {NullTime} from "./Time";
 
 export interface CommentRequest {
   commentId: string | null;
@@ -15,8 +16,8 @@ export interface CommentResponse {
   board_id: string;
   owner_account_id: string;
   body: string;
-  created_at: string;
-  update_at: string | null;
+  created_timestamp: string;
+  updated_timestamp: NullTime;
 }
 
 export interface CommentsResponse {
@@ -42,16 +43,19 @@ export class Comment {
   boardId: string;
   ownerAccountId: string;
   body: string;
-  createdAt: string;
-  updatedAt: string | null;
+  createdTimestamp: string;
+  updatedTimestamp: string | null;
 
   constructor(commentResponse: CommentResponse) {
     this.commentId = commentResponse.comment_id;
     this.boardId = commentResponse.board_id;
     this.ownerAccountId = commentResponse.owner_account_id;
     this.body = commentResponse.body;
-    this.createdAt = commentResponse.created_at;
-    this.updatedAt = commentResponse.update_at;
+    this.createdTimestamp = commentResponse.created_timestamp;
+    this.updatedTimestamp = null;
+    if (commentResponse.updated_timestamp.Valid) {
+      this.updatedTimestamp = commentResponse.updated_timestamp.Time;
+    }
   }
 }
 export class Comments {

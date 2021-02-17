@@ -1,6 +1,7 @@
 /**
  * ボードAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
+import {NullTime} from "./Time";
 
 export interface BoardRequest {
   boardId: string | null;
@@ -14,8 +15,8 @@ export interface BoardResponse {
   title: string;
   body: string;
   owner_account_id: string;
-  created_at: string;
-  updated_at: string | null;
+  created_timestamp: string;
+  updated_timestamp: NullTime;
 }
 
 export interface BoardsResponse {
@@ -48,16 +49,19 @@ export class Board {
   title: string;
   body: string;
   ownerAccountId: string;
-  createdAt: string;
-  updatedAt: string | null;
+  createdTimestamp: string;
+  updatedTimestamp: string | null;
 
   constructor(boardResponse: BoardResponse) {
     this.boardId = boardResponse.board_id;
     this.title = boardResponse.title;
     this.body = boardResponse.body;
     this.ownerAccountId = boardResponse.owner_account_id;
-    this.createdAt = boardResponse.created_at;
-    this.updatedAt = boardResponse.updated_at;
+    this.createdTimestamp = boardResponse.created_timestamp;
+    this.updatedTimestamp = null;
+    if (boardResponse.updated_timestamp.Valid) {
+      this.updatedTimestamp = boardResponse.updated_timestamp.Time;
+    }
   }
 }
 export class Boards {

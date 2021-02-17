@@ -13,6 +13,10 @@ dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Tokyo');
 export default dayjs;
 
+export const formatYMDHm = (day: Dayjs): string => {
+  return day.format('YYYY年MM月DD日 HH:mm');
+};
+
 export const formatYMD = (day: Dayjs): string => {
   return day.format('YYYY年MM月DD日');
 };
