@@ -3,20 +3,15 @@
  */
 
 import dayjs, {Dayjs} from 'dayjs';
-import 'dayjs/locale/ja';
 import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 
-dayjs.locale('ja');
 dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault('Asia/Tokyo');
 export default dayjs;
 
 export const formatYMDHm = (day: Dayjs): string => {
-  return day.format('YYYY年MM月DD日 HH:mm');
+  return day.utc(false).format('YYYY年MM月DD日 HH:mm');
 };
 
 export const formatYMD = (day: Dayjs): string => {
-  return day.format('YYYY年MM月DD日');
+  return day.utc(false).format('YYYY年MM月DD日');
 };
