@@ -7,6 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import './styles/global/base.scss';
 import './styles/global/md.scss';
 
+// スクロールのアニメーション用のポリフィル.
+if (!('scrollBehavior' in document.documentElement.style)) {
+  import('scroll-behavior-polyfill');
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
