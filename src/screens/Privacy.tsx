@@ -79,7 +79,7 @@ const Privacy: React.FC = () => {
 
       <ArticleSection wider={true}>
         <ArticleSectionContent>
-          <h2>第7条（お問い合わせ窓口）</h2>
+          <h2>第6条（お問い合わせ窓口）</h2>
           <p>本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。</p>
           <p>Eメールアドレス: <strong>poiyo.app(a)gmail.com</strong></p>
           <p><strong>(a)</strong>は<strong>@</strong>に置き換えてください。</p>
