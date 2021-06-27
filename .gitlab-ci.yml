@@ -15,5 +15,6 @@ linting:
   stage: eslint
   script:
     - yarn run lint
+    - yarn run format:check
   except:
     - master
