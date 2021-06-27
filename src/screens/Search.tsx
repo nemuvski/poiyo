@@ -37,12 +37,11 @@ const Search: React.FC = () => {
       >
         <input
           type="text"
-          name="keyword"
           maxLength={200}
           tabIndex={0}
-          ref={register()}
           placeholder="ボードのタイトルで探す"
           className="page-search__form-keyword"
+          {...register('keyword')}
         />
         <button
           type="submit"
