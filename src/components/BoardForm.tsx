@@ -46,6 +46,11 @@ const fieldRules = {
 
 const BoardForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
+  const defaultValues: BoardFormFields = {
+    // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
+    title: props.board ? props.board.title : '',
+    body: props.board ? props.board.body : '',
+  }
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const history = useHistory();
@@ -60,11 +65,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
-    defaultValues: {
-      // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
-      title: props.board ? props.board.title : '',
-      body: props.board ? props.board.body : '',
-    } as BoardFormFields
+    defaultValues,
   });
 
   useEffect(() => {
@@ -184,7 +185,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           className="is-white"
           type="button"
           disabled={formState.isSubmitting}
-          onClick={() => reset()}
+          onClick={() => reset(defaultValues)}
         >
           {props.board ? '元に戻す' : 'クリア'}
         </button>
