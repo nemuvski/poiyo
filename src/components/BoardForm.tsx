@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import clsx from "clsx";
@@ -46,6 +46,11 @@ const fieldRules = {
 
 const BoardForm: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
+  const defaultValues: BoardFormFields = {
+    // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
+    title: props.board ? props.board.title : '',
+    body: props.board ? props.board.body : '',
+  }
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const history = useHistory();
@@ -54,13 +59,21 @@ const BoardForm: React.FC<Props> = (props: Props) => {
     handleSubmit,
     reset,
     formState,
-    errors,
     watch,
+    setValue,
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
+    defaultValues,
   });
+
+  useEffect(() => {
+    if (props.board) {
+      setValue('title', props.board.title);
+      setValue('body', props.board.body);
+    }
+  }, [props.board])
 
   // プレビューで利用.
   const watchBody = watch('body', props.board ? props.board.body : '');
@@ -122,15 +135,12 @@ const BoardForm: React.FC<Props> = (props: Props) => {
       <div className="board-form__field">
         <label className="board-form__field-label">タイトル</label>
         <input
-          className={clsx(['board-form__field-value', {'is-invalid':errors.title}])}
+          className={clsx(['board-form__field-value', {'is-invalid':formState.errors.title}])}
           type="text"
-          name="title"
-          maxLength={200}
-          defaultValue={props.board ? props.board.title : ''}
-          ref={register(fieldRules.text)}
+          {...register('title', fieldRules.text)}
         />
         <p className="board-form__field-help">200文字以内</p>
-        {errors.title && <p className="board-form__field-invalid">{ errors.title.message }</p>}
+        {formState.errors.title && <p className="board-form__field-invalid">{ formState.errors.title.message }</p>}
       </div>
 
       <div className="board-form__field">
@@ -147,14 +157,11 @@ const BoardForm: React.FC<Props> = (props: Props) => {
             clsx([
               'board-form__field-value',
               'board-form__field-value--body',
-              {'is-invalid':errors.body},
+              {'is-invalid':formState.errors.body},
               {'is-hidden':previewMode},
             ])
           }
-          name="body"
-          maxLength={1000}
-          defaultValue={props.board ? props.board.body : ''}
-          ref={register(fieldRules.body)}
+          {...register('body', fieldRules.body)}
         />
         {previewMode && (
           <div
@@ -170,7 +177,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           />
         )}
         <p className="board-form__field-help">1000文字以内</p>
-        {errors.body && <p className="board-form__field-invalid">{ errors.body.message }</p>}
+        {formState.errors.body && <p className="board-form__field-invalid">{ formState.errors.body.message }</p>}
       </div>
 
       <div className="board-form__actions">
@@ -178,7 +185,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           className="is-white"
           type="button"
           disabled={formState.isSubmitting}
-          onClick={() => reset()}
+          onClick={() => reset(defaultValues)}
         >
           {props.board ? '元に戻す' : 'クリア'}
         </button>

@@ -45,12 +45,14 @@ const CommentForm: React.FC<Props> = (props: Props) => {
     handleSubmit,
     reset,
     formState,
-    errors,
     watch,
   } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
+    defaultValues: {
+      body: operatingComment ? operatingComment.body : '',
+    } as CommentFormFields
   });
 
   // プレビューで利用.
@@ -117,14 +119,11 @@ const CommentForm: React.FC<Props> = (props: Props) => {
                 className={
                   clsx([
                     'comment-form__field-value',
-                    {'is-invalid':errors.body},
+                    {'is-invalid':formState.errors.body},
                     {'is-hidden':previewMode},
                   ])
                 }
-                name="body"
-                maxLength={500}
-                defaultValue={operatingComment ? operatingComment.body : ''}
-                ref={register(fieldRules.body)}
+                {...register('body', fieldRules.body)}
               />
               {previewMode && (
                 <div
@@ -140,7 +139,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
                 />
               )}
               <p className="comment-form__field-help">500文字以内</p>
-              {errors.body && <p className="comment-form__field-invalid">{ errors.body.message }</p>}
+              {formState.errors.body && <p className="comment-form__field-invalid">{ formState.errors.body.message }</p>}
             </div>
 
             <div className="comment-form__actions">
