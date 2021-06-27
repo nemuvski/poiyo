@@ -1,18 +1,18 @@
-import React, {createContext, useContext, useState} from 'react';
-import {Comment} from "../libs/models/Comment";
-import CommentsService from "../libs/services/CommentsService";
-import {AuthenticationContext} from "./AuthenticationContext";
-import SentryTracking from "../utilities/SentryTracking";
+import React, { createContext, useContext, useState } from 'react';
+import { Comment } from '../libs/models/Comment';
+import CommentsService from '../libs/services/CommentsService';
+import { AuthenticationContext } from './AuthenticationContext';
+import SentryTracking from '../utilities/SentryTracking';
 
 type Props = {
   children?: React.ReactNode;
 };
 
 type Context = {
-  commentList: Array<Comment>|null;
+  commentList: Array<Comment> | null;
   // 編集するCommentオブジェクト. (編集モーダルで対象のCommentオブジェクトを特定するために必要)
-  operatingComment: Comment|null;
-  setupOperatingComment: (comment: Comment|null) => void;
+  operatingComment: Comment | null;
+  setupOperatingComment: (comment: Comment | null) => void;
   updateComment: (editedComment: Comment) => Promise<void>;
   deleteComment: () => Promise<void>;
   nextPage: number;
@@ -25,8 +25,12 @@ export const CommentListContext: React.Context<Context> = createContext<Context>
   commentList: [],
   operatingComment: null,
   setupOperatingComment: () => null,
-  updateComment: async () => { return; },
-  deleteComment: async () => { return; },
+  updateComment: async () => {
+    return;
+  },
+  deleteComment: async () => {
+    return;
+  },
   nextPage: -1,
   loading: false,
   loadLatestPage: () => null,
@@ -35,8 +39,8 @@ export const CommentListContext: React.Context<Context> = createContext<Context>
 
 export const CommentListProvider: React.FC<Props> = (props: Props) => {
   const { account } = useContext(AuthenticationContext);
-  const [commentList, setCommentList] = useState<Array<Comment>|null>(null);
-  const [operatingComment, setOperatingComment] = useState<Comment|null>(null);
+  const [commentList, setCommentList] = useState<Array<Comment> | null>(null);
+  const [operatingComment, setOperatingComment] = useState<Comment | null>(null);
   const [loading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(-1);
 
@@ -50,11 +54,11 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
   const loadNextPage = (boardId: string) => {
     setLoading(true);
     getResources(nextPage, boardId)
-      .then(resources => {
+      .then((resources) => {
         setCommentList(commentList != null ? commentList.concat(resources.items) : resources.items);
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
         setCommentList([]);
         setNextPage(-1);
@@ -68,7 +72,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
     setLoading(true);
     setCommentList(null);
     getResources(1, boardId)
-      .then(resources => {
+      .then((resources) => {
         setCommentList(resources.items);
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
@@ -77,7 +81,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
       });
   };
 
-  const setupOperatingComment = (comment: Comment|null) => {
+  const setupOperatingComment = (comment: Comment | null) => {
     setOperatingComment(comment);
   };
 
@@ -97,7 +101,7 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
           }
         }
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
       })
       .finally(() => {
@@ -112,11 +116,13 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
     }
     return await CommentsService.remove(account.token, operatingComment.boardId, operatingComment.commentId)
       .then(() => {
-        setCommentList(commentList.filter((c) => {
-          return c.commentId != operatingComment.commentId;
-        }));
+        setCommentList(
+          commentList.filter((c) => {
+            return c.commentId != operatingComment.commentId;
+          })
+        );
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
       })
       .finally(() => {
@@ -125,8 +131,8 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <CommentListContext.Provider value={
-      {
+    <CommentListContext.Provider
+      value={{
         commentList,
         operatingComment,
         setupOperatingComment,
@@ -135,9 +141,9 @@ export const CommentListProvider: React.FC<Props> = (props: Props) => {
         nextPage,
         loading,
         loadLatestPage,
-        loadNextPage
-      }
-    }>
+        loadNextPage,
+      }}
+    >
       {props.children}
     </CommentListContext.Provider>
   );

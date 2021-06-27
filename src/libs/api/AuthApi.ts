@@ -3,8 +3,8 @@
  */
 
 import Axios from '../common/Axios';
-import {AxiosPromise} from 'axios';
-import {AuthRequest, AuthResponse} from "../models/Auth";
+import { AxiosPromise } from 'axios';
+import { AuthRequest, AuthResponse } from '../models/Auth';
 
 const path = '/api/v1/auth';
 
@@ -16,9 +16,9 @@ const path = '/api/v1/auth';
  */
 const post = (token: string, requestBody: AuthRequest): AxiosPromise<AuthResponse> => {
   return Axios(token).post(path, {
-    'service_type': requestBody.serviceType,
-    'service_id': requestBody.serviceId,
-    'email': requestBody.email,
+    service_type: requestBody.serviceType,
+    service_id: requestBody.serviceId,
+    email: requestBody.email,
   });
 };
 

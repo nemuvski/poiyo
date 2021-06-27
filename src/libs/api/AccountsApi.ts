@@ -3,7 +3,7 @@
  */
 
 import Axios from '../common/Axios';
-import {AxiosPromise} from 'axios';
+import { AxiosPromise } from 'axios';
 
 const path = '/api/v1/accounts';
 

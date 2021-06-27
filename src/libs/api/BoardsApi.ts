@@ -3,8 +3,8 @@
  */
 
 import Axios from '../common/Axios';
-import {AxiosPromise} from 'axios';
-import {BoardRequest, BoardResponse, BoardsQueryParams, BoardsResponse} from "../models/Board";
+import { AxiosPromise } from 'axios';
+import { BoardRequest, BoardResponse, BoardsQueryParams, BoardsResponse } from '../models/Board';
 
 const path = '/api/v1/boards';
 
@@ -16,9 +16,9 @@ const path = '/api/v1/boards';
  */
 const post = (token: string, requestBody: BoardRequest): AxiosPromise<BoardResponse> => {
   return Axios(token).post(path, {
-    'title': requestBody.title,
-    'body': requestBody.body,
-    'owner_account_id': requestBody.ownerAccountId,
+    title: requestBody.title,
+    body: requestBody.body,
+    owner_account_id: requestBody.ownerAccountId,
   });
 };
 
@@ -39,7 +39,7 @@ const getSingle = (token: string, boardId: string): AxiosPromise<BoardResponse> 
  * @param params パラメータ.
  */
 const get = (token: string, params: BoardsQueryParams): AxiosPromise<BoardsResponse> => {
-  return Axios(token).get(path, {params});
+  return Axios(token).get(path, { params });
 };
 
 /**
@@ -60,8 +60,8 @@ const remove = (token: string, boardId: string): AxiosPromise<BoardResponse> => 
  */
 const patch = (token: string, requestBody: BoardRequest): AxiosPromise<BoardResponse> => {
   return Axios(token).patch(`${path}/${requestBody.boardId}`, {
-    'title': requestBody.title,
-    'body': requestBody.body,
+    title: requestBody.title,
+    body: requestBody.body,
   });
 };
 

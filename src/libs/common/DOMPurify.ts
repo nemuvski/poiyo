@@ -2,7 +2,7 @@
  * マークダウン記法のテキストデータをHTML形式に変換するヘルパー関数.
  */
 
-import DOMPurify, {Config} from "dompurify";
+import DOMPurify, { Config } from 'dompurify';
 import marked from 'marked';
 
 type InnerHTML = {
@@ -24,26 +24,8 @@ export const convertMarkdownTextToHTML = (markdownText: string): InnerHTML => {
 
   // DOMPurifyでサニタイズするときのオプションを定義.
   const config: Config = {
-    ALLOWED_ATTR: [
-      'href',
-      'target',
-      'rel',
-    ],
-    ALLOWED_TAGS: [
-      'p',
-      'br',
-      'ul',
-      'ol',
-      'li',
-      'blockquote',
-      'strong',
-      'em',
-      'a',
-      'hr',
-      'del',
-      'pre',
-      'code',
-    ],
+    ALLOWED_ATTR: ['href', 'target', 'rel'],
+    ALLOWED_TAGS: ['p', 'br', 'ul', 'ol', 'li', 'blockquote', 'strong', 'em', 'a', 'hr', 'del', 'pre', 'code'],
   };
 
   // dangerouslySetInnerHTMLだとstringしか受け付けていないため型をアサーション.

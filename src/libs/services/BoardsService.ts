@@ -2,8 +2,8 @@
  * ボードに関するサービス関数を定義.
  */
 
-import BoardsApi from "../api/BoardsApi";
-import {Board, BoardRequest, Boards, BoardsQueryParams} from "../models/Board";
+import BoardsApi from '../api/BoardsApi';
+import { Board, BoardRequest, Boards, BoardsQueryParams } from '../models/Board';
 
 /**
  * ボードを1件登録する.
@@ -20,10 +20,9 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
     body,
     ownerAccountId,
   };
-  return BoardsApi.post(token, boardRequest)
-    .then(response => {
-      return new Board(response.data);
-    });
+  return BoardsApi.post(token, boardRequest).then((response) => {
+    return new Board(response.data);
+  });
 };
 
 /**
@@ -33,13 +32,12 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
  * @param boardId ボードID.
  */
 const getSingle = (token: string, boardId: string): Promise<Board> => {
-  return BoardsApi.getSingle(token, boardId)
-    .then(response => {
-      if (response.status == 204) {
-        throw new Error('ボードが見つかりませんでした。');
-      }
-      return new Board(response.data);
-    });
+  return BoardsApi.getSingle(token, boardId).then((response) => {
+    if (response.status == 204) {
+      throw new Error('ボードが見つかりませんでした。');
+    }
+    return new Board(response.data);
+  });
 };
 
 /**
@@ -56,10 +54,9 @@ const getByKeyword = (token: string, keyword: string, page: number, numPerPage =
     num_per_page: numPerPage,
     search: keyword,
   };
-  return BoardsApi.get(token, queryParams)
-    .then(response => {
-      return new Boards(response.data);
-    });
+  return BoardsApi.get(token, queryParams).then((response) => {
+    return new Boards(response.data);
+  });
 };
 
 /**
@@ -76,10 +73,9 @@ const getByAccountId = (token: string, accountId: string, page: number, numPerPa
     num_per_page: numPerPage,
     owner_account_id: accountId,
   };
-  return BoardsApi.get(token, queryParams)
-    .then(response => {
-      return new Boards(response.data);
-    });
+  return BoardsApi.get(token, queryParams).then((response) => {
+    return new Boards(response.data);
+  });
 };
 
 /**
@@ -91,7 +87,13 @@ const getByAccountId = (token: string, accountId: string, page: number, numPerPa
  * @param page ページ番号.
  * @param numPerPage 1ページの件数.
  */
-const get = (token: string, keyword: string | null | undefined, accountId: string | null | undefined, page: number, numPerPage = 50): Promise<Boards> => {
+const get = (
+  token: string,
+  keyword: string | null | undefined,
+  accountId: string | null | undefined,
+  page: number,
+  numPerPage = 50
+): Promise<Boards> => {
   const queryParams: BoardsQueryParams = {
     page: page,
     num_per_page: numPerPage,
@@ -104,10 +106,9 @@ const get = (token: string, keyword: string | null | undefined, accountId: strin
     queryParams.owner_account_id = accountId;
   }
 
-  return BoardsApi.get(token, queryParams)
-    .then(response => {
-      return new Boards(response.data);
-    });
+  return BoardsApi.get(token, queryParams).then((response) => {
+    return new Boards(response.data);
+  });
 };
 
 /**
@@ -117,12 +118,11 @@ const get = (token: string, keyword: string | null | undefined, accountId: strin
  * @param boardId ボードID.
  */
 const remove = (token: string, boardId: string): Promise<void> => {
-  return BoardsApi.remove(token, boardId)
-    .then(response => {
-      if (response.status == 204) {
-        throw new Error('ボードが見つからなかったため、削除されませんでした。');
-      }
-    });
+  return BoardsApi.remove(token, boardId).then((response) => {
+    if (response.status == 204) {
+      throw new Error('ボードが見つからなかったため、削除されませんでした。');
+    }
+  });
 };
 
 /**
@@ -138,13 +138,12 @@ const update = (token: string, board: Board): Promise<Board> => {
     body: board.body,
     ownerAccountId: board.ownerAccountId,
   };
-  return BoardsApi.patch(token, boardRequest)
-    .then(response => {
-      if (response.status == 204) {
-        throw new Error('ボードが見つからなかったため、更新されませんでした。');
-      }
-      return new Board(response.data);
-    });
+  return BoardsApi.patch(token, boardRequest).then((response) => {
+    if (response.status == 204) {
+      throw new Error('ボードが見つからなかったため、更新されませんでした。');
+    }
+    return new Board(response.data);
+  });
 };
 
 export default { create, getSingle, getByKeyword, getByAccountId, get, remove, update };

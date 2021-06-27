@@ -3,8 +3,8 @@
  */
 
 import Axios from '../common/Axios';
-import {AxiosPromise} from 'axios';
-import {CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams} from "../models/Comment";
+import { AxiosPromise } from 'axios';
+import { CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams } from '../models/Comment';
 
 const path = '/api/v1/comments';
 
@@ -16,9 +16,9 @@ const path = '/api/v1/comments';
  */
 const post = (token: string, requestBody: CommentRequest): AxiosPromise<CommentResponse> => {
   return Axios(token).post(path, {
-    'board_id': requestBody.boardId,
-    'owner_account_id': requestBody.ownerAccountId,
-    'body': requestBody.body,
+    board_id: requestBody.boardId,
+    owner_account_id: requestBody.ownerAccountId,
+    body: requestBody.body,
   });
 };
 
@@ -29,7 +29,7 @@ const post = (token: string, requestBody: CommentRequest): AxiosPromise<CommentR
  * @param params パラメータ.
  */
 const get = (token: string, params: CommentsQueryParams): AxiosPromise<CommentsResponse> => {
-  return Axios(token).get(path, {params});
+  return Axios(token).get(path, { params });
 };
 
 /**
@@ -51,8 +51,8 @@ const remove = (token: string, boardId: string, commentId: string): AxiosPromise
  */
 const patch = (token: string, requestBody: CommentRequest): AxiosPromise<CommentResponse> => {
   return Axios(token).patch(`${path}/${requestBody.commentId}`, {
-    'board_id': requestBody.boardId,
-    'body': requestBody.body,
+    board_id: requestBody.boardId,
+    body: requestBody.body,
   });
 };
 

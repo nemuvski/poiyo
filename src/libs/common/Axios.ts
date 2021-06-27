@@ -2,7 +2,7 @@
  * axios（httpクライアント）の共通設定.
  */
 
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance } from 'axios';
 
 export default (token: string): AxiosInstance => {
   const headers = {
