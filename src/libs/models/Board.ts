@@ -1,7 +1,7 @@
 /**
  * ボードAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
-import {NullTime} from "./Time";
+import { NullTime } from './Time';
 
 export interface BoardRequest {
   boardId: string | null;
@@ -75,7 +75,7 @@ export class Boards {
     });
     this.currentPage = boardsResponse.current_page;
     if (boardsResponse.next_page) {
-      this.nextPage = boardsResponse.next_page
+      this.nextPage = boardsResponse.next_page;
     }
   }
 }

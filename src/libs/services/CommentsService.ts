@@ -2,8 +2,8 @@
  * ボードに関するサービス関数を定義.
  */
 
-import CommentsApi from "../api/CommentsApi";
-import {CommentRequest, Comment, Comments, CommentsQueryParams} from "../models/Comment";
+import CommentsApi from '../api/CommentsApi';
+import { CommentRequest, Comment, Comments, CommentsQueryParams } from '../models/Comment';
 
 /**
  * コメントを1件登録する.
@@ -20,10 +20,9 @@ const create = (token: string, boardId: string, ownerAccountId: string, body: st
     ownerAccountId,
     body,
   };
-  return CommentsApi.post(token, commentRequest)
-    .then(response => {
-      return new Comment(response.data);
-    });
+  return CommentsApi.post(token, commentRequest).then((response) => {
+    return new Comment(response.data);
+  });
 };
 
 /**
@@ -40,10 +39,9 @@ const get = (token: string, boardId: string, page: number, numPerPage = 50): Pro
     page: page,
     num_per_page: numPerPage,
   };
-  return CommentsApi.get(token, queryParams)
-    .then(response => {
-      return new Comments(response.data);
-    });
+  return CommentsApi.get(token, queryParams).then((response) => {
+    return new Comments(response.data);
+  });
 };
 
 /**
@@ -54,12 +52,11 @@ const get = (token: string, boardId: string, page: number, numPerPage = 50): Pro
  * @param commentId コメントID.
  */
 const remove = (token: string, boardId: string, commentId: string): Promise<void> => {
-  return CommentsApi.remove(token, boardId, commentId)
-    .then(response => {
-      if (response.status == 204) {
-        throw new Error('コメントが見つからなかったため、削除されませんでした。');
-      }
-    });
+  return CommentsApi.remove(token, boardId, commentId).then((response) => {
+    if (response.status == 204) {
+      throw new Error('コメントが見つからなかったため、削除されませんでした。');
+    }
+  });
 };
 
 /**
@@ -75,13 +72,12 @@ const update = (token: string, comment: Comment): Promise<Comment> => {
     body: comment.body,
     ownerAccountId: comment.ownerAccountId,
   };
-  return CommentsApi.patch(token, commentRequest)
-    .then(response => {
-      if (response.status == 204) {
-        throw new Error('コメントが見つからなかったため、更新されませんでした。');
-      }
-      return new Comment(response.data)
-    });
+  return CommentsApi.patch(token, commentRequest).then((response) => {
+    if (response.status == 204) {
+      throw new Error('コメントが見つからなかったため、更新されませんでした。');
+    }
+    return new Comment(response.data);
+  });
 };
 
 export default { create, get, remove, update };

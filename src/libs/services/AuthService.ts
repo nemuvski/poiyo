@@ -3,8 +3,8 @@
  */
 
 import AuthApi from '../api/AuthApi';
-import {Account} from '../models/Account';
-import {AuthRequest} from "../models/Auth";
+import { Account } from '../models/Account';
+import { AuthRequest } from '../models/Auth';
 
 /**
  * 認証してアカウント情報を取得する.
@@ -20,12 +20,11 @@ const auth = (token: string, email: string | null, serviceId: string, serviceTyp
     serviceId,
     email,
   };
-  return AuthApi.post(token, authRequest)
-    .then(response => {
-      const id = response.data.account_id;
-      const account: Account = {id, token};
-      return account;
-    });
-}
+  return AuthApi.post(token, authRequest).then((response) => {
+    const id = response.data.account_id;
+    const account: Account = { id, token };
+    return account;
+  });
+};
 
 export default { auth };

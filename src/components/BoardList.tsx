@@ -1,11 +1,11 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {Board, BoardListProps} from "../libs/models/Board";
-import BoardItem from "./BoardItem";
-import BoardsService from "../libs/services/BoardsService";
-import {AuthenticationContext} from "../contexts/AuthenticationContext";
-import CompactLoading from "./CompactLoading";
-import SentryTracking from "../utilities/SentryTracking";
-import notFound from "../assets/not-found.svg";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Board, BoardListProps } from '../libs/models/Board';
+import BoardItem from './BoardItem';
+import BoardsService from '../libs/services/BoardsService';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import CompactLoading from './CompactLoading';
+import SentryTracking from '../utilities/SentryTracking';
+import notFound from '../assets/not-found.svg';
 import '../styles/components/board-list.scss';
 
 const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
@@ -24,11 +24,11 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
   const handleClickMore = useCallback(() => {
     setLoading(true);
     getResources(nextPage)
-      .then(resources => {
+      .then((resources) => {
         setBoardList(boardList != null ? boardList.concat(resources.items) : resources.items);
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
         setBoardList([]);
         setNextPage(-1);
@@ -42,11 +42,11 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
     setLoading(true);
     setBoardList(null);
     getResources(1)
-      .then(resources => {
+      .then((resources) => {
         setBoardList(resources.items);
         setNextPage(resources.nextPage ? resources.nextPage : -1);
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
         setBoardList(null);
         setNextPage(-1);
@@ -57,25 +57,26 @@ const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
   }, [props.keyword, props.accountId]);
 
   return (
-    <div className="board-list">
-      {boardList != null && (
-        boardList.length == 0
-          ? (
-            <p className="board-list__not-found">
-              <img alt="何も見つかりませんでした。" src={notFound} />
-              ボードが見つかりませんでした。
-            </p>
-          )
-          : boardList.map((board) => {
-            return (<BoardItem key={board.boardId} board={board} />);
+    <div className='board-list'>
+      {boardList != null &&
+        (boardList.length == 0 ? (
+          <p className='board-list__not-found'>
+            <img alt='何も見つかりませんでした。' src={notFound} />
+            ボードが見つかりませんでした。
+          </p>
+        ) : (
+          boardList.map((board) => {
+            return <BoardItem key={board.boardId} board={board} />;
           })
-      )}
+        ))}
 
       {loading && <CompactLoading />}
 
-      {(boardList != null && nextPage >= 1) && (
-        <div className="board-list__more">
-          <button type="button" onClick={() => handleClickMore()} disabled={loading}>さらにボードを読み込む</button>
+      {boardList != null && nextPage >= 1 && (
+        <div className='board-list__more'>
+          <button type='button' onClick={() => handleClickMore()} disabled={loading}>
+            さらにボードを読み込む
+          </button>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import clsx from "clsx";
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import clsx from 'clsx';
 import searchIcon from '../assets/icons/search.svg';
 import '../styles/layouts/navigation-actions.scss';
 
@@ -10,7 +10,7 @@ const NavigationActions: React.FC = () => {
 
   useEffect(() => {
     // ルーティングの変更を検知し、メニューを閉じる.
-    const unsubscribe =  history.listen(() => {
+    const unsubscribe = history.listen(() => {
       setOpen(false);
     });
     return () => {
@@ -25,42 +25,41 @@ const NavigationActions: React.FC = () => {
   ];
 
   return (
-    <div className="navigation-actions">
-      <Link to="/search" className="navigation-actions__search">
-        <img alt="ボードを探す" title="ボードを探す" src={searchIcon} />
+    <div className='navigation-actions'>
+      <Link to='/search' className='navigation-actions__search'>
+        <img alt='ボードを探す' title='ボードを探す' src={searchIcon} />
       </Link>
 
-      <div className="navigation-actions__container">
+      <div className='navigation-actions__container'>
         <div
-          aria-label="アクションメニューの開閉"
-          aria-hidden="true"
+          aria-label='アクションメニューの開閉'
+          aria-hidden='true'
           onClick={() => setOpen(!open)}
-          className={clsx([
-            'navigation-actions__toggle',
-            {'is-open':open},
-          ])}
+          className={clsx(['navigation-actions__toggle', { 'is-open': open }])}
         >
-          <span /><span /><span />
+          <span />
+          <span />
+          <span />
         </div>
-        {open &&
-          <ul className="navigation-actions__items">
-            {actions.map(action => {
+        {open && (
+          <ul className='navigation-actions__items'>
+            {actions.map((action) => {
               return (
-                <li key={action.icon} className="navigation-actions__item">
-                  <Link to={action.link} className={clsx([
-                    'navigation-actions__item-link',
-                    `navigation-actions__item-link--${action.icon}`,
-                  ])}>
+                <li key={action.icon} className='navigation-actions__item'>
+                  <Link
+                    to={action.link}
+                    className={clsx(['navigation-actions__item-link', `navigation-actions__item-link--${action.icon}`])}
+                  >
                     {action.label}
                   </Link>
                 </li>
               );
             })}
           </ul>
-        }
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default NavigationActions;

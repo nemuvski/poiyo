@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useHistory, useLocation} from "react-router-dom";
-import {setDocumentTitle} from "../utilities/DocumentTitle";
-import ArticleInner from "../components/ArticleInner";
-import ArticleSection from "../components/ArticleSection";
-import BoardForm from "../components/BoardForm";
-import {Board, BoardLocationState} from "../libs/models/Board";
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { setDocumentTitle } from '../utilities/DocumentTitle';
+import ArticleInner from '../components/ArticleInner';
+import ArticleSection from '../components/ArticleSection';
+import BoardForm from '../components/BoardForm';
+import { Board, BoardLocationState } from '../libs/models/Board';
 
 const EditBoard: React.FC = () => {
   const location = useLocation<BoardLocationState>();
@@ -24,7 +24,7 @@ const EditBoard: React.FC = () => {
 
   return (
     <ArticleInner>
-      <div className="page-edit-board">
+      <div className='page-edit-board'>
         <h1>ボード編集</h1>
         <ArticleSection wider={true}>
           <BoardForm board={board} />
@@ -32,6 +32,6 @@ const EditBoard: React.FC = () => {
       </div>
     </ArticleInner>
   );
-}
+};
 
 export default EditBoard;

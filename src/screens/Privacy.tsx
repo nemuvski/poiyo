@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import {setDocumentTitle} from "../utilities/DocumentTitle";
-import ArticleInner from "../components/ArticleInner";
-import ArticleSectionContent from "../components/ArticleSectionContent";
-import ArticleSection from "../components/ArticleSection";
+import React, { useEffect } from 'react';
+import { setDocumentTitle } from '../utilities/DocumentTitle';
+import ArticleInner from '../components/ArticleInner';
+import ArticleSectionContent from '../components/ArticleSectionContent';
+import ArticleSection from '../components/ArticleSection';
 
 const Privacy: React.FC = () => {
   useEffect(() => {
@@ -13,9 +13,7 @@ const Privacy: React.FC = () => {
     <ArticleInner>
       <h1>プライバシーポリシー</h1>
 
-      <p>
-        本サービスは、以下のプライバシーポリシーを定め、適切な個人情報の保護に努めます。
-      </p>
+      <p>本サービスは、以下のプライバシーポリシーを定め、適切な個人情報の保護に努めます。</p>
 
       <ArticleSection wider={true}>
         <ArticleSectionContent>
@@ -41,9 +39,13 @@ const Privacy: React.FC = () => {
       <ArticleSection wider={true}>
         <ArticleSectionContent>
           <h2>第3条（プライバシー情報を収集・利用する目的）</h2>
-          <p>本サービスを利用するために、または本サービスの利用を通してユーザーからご提供いただく情報は以下のとおりです。</p>
+          <p>
+            本サービスを利用するために、または本サービスの利用を通してユーザーからご提供いただく情報は以下のとおりです。
+          </p>
           <ol>
-            <li>メールアドレス、当該外部サービスでユーザーが利用するID及び当該外部サービスのプライバシー設定によりユーザーが連携先に開示を認めた情報</li>
+            <li>
+              メールアドレス、当該外部サービスでユーザーが利用するID及び当該外部サービスのプライバシー設定によりユーザーが連携先に開示を認めた情報
+            </li>
             <li>入力フォームその他本サービスが定める方法を通じてユーザーが入力または送信する情報</li>
             <li>アクセス情報やご利用方法に関するサービス利用情報</li>
           </ol>
@@ -61,11 +63,17 @@ const Privacy: React.FC = () => {
       <ArticleSection wider={true}>
         <ArticleSectionContent>
           <h2>第4条（個人情報の第三者提供）</h2>
-          <p>当方は、プライバシー情報のうち個人情報については、あらかじめユーザーの同意を得ないで、第三者（日本国外にある者を含みます。）に提供しません。</p>
+          <p>
+            当方は、プライバシー情報のうち個人情報については、あらかじめユーザーの同意を得ないで、第三者（日本国外にある者を含みます。）に提供しません。
+          </p>
           <ol>
             <li>第3条の定めに従って、提携先または情報収集サービス提供者へ個人情報が提供される場合</li>
-            <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、ユーザーの同意を得ることによって当該事務の遂行に支障を及ぼすおそれがある場合</li>
-            <li>その他、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）その他の法令で認められる場合</li>
+            <li>
+              国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、ユーザーの同意を得ることによって当該事務の遂行に支障を及ぼすおそれがある場合
+            </li>
+            <li>
+              その他、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）その他の法令で認められる場合
+            </li>
           </ol>
         </ArticleSectionContent>
       </ArticleSection>
@@ -73,7 +81,9 @@ const Privacy: React.FC = () => {
       <ArticleSection wider={true}>
         <ArticleSectionContent>
           <h2>第5条（プライバシーポリシーの変更）</h2>
-          <p>本ポリシーの内容は、登録ユーザーに通知することなく、変更できるものとします。運営者が別途定める場合を除いて、変更後のプライバシーポリシーは、本ページに掲載したときから効力を生じるものとします。</p>
+          <p>
+            本ポリシーの内容は、登録ユーザーに通知することなく、変更できるものとします。運営者が別途定める場合を除いて、変更後のプライバシーポリシーは、本ページに掲載したときから効力を生じるものとします。
+          </p>
         </ArticleSectionContent>
       </ArticleSection>
 
@@ -81,8 +91,12 @@ const Privacy: React.FC = () => {
         <ArticleSectionContent>
           <h2>第6条（お問い合わせ窓口）</h2>
           <p>本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。</p>
-          <p>Eメールアドレス: <strong>poiyo.app(a)gmail.com</strong></p>
-          <p><strong>(a)</strong>は<strong>@</strong>に置き換えてください。</p>
+          <p>
+            Eメールアドレス: <strong>poiyo.app(a)gmail.com</strong>
+          </p>
+          <p>
+            <strong>(a)</strong>は<strong>@</strong>に置き換えてください。
+          </p>
         </ArticleSectionContent>
       </ArticleSection>
 
@@ -91,6 +105,6 @@ const Privacy: React.FC = () => {
       </p>
     </ArticleInner>
   );
-}
+};
 
 export default Privacy;

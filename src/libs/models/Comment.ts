@@ -1,8 +1,8 @@
 /**
  * コメントAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
-import {Board} from "./Board";
-import {NullTime} from "./Time";
+import { Board } from './Board';
+import { NullTime } from './Time';
 
 export interface CommentRequest {
   commentId: string | null;

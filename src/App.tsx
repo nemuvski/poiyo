@@ -4,7 +4,7 @@ import { AuthenticationProvider } from './contexts/AuthenticationContext';
 import Header from './layouts/Header';
 import Main from './layouts/Main';
 import Footer from './layouts/Footer';
-import ScrollToTop from "./layouts/ScrollToTop";
+import ScrollToTop from './layouts/ScrollToTop';
 
 const App: React.FC = (): ReactElement => {
   return (
@@ -17,6 +17,6 @@ const App: React.FC = (): ReactElement => {
       <Footer />
     </BrowserRouter>
   );
-}
+};
 
 export default App;

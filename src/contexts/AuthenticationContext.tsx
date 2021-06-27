@@ -1,10 +1,10 @@
-import React, {createContext, useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { createContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import firebase from '../libs/common/Firebase';
-import {Account} from '../libs/models/Account';
-import AuthService from "../libs/services/AuthService";
-import FullWideLoading from "../components/FullWideLoading";
-import SentryTracking from "../utilities/SentryTracking";
+import { Account } from '../libs/models/Account';
+import AuthService from '../libs/services/AuthService';
+import FullWideLoading from '../components/FullWideLoading';
+import SentryTracking from '../utilities/SentryTracking';
 
 type Props = {
   children?: React.ReactNode;
@@ -33,11 +33,13 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
 
   const signOut = () => {
     setLoading(true);
-    firebase.auth().signOut()
+    firebase
+      .auth()
+      .signOut()
       .then(() => {
         setAccount(null);
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception('サインアウト中にエラーが発生しました。');
         SentryTracking.exception(error);
       })
@@ -48,7 +50,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
   };
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(async user => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         try {
           const idToken = await user.getIdToken();
@@ -62,8 +64,7 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
           // JWT取得、認証API実行で問題があった場合はFirebase Authでサインアウト処理を実行する.
           signOut();
         }
-      }
-      else {
+      } else {
         setAccount(null);
       }
       setLoading(false);
@@ -75,4 +76,4 @@ export const AuthenticationProvider: React.FC<Props> = (props: Props) => {
       {loading ? <FullWideLoading /> : props.children}
     </AuthenticationContext.Provider>
   );
-}
+};

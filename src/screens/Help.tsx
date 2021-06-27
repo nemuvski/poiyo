@@ -1,14 +1,14 @@
-import React, {useContext, useEffect} from 'react';
-import {AuthenticationContext} from "../contexts/AuthenticationContext";
-import {setDocumentTitle} from "../utilities/DocumentTitle";
-import ArticleInner from "../components/ArticleInner";
-import ArticleSection from "../components/ArticleSection";
-import ArticleSectionContent from "../components/ArticleSectionContent";
-import AccountsService from "../libs/services/AccountsService";
-import SentryTracking from "../utilities/SentryTracking";
-import Confirm from "../components/Confirm";
-import Modal from "../components/Modal";
-import {ModalContext} from "../contexts/ModalContext";
+import React, { useContext, useEffect } from 'react';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { setDocumentTitle } from '../utilities/DocumentTitle';
+import ArticleInner from '../components/ArticleInner';
+import ArticleSection from '../components/ArticleSection';
+import ArticleSectionContent from '../components/ArticleSectionContent';
+import AccountsService from '../libs/services/AccountsService';
+import SentryTracking from '../utilities/SentryTracking';
+import Confirm from '../components/Confirm';
+import Modal from '../components/Modal';
+import { ModalContext } from '../contexts/ModalContext';
 
 const Help: React.FC = () => {
   const { account, signOut } = useContext(AuthenticationContext);
@@ -23,7 +23,7 @@ const Help: React.FC = () => {
       .then(() => {
         signOut();
       })
-      .catch(error => {
+      .catch((error) => {
         SentryTracking.exception(error);
       });
   };
@@ -53,7 +53,13 @@ const Help: React.FC = () => {
             <li>水平線</li>
           </ul>
           <p>class属性やstyle属性は削除されます。</p>
-          <p>記述方法については <a href="https://ja.wikipedia.org/wiki/Markdown" target="_blank" rel="noreferrer noopener">Markdown - Wikipedia</a> をご覧ください。</p>
+          <p>
+            記述方法については{' '}
+            <a href='https://ja.wikipedia.org/wiki/Markdown' target='_blank' rel='noreferrer noopener'>
+              Markdown - Wikipedia
+            </a>{' '}
+            をご覧ください。
+          </p>
         </ArticleSectionContent>
       </ArticleSection>
 
@@ -68,22 +74,27 @@ const Help: React.FC = () => {
       <ArticleSection>
         <ArticleSectionContent>
           <h2>退会</h2>
-          <p>退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。</p>
-          <div className="align-center">
-            {account
-              ? <button className="is-red" type="button" onClick={() => openModal('sign-off')}>退会する</button>
-              : <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
-            }
+          <p>
+            退会するとアカウント情報が削除されます。作成したボードやコメントのデータは一時的に残りますが、しばらくすると削除されます。
+          </p>
+          <div className='align-center'>
+            {account ? (
+              <button className='is-red' type='button' onClick={() => openModal('sign-off')}>
+                退会する
+              </button>
+            ) : (
+              <p>（サインイン済みの場合はこの画面で退会処理が可能です）</p>
+            )}
           </div>
         </ArticleSectionContent>
       </ArticleSection>
 
-      <Modal name="sign-off">
+      <Modal name='sign-off'>
         <Confirm
-          message="サービスを退会しますがよろしいですか？"
+          message='サービスを退会しますがよろしいですか？'
           cancelAction={() => closeModal('sign-off')}
           okAction={() => handleSignOffButtonClick()}
-          okLabel="退会"
+          okLabel='退会'
         />
       </Modal>
     </ArticleInner>

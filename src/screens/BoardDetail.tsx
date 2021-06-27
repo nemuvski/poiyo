@@ -1,29 +1,29 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {RouteComponentProps, useLocation} from "react-router-dom";
-import {setDocumentTitle} from "../utilities/DocumentTitle";
-import {Board, BoardLocationState} from "../libs/models/Board";
-import {AuthenticationContext} from "../contexts/AuthenticationContext";
-import BoardsService from "../libs/services/BoardsService";
-import FullWideLoading from "../components/FullWideLoading";
-import NotFound from "./NotFound";
+import React, { useContext, useEffect, useState } from 'react';
+import { RouteComponentProps, useLocation } from 'react-router-dom';
+import { setDocumentTitle } from '../utilities/DocumentTitle';
+import { Board, BoardLocationState } from '../libs/models/Board';
+import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import BoardsService from '../libs/services/BoardsService';
+import FullWideLoading from '../components/FullWideLoading';
+import NotFound from './NotFound';
 import '../styles/screens/page-board-detail.scss';
-import BoardCard from "../components/BoardCard";
-import Modal from "../components/Modal";
-import {ModalContext} from "../contexts/ModalContext";
-import commentIcon from "../assets/icons/comment.svg";
-import CommentForm from "../components/CommentForm";
-import CommentList from "../components/CommentList";
-import SentryTracking from "../utilities/SentryTracking";
+import BoardCard from '../components/BoardCard';
+import Modal from '../components/Modal';
+import { ModalContext } from '../contexts/ModalContext';
+import commentIcon from '../assets/icons/comment.svg';
+import CommentForm from '../components/CommentForm';
+import CommentList from '../components/CommentList';
+import SentryTracking from '../utilities/SentryTracking';
 
 type Params = {
   bid: string;
-}
+};
 type Props = RouteComponentProps<Params>;
 
 const BoardDetail: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
-  const {account} = useContext(AuthenticationContext);
-  const {openModal} = useContext(ModalContext);
+  const { account } = useContext(AuthenticationContext);
+  const { openModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
 
@@ -43,7 +43,7 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
         SentryTracking.exception('ボード情報の取得に失敗しました。');
         SentryTracking.exception(error);
       }
-    }
+    };
 
     // 表示するボード情報を取得.
     if (location.state && location.state.board) {
@@ -60,46 +60,45 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
   }, []);
 
   return (
-    <div className="page-board-detail">
+    <div className='page-board-detail'>
       {loading && <FullWideLoading />}
-      {board
-        ? (
-          <>
-            <div className="page-board-detail__inner">
-              <div className="page-board-detail__card">
-                <BoardCard board={board} />
-              </div>
-              <div className="page-board-detail__comment-list">
-                <button
-                  type="button"
-                  className="page-board-detail__comment-button is-black"
-                  onClick={() => openModal('edit-comment')}
-                >
-                  <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
-                  ボードにコメントする
-                </button>
-
-                <CommentList board={board} />
-              </div>
+      {board ? (
+        <>
+          <div className='page-board-detail__inner'>
+            <div className='page-board-detail__card'>
+              <BoardCard board={board} />
             </div>
+            <div className='page-board-detail__comment-list'>
+              <button
+                type='button'
+                className='page-board-detail__comment-button is-black'
+                onClick={() => openModal('edit-comment')}
+              >
+                <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+                ボードにコメントする
+              </button>
 
-            <button
-              type="button"
-              className="page-board-detail__fixed-comment-button is-black"
-              onClick={() => openModal('edit-comment')}
-            >
-              <img aria-hidden="true" alt="コメント" title="コメントのフォームを開きます。" src={commentIcon} />
-            </button>
+              <CommentList board={board} />
+            </div>
+          </div>
 
-            <Modal name="edit-comment">
-              <CommentForm board={board} />
-            </Modal>
-          </>
-        )
-        : <NotFound />
-      }
+          <button
+            type='button'
+            className='page-board-detail__fixed-comment-button is-black'
+            onClick={() => openModal('edit-comment')}
+          >
+            <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+          </button>
+
+          <Modal name='edit-comment'>
+            <CommentForm board={board} />
+          </Modal>
+        </>
+      ) : (
+        <NotFound />
+      )}
     </div>
   );
-}
+};
 
 export default BoardDetail;
