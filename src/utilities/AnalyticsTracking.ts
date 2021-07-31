@@ -6,13 +6,6 @@ import firebase from '../libs/common/Firebase';
 
 const appName = 'poiyo';
 
-const screenView = (screenName: string): void => {
-  firebase.analytics().logEvent('screen_view', {
-    screen_name: screenName,
-    app_name: appName,
-  });
-};
-
 const search = (term: string): void => {
   if (!term) {
     return;
@@ -23,4 +16,4 @@ const search = (term: string): void => {
   });
 };
 
-export default { screenView, search };
+export default { search };

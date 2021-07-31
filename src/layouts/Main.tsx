@@ -15,7 +15,6 @@ import { ModalProvider } from '../contexts/ModalContext';
 import { CommentListProvider } from '../contexts/CommentListContext';
 import Dashboard from '../screens/Dashboard';
 import Help from '../screens/Help';
-import AnalyticsTracking from '../utilities/AnalyticsTracking';
 
 const Main: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
@@ -25,7 +24,6 @@ const Main: React.FC = () => {
     const unsubscribe = history.listen(() => {
       // パスが変わったらスクロール位置を先頭にする.
       window.scrollTo(0, 0);
-      AnalyticsTracking.screenView(window.location.pathname);
     });
     return () => {
       unsubscribe();
