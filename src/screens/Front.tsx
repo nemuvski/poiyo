@@ -16,7 +16,7 @@ const Front: React.FC = () => {
   const { signIn } = useContext(AuthenticationContext);
 
   useEffect(() => {
-    setDocumentTitle('Poiyo', false);
+    setDocumentTitle('Poiyo（ぽいよ） - 匿名掲示板コミュニティサイト', false);
   }, []);
 
   return (
