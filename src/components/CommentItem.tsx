@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import { Comment } from '../libs/models/Comment';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import { CommentListContext } from '../contexts/CommentListContext';
 import { ModalContext } from '../contexts/ModalContext';
 import settingsIcon from '../assets/icons/settings.svg';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 import '../styles/components/comment-item.scss';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 };
 
 const CommentItem: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const { setupOperatingComment } = useContext(CommentListContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
   const { openModal } = useContext(ModalContext);

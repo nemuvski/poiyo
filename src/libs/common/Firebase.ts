@@ -21,4 +21,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics().setAnalyticsCollectionEnabled(isProduction());
 
+export const auth = firebase.auth();
+
 export default firebase;

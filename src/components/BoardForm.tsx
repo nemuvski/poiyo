@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from './FullWideLoading';
-import '../styles/components/board-form.scss';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import SentryTracking from '../utilities/SentryTracking';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
+import '../styles/components/board-form.scss';
 
 type Props = {
   board?: Board;
@@ -45,7 +46,7 @@ const fieldRules = {
 };
 
 const BoardForm: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const defaultValues: BoardFormFields = {
     // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
     title: props.board ? props.board.title : '',

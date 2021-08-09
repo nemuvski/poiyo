@@ -1,15 +1,16 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Board, BoardListProps } from '../libs/models/Board';
 import BoardItem from './BoardItem';
 import BoardsService from '../libs/services/BoardsService';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import CompactLoading from './CompactLoading';
 import SentryTracking from '../utilities/SentryTracking';
 import notFound from '../assets/not-found.svg';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 import '../styles/components/board-list.scss';
 
 const BoardList: React.FC<BoardListProps> = (props: BoardListProps) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const [boardList, setBoardList] = useState<Array<Board> | null>(null);
   const [loading, setLoading] = useState(false);
   const [nextPage, setNextPage] = useState(-1);

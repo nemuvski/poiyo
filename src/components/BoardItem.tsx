@@ -1,17 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
-import '../styles/components/board-item.scss';
 import clsx from 'clsx';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
+import '../styles/components/board-item.scss';
 
 type Props = {
   board: Board;
 };
 
 const BoardItem: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
 
   return (
     <div className='board-item'>

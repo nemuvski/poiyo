@@ -1,14 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import BoardList from '../components/BoardList';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import searchIcon from '../assets/icons/search-form.svg';
 import boardIcon from '../assets/icons/board-button.svg';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 import '../styles/pages/page-dashboard.scss';
 
 const DashboardPage: React.FC = () => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const history = useHistory();
 
   useEffect(() => {

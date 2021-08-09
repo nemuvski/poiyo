@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Comment } from '../libs/models/Comment';
 import CommentsService from '../libs/services/CommentsService';
-import { AuthenticationContext } from './AuthenticationContext';
 import SentryTracking from '../utilities/SentryTracking';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 
 type Props = {
   children?: React.ReactNode;
@@ -38,7 +39,7 @@ export const CommentListContext: React.Context<Context> = createContext<Context>
 });
 
 export const CommentListProvider: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const [commentList, setCommentList] = useState<Array<Comment> | null>(null);
   const [operatingComment, setOperatingComment] = useState<Comment | null>(null);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import { ModalProvider } from '../contexts/ModalContext';
 import { CommentListProvider } from '../contexts/CommentListContext';
 import FrontPage from '../pages/FrontPage';
@@ -14,10 +13,12 @@ import SearchPage from '../pages/SearchPage';
 import EditBoardPage from '../pages/EditBoardPage';
 import DashboardPage from '../pages/DashboardPage';
 import HelpPage from '../pages/HelpPage';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 
 const Router: React.FC = () => {
-  const { account } = useContext(AuthenticationContext);
   const history = useHistory();
+  const account = useSelector(selectAccount);
 
   useEffect(() => {
     const unsubscribe = history.listen(() => {
@@ -35,7 +36,7 @@ const Router: React.FC = () => {
         <Route exact path='/help' component={HelpPage} />
         <Route exact path='/terms' component={TermsPage} />
         <Route exact path='/privacy' component={PrivacyPage} />
-        <Route exact path='/sign-out' component={SignOutPage} />
+        <Route exact path='/sign-out' render={() => (!account ? <Redirect to='/' /> : <SignOutPage />)} />
         <Route exact path='/search' render={() => (!account ? <Redirect to='/' /> : <SearchPage />)} />
         <Route exact path='/create-board' render={() => (!account ? <Redirect to='/' /> : <CreateBoardPage />)} />
         <Route exact path='/edit-board' render={() => (!account ? <Redirect to='/' /> : <EditBoardPage />)} />

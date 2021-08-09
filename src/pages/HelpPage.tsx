@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
@@ -9,9 +8,12 @@ import SentryTracking from '../utilities/SentryTracking';
 import Confirm from '../components/Confirm';
 import Modal from '../components/Modal';
 import { ModalContext } from '../contexts/ModalContext';
+import { signOut } from '../libs/services/FirebaseAuthService';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 
 const HelpPage: React.FC = () => {
-  const { account, signOut } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const { openModal, closeModal } = useContext(ModalContext);
 
   const handleSignOffButtonClick = () => {

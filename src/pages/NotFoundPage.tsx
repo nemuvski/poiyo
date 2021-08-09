@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import { useHistory } from 'react-router-dom';
 import ArticleInner from '../components/ArticleInner';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import notFound from '../assets/not-found.svg';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 import '../styles/pages/page-not-found.scss';
 
 const NotFoundPage: React.FC = () => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const history = useHistory();
 
   useEffect(() => {
