@@ -10,7 +10,7 @@ import Confirm from '../components/Confirm';
 import Modal from '../components/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 
-const Help: React.FC = () => {
+const HelpPage: React.FC = () => {
   const { account, signOut } = useContext(AuthenticationContext);
   const { openModal, closeModal } = useContext(ModalContext);
 
@@ -101,4 +101,4 @@ const Help: React.FC = () => {
   );
 };
 
-export default Help;
+export default HelpPage;

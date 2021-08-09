@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 
-const SignOut: React.FC = () => {
+const SignOutPage: React.FC = () => {
   const { signOut } = useContext(AuthenticationContext);
 
   useEffect(() => {
@@ -14,4 +14,4 @@ const SignOut: React.FC = () => {
   return <div />;
 };
 
-export default SignOut;
+export default SignOutPage;

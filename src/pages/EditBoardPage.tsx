@@ -6,7 +6,7 @@ import ArticleSection from '../components/ArticleSection';
 import BoardForm from '../components/BoardForm';
 import { Board, BoardLocationState } from '../libs/models/Board';
 
-const EditBoard: React.FC = () => {
+const EditBoardPage: React.FC = () => {
   const location = useLocation<BoardLocationState>();
   const history = useHistory();
   const [board, setBoard] = useState<Board | undefined>();
@@ -34,4 +34,4 @@ const EditBoard: React.FC = () => {
   );
 };
 
-export default EditBoard;
+export default EditBoardPage;

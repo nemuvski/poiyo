@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import BoardList from '../components/BoardList';
 import searchIcon from '../assets/icons/search-form.svg';
-import '../styles/pages/page-search.scss';
 import AnalyticsTracking from '../utilities/AnalyticsTracking';
+import '../styles/pages/page-search.scss';
 
 type SearchFormFields = {
   keyword: string;
 };
 
-const Search: React.FC = () => {
+const SearchPage: React.FC = () => {
   const { handleSubmit, formState, register } = useForm();
 
   const [keyword, setKeyword] = useState('');
@@ -45,4 +45,4 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default SearchPage;

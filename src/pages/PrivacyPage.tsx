@@ -4,7 +4,7 @@ import ArticleInner from '../components/ArticleInner';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import ArticleSection from '../components/ArticleSection';
 
-const Privacy: React.FC = () => {
+const PrivacyPage: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('プライバシーポリシー');
   }, []);
@@ -107,4 +107,4 @@ const Privacy: React.FC = () => {
   );
 };
 
-export default Privacy;
+export default PrivacyPage;

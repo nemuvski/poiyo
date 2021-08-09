@@ -4,7 +4,7 @@ import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 
-const Terms: React.FC = () => {
+const TermsPage: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('利用規約');
   }, []);
@@ -233,4 +233,4 @@ const Terms: React.FC = () => {
   );
 };
 
-export default Terms;
+export default TermsPage;

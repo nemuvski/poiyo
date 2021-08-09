@@ -7,7 +7,7 @@ import searchIcon from '../assets/icons/search-form.svg';
 import boardIcon from '../assets/icons/board-button.svg';
 import '../styles/pages/page-dashboard.scss';
 
-const Dashboard: React.FC = () => {
+const DashboardPage: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
   const history = useHistory();
 
@@ -41,4 +41,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

@@ -5,8 +5,7 @@ import { Board, BoardLocationState } from '../libs/models/Board';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
-import NotFound from './NotFound';
-import '../styles/pages/page-board-detail.scss';
+import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
 import Modal from '../components/Modal';
 import { ModalContext } from '../contexts/ModalContext';
@@ -14,13 +13,14 @@ import commentIcon from '../assets/icons/comment.svg';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import SentryTracking from '../utilities/SentryTracking';
+import '../styles/pages/page-board-detail.scss';
 
 type Params = {
   bid: string;
 };
 type Props = RouteComponentProps<Params>;
 
-const BoardDetail: React.FC<Props> = (props: Props) => {
+const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const { account } = useContext(AuthenticationContext);
   const { openModal } = useContext(ModalContext);
@@ -95,10 +95,10 @@ const BoardDetail: React.FC<Props> = (props: Props) => {
           </Modal>
         </>
       ) : (
-        <NotFound />
+        <NotFoundPage />
       )}
     </div>
   );
 };
 
-export default BoardDetail;
+export default BoardDetailPage;

@@ -6,7 +6,7 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import notFound from '../assets/not-found.svg';
 import '../styles/pages/page-not-found.scss';
 
-const NotFound: React.FC = () => {
+const NotFoundPage: React.FC = () => {
   const { account } = useContext(AuthenticationContext);
   const history = useHistory();
 
@@ -36,4 +36,4 @@ const NotFound: React.FC = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundPage;

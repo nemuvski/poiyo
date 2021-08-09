@@ -5,7 +5,7 @@ import ArticleSection from '../components/ArticleSection';
 import BoardForm from '../components/BoardForm';
 import '../styles/pages/page-create-board.scss';
 
-const CreateBoard: React.FC = () => {
+const CreateBoardPage: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('ボード作成');
   }, []);
@@ -23,4 +23,4 @@ const CreateBoard: React.FC = () => {
   );
 };
 
-export default CreateBoard;
+export default CreateBoardPage;

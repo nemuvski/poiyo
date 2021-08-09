@@ -12,7 +12,7 @@ import '../styles/pages/page-front.scss';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NewsList from '../components/NewsList';
 
-const Front: React.FC = () => {
+const FrontPage: React.FC = () => {
   const { signIn } = useContext(AuthenticationContext);
 
   useEffect(() => {
@@ -95,4 +95,4 @@ const Front: React.FC = () => {
   );
 };
 
-export default Front;
+export default FrontPage;
