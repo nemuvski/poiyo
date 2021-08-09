@@ -1,23 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
-import '../styles/components/board-item.scss';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import CompactLoading from './CompactLoading';
-import '../styles/components/board-card.scss';
 import ShadowBox from './ShadowBox';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import { useHistory } from 'react-router-dom';
 import BoardsService from '../libs/services/BoardsService';
 import settingsIcon from '../assets/icons/settings.svg';
 import SentryTracking from '../utilities/SentryTracking';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
+import '../styles/components/board-card.scss';
 
 type Props = {
   board: Board | null;
 };
 
 const BoardCard: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const history = useHistory();
   const [isOpenActions, setIsOpenActions] = useState(false);
 

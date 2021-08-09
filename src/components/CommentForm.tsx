@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import { Board } from '../libs/models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
-import '../styles/components/comment-form.scss';
 import CommentsService from '../libs/services/CommentsService';
 import { ModalContext } from '../contexts/ModalContext';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
+import '../styles/components/comment-form.scss';
 
 type Props = {
   board: Board;
@@ -35,7 +36,7 @@ const fieldRules = {
 };
 
 const CommentForm: React.FC<Props> = (props: Props) => {
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
   const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import keyVisual from '../assets/key-visual.svg';
@@ -8,13 +7,12 @@ import googleIcon from '../assets/icons/google.svg';
 import boardIcon from '../assets/icons/board-feature.svg';
 import searchIcon from '../assets/icons/search-feature.svg';
 import penIcon from '../assets/icons/pen-feature.svg';
-import '../styles/pages/page-front.scss';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NewsList from '../components/NewsList';
+import { signIn } from '../libs/services/FirebaseAuthService';
+import '../styles/pages/page-front.scss';
 
 const FrontPage: React.FC = () => {
-  const { signIn } = useContext(AuthenticationContext);
-
   useEffect(() => {
     setDocumentTitle('Poiyo（ぽいよ） - 匿名掲示板コミュニティサイト', false);
   }, []);

@@ -1,17 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
+import { signOut } from '../libs/services/FirebaseAuthService';
+import FullWideLoading from '../components/FullWideLoading';
 
 const SignOutPage: React.FC = () => {
-  const { signOut } = useContext(AuthenticationContext);
-
   useEffect(() => {
     setDocumentTitle('サインアウト');
-    // サインアウト実行後に、フロントページにリダイレクトする.
+    // サインアウト処理
     signOut();
   }, []);
 
-  return <div />;
+  return <FullWideLoading />;
 };
 
 export default SignOutPage;

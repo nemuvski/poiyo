@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import { Board, BoardLocationState } from '../libs/models/Board';
-import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
@@ -13,6 +12,8 @@ import commentIcon from '../assets/icons/comment.svg';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import SentryTracking from '../utilities/SentryTracking';
+import { useSelector } from 'react-redux';
+import { selectAccount } from '../stores/account/selector';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
@@ -22,7 +23,7 @@ type Props = RouteComponentProps<Params>;
 
 const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
-  const { account } = useContext(AuthenticationContext);
+  const account = useSelector(selectAccount);
   const { openModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
