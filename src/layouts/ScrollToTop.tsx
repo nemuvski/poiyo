@@ -9,22 +9,24 @@ const ScrollToTop: React.FC = () => {
   const isProcessing = useRef(false);
 
   useEffect(() => {
+    const handler = () => {
+      // 処理中の場合はスキップ.
+      if (isProcessing.current) {
+        return;
+      }
+      isProcessing.current = true;
+      requestAnimationFrame(() => {
+        setHidden(window.scrollY < 300);
+        isProcessing.current = false;
+      });
+    };
+
     // スクロール時のイベントを登録する.
-    document.addEventListener(
-      'scroll',
-      () => {
-        // 処理中の場合はスキップ.
-        if (isProcessing.current) {
-          return;
-        }
-        isProcessing.current = true;
-        requestAnimationFrame(() => {
-          setHidden(window.scrollY < 300);
-          isProcessing.current = false;
-        });
-      },
-      { passive: true }
-    );
+    document.addEventListener('scroll', handler, { passive: true });
+
+    return () => {
+      document.removeEventListener('scroll', handler);
+    };
   }, []);
 
   const handleClick = () => {
