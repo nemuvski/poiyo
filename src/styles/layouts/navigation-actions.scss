@@ -65,8 +65,6 @@
   }
 
   &__items {
-    @include shadow;
-
     position: absolute;
     top: 3em;
     right: 0;
@@ -74,6 +72,9 @@
     width: 12em;
     margin: 0;
     padding: 0;
+    border-radius: 0.5em;
+    border: 1px solid $color-quill-gray;
+    background-color: $color-white;
   }
   &__item:not(:first-child) {
     border-top: 1px dotted $color-quill-gray;
