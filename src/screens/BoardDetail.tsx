@@ -6,7 +6,7 @@ import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFound from './NotFound';
-import '../styles/screens/page-board-detail.scss';
+import '../styles/pages/page-board-detail.scss';
 import BoardCard from '../components/BoardCard';
 import Modal from '../components/Modal';
 import { ModalContext } from '../contexts/ModalContext';

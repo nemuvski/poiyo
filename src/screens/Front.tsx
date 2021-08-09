@@ -8,7 +8,7 @@ import googleIcon from '../assets/icons/google.svg';
 import boardIcon from '../assets/icons/board-feature.svg';
 import searchIcon from '../assets/icons/search-feature.svg';
 import penIcon from '../assets/icons/pen-feature.svg';
-import '../styles/screens/page-front.scss';
+import '../styles/pages/page-front.scss';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NewsList from '../components/NewsList';
 

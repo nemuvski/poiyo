@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import ArticleInner from '../components/ArticleInner';
 import { AuthenticationContext } from '../contexts/AuthenticationContext';
 import notFound from '../assets/not-found.svg';
-import '../styles/screens/page-not-found.scss';
+import '../styles/pages/page-not-found.scss';
 
 const NotFound: React.FC = () => {
   const { account } = useContext(AuthenticationContext);

@@ -5,7 +5,7 @@ import BoardList from '../components/BoardList';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import searchIcon from '../assets/icons/search-form.svg';
 import boardIcon from '../assets/icons/board-button.svg';
-import '../styles/screens/page-dashboard.scss';
+import '../styles/pages/page-dashboard.scss';
 
 const Dashboard: React.FC = () => {
   const { account } = useContext(AuthenticationContext);

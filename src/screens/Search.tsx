@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import BoardList from '../components/BoardList';
 import searchIcon from '../assets/icons/search-form.svg';
-import '../styles/screens/page-search.scss';
+import '../styles/pages/page-search.scss';
 import AnalyticsTracking from '../utilities/AnalyticsTracking';
 
 type SearchFormFields = {

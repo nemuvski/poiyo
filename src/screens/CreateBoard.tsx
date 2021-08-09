@@ -3,7 +3,7 @@ import { setDocumentTitle } from '../utilities/DocumentTitle';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import BoardForm from '../components/BoardForm';
-import '../styles/screens/page-create-board.scss';
+import '../styles/pages/page-create-board.scss';
 
 const CreateBoard: React.FC = () => {
   useEffect(() => {
