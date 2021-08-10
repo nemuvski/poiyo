@@ -63,8 +63,8 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
   }, []);
 
   const handleOpenCommentFormModal = () => {
-    setupOperatingComment(null)
-    openModal(ModalName.COMMENT_FORM)
+    setupOperatingComment(null);
+    openModal(ModalName.COMMENT_FORM);
   };
 
   return (

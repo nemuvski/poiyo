@@ -128,10 +128,19 @@ const CommentForm: React.FC<Props> = (props: Props) => {
           </div>
 
           <div className='comment-form__actions'>
-            <button className='comment-form__button comment-form__button--reset is-white' type='button' disabled={formState.isSubmitting} onClick={() => reset()}>
+            <button
+              className='comment-form__button comment-form__button--reset is-white'
+              type='button'
+              disabled={formState.isSubmitting}
+              onClick={() => reset()}
+            >
               {operatingComment ? '元に戻す' : 'クリア'}
             </button>
-            <button className='comment-form__button comment-form__button--submit' type='submit' disabled={formState.isSubmitting}>
+            <button
+              className='comment-form__button comment-form__button--submit'
+              type='submit'
+              disabled={formState.isSubmitting}
+            >
               内容を保存
             </button>
           </div>
