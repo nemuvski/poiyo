@@ -10,6 +10,7 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import { ModalName } from './modals/Modal';
 import '../styles/components/comment-form.scss';
 
 type Props = {
@@ -72,7 +73,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal('edit-comment');
+          closeModal(ModalName.COMMENT_FORM);
         });
     } else {
       CommentsService.create(account.token, props.board.boardId, account.id, data.body)
@@ -86,7 +87,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal('edit-comment');
+          closeModal(ModalName.COMMENT_FORM);
         });
     }
   };
@@ -127,10 +128,19 @@ const CommentForm: React.FC<Props> = (props: Props) => {
           </div>
 
           <div className='comment-form__actions'>
-            <button className='is-white' type='button' disabled={formState.isSubmitting} onClick={() => reset()}>
+            <button
+              className='comment-form__button comment-form__button--reset is-white'
+              type='button'
+              disabled={formState.isSubmitting}
+              onClick={() => reset()}
+            >
               {operatingComment ? '元に戻す' : 'クリア'}
             </button>
-            <button type='submit' disabled={formState.isSubmitting}>
+            <button
+              className='comment-form__button comment-form__button--submit'
+              type='submit'
+              disabled={formState.isSubmitting}
+            >
               内容を保存
             </button>
           </div>

@@ -6,14 +6,15 @@ import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
-import Modal from '../components/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import commentIcon from '../assets/icons/comment.svg';
-import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import CommentFormModal from '../components/modals/CommentFormModal';
+import { ModalName } from '../components/modals/Modal';
+import { CommentListContext } from '../contexts/CommentListContext';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
@@ -24,6 +25,7 @@ type Props = RouteComponentProps<Params>;
 const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const account = useSelector(selectAccount);
+  const { setupOperatingComment } = useContext(CommentListContext);
   const { openModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
@@ -60,6 +62,11 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
+  const handleOpenCommentFormModal = () => {
+    setupOperatingComment(null);
+    openModal(ModalName.COMMENT_FORM);
+  };
+
   return (
     <div className='page-board-detail'>
       {loading && <FullWideLoading />}
@@ -73,7 +80,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
               <button
                 type='button'
                 className='page-board-detail__comment-button is-black'
-                onClick={() => openModal('edit-comment')}
+                onClick={() => handleOpenCommentFormModal()}
               >
                 <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
                 ボードにコメントする
@@ -86,14 +93,12 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
           <button
             type='button'
             className='page-board-detail__fixed-comment-button is-black'
-            onClick={() => openModal('edit-comment')}
+            onClick={() => handleOpenCommentFormModal()}
           >
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
           </button>
 
-          <Modal name='edit-comment'>
-            <CommentForm board={board} />
-          </Modal>
+          <CommentFormModal board={board} />
         </>
       ) : (
         <NotFoundPage />

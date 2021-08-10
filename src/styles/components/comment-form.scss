@@ -67,9 +67,31 @@
 
   &__actions {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
-    margin-top: 0.75em;
-    > button:not(:first-child) {
+    align-items: center;
+    margin-top: 1em;
+
+    @include bp($bp-s-min) {
+      flex-direction: row;
+    }
+  }
+
+  &__button {
+    @include bp($bp-xs-max, false) {
+      width: 100%;
+    }
+    @include bp($bp-s-min) {
+      min-width: 130px;
+    }
+  }
+  &__button--reset {
+    @include bp($bp-xs-max, false) {
+      margin-top: 0.75em;
+    }
+  }
+  &__button--submit {
+    @include bp($bp-s-min) {
       margin-left: 1.5em;
     }
   }

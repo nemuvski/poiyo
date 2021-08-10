@@ -3,25 +3,36 @@ import '../styles/components/confirm.scss';
 
 type Props = {
   message: string;
-  cancelAction: () => void;
+  okLabel?: string;
   okAction: () => void;
-  okLabel: string;
+  cancelLabel?: string;
+  cancelAction: () => void;
 };
 
-const ArticleInner: React.FC<Props> = (props: Props) => {
+const Confirm: React.FC<Props> = ({
+  message,
+  okLabel = '実行',
+  okAction,
+  cancelLabel = 'キャンセル',
+  cancelAction,
+}) => {
   return (
     <div className='confirm'>
-      <p className='confirm__message'>{props.message}</p>
+      <p className='confirm__message'>{message}</p>
       <div className='confirm__actions'>
-        <button className='is-white' type='button' onClick={() => props.cancelAction()}>
-          キャンセル
+        <button
+          className='confirm__button confirm__button--cancel is-white'
+          type='button'
+          onClick={() => cancelAction()}
+        >
+          {cancelLabel}
         </button>
-        <button className='is-red' type='button' onClick={() => props.okAction()}>
-          {props.okLabel}
+        <button className='confirm__button confirm__button--ok is-red' type='button' onClick={() => okAction()}>
+          {okLabel}
         </button>
       </div>
     </div>
   );
 };
 
-export default ArticleInner;
+export default Confirm;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import CompactLoading from './CompactLoading';
@@ -10,6 +10,9 @@ import settingsIcon from '../assets/icons/settings.svg';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import { ModalContext } from '../contexts/ModalContext';
+import DeleteBoardConfirmModal from './modals/DeleteBoardConfirmModal';
+import { ModalName } from './modals/Modal';
 import '../styles/components/board-card.scss';
 
 type Props = {
@@ -19,20 +22,12 @@ type Props = {
 const BoardCard: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const history = useHistory();
+  const { openModal, closeModal } = useContext(ModalContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
-
-  const handleEditButtonClick = () => {
-    history.push('/edit-board', {
-      board: props.board,
-    } as BoardLocationState);
-  };
 
   const handleDeleteButtonClick = () => {
     if (!account || !props.board) {
       SentryTracking.exception('処理中に問題があたったため、ボードの削除処理は中断されました。');
-      return;
-    }
-    if (!confirm('ボードを削除しますがよろしいですか？')) {
       return;
     }
     BoardsService.remove(account.token, props.board.boardId)
@@ -59,8 +54,23 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                   </div>
                   {isOpenActions && (
                     <ul className='board-card__actions'>
-                      <li onClick={() => handleEditButtonClick()}>編集</li>
-                      <li onClick={() => handleDeleteButtonClick()}>削除</li>
+                      <li
+                        onClick={() => {
+                          history.push('/edit-board', {
+                            board: props.board,
+                          } as BoardLocationState);
+                        }}
+                      >
+                        編集
+                      </li>
+                      <li
+                        onClick={() => {
+                          setIsOpenActions(false);
+                          openModal(ModalName.DELETE_BOARD_CONFIRM);
+                        }}
+                      >
+                        削除
+                      </li>
                     </ul>
                   )}
                 </div>
@@ -76,6 +86,11 @@ const BoardCard: React.FC<Props> = (props: Props) => {
           <CompactLoading />
         )}
       </ShadowBox>
+
+      <DeleteBoardConfirmModal
+        okAction={() => handleDeleteButtonClick()}
+        cancelAction={() => closeModal(ModalName.DELETE_BOARD_CONFIRM)}
+      />
     </div>
   );
 };

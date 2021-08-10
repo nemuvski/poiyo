@@ -5,12 +5,12 @@ import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import AccountsService from '../libs/services/AccountsService';
 import SentryTracking from '../utilities/SentryTracking';
-import Confirm from '../components/Confirm';
-import Modal from '../components/Modal';
+import { ModalName } from '../components/modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import { signOut } from '../libs/services/FirebaseAuthService';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
 
 const HelpPage: React.FC = () => {
   const account = useSelector(selectAccount);
@@ -81,7 +81,7 @@ const HelpPage: React.FC = () => {
           </p>
           <div className='align-center'>
             {account ? (
-              <button className='is-red' type='button' onClick={() => openModal('sign-off')}>
+              <button className='is-red' type='button' onClick={() => openModal(ModalName.SIGN_OFF_CONFIRM)}>
                 退会する
               </button>
             ) : (
@@ -91,14 +91,10 @@ const HelpPage: React.FC = () => {
         </ArticleSectionContent>
       </ArticleSection>
 
-      <Modal name='sign-off'>
-        <Confirm
-          message='サービスを退会しますがよろしいですか？'
-          cancelAction={() => closeModal('sign-off')}
-          okAction={() => handleSignOffButtonClick()}
-          okLabel='退会'
-        />
-      </Modal>
+      <SignOffConfirmModal
+        cancelAction={() => closeModal(ModalName.SIGN_OFF_CONFIRM)}
+        okAction={() => handleSignOffButtonClick()}
+      />
     </ArticleInner>
   );
 };
