@@ -25,12 +25,6 @@ const BoardCard: React.FC<Props> = (props: Props) => {
   const { openModal, closeModal } = useContext(ModalContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
 
-  const handleEditButtonClick = () => {
-    history.push('/edit-board', {
-      board: props.board,
-    } as BoardLocationState);
-  };
-
   const handleDeleteButtonClick = () => {
     if (!account || !props.board) {
       SentryTracking.exception('処理中に問題があたったため、ボードの削除処理は中断されました。');
@@ -60,8 +54,23 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                   </div>
                   {isOpenActions && (
                     <ul className='board-card__actions'>
-                      <li onClick={() => handleEditButtonClick()}>編集</li>
-                      <li onClick={() => openModal(ModalName.DELETE_BOARD_CONFIRM)}>削除</li>
+                      <li
+                        onClick={() => {
+                          history.push('/edit-board', {
+                            board: props.board,
+                          } as BoardLocationState);
+                        }}
+                      >
+                        編集
+                      </li>
+                      <li
+                        onClick={() => {
+                          setIsOpenActions(false);
+                          openModal(ModalName.DELETE_BOARD_CONFIRM);
+                        }}
+                      >
+                        削除
+                      </li>
                     </ul>
                   )}
                 </div>
