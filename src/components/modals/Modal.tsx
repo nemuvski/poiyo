@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { ModalContext } from '../../contexts/ModalContext';
 import closeIcon from '../../assets/icons/modal-close.svg';
 import '../../styles/components/modal.scss';
+import clsx from 'clsx';
 
 /**
  * モーダルの識別名
@@ -18,12 +19,13 @@ export type ModalNameType = typeof ModalName[keyof typeof ModalName];
 type Props = {
   children?: React.ReactNode;
   name: ModalNameType;
+  isCompactMode?: boolean;
 };
 
 /**
  * Modalの表示切り替えはModalContext経由で操作する.
  */
-const Modal: React.FC<Props> = ({ name, children }) => {
+const Modal: React.FC<Props> = ({ name, isCompactMode = false, children }) => {
   const { isOpen, closeModal, setupModal } = useContext(ModalContext);
   const rootElement = document.getElementById('root');
 
@@ -39,7 +41,7 @@ const Modal: React.FC<Props> = ({ name, children }) => {
     <>
       {isOpen(name) && (
         <div className='modal' onClick={() => closeModal(name)}>
-          <div className='modal__inner'>
+          <div className={clsx(['modal__inner', { 'is-compact': isCompactMode }])}>
             <div className='modal__content' onClick={(event) => event.stopPropagation()}>
               {children}
             </div>

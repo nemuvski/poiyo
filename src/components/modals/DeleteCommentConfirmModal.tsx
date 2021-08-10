@@ -9,7 +9,7 @@ type Props = {
 
 const DeleteCommentConfirmModal: React.FC<Props> = ({ okAction, cancelAction }) => {
   return (
-    <Modal name={ModalName.DELETE_COMMENT_CONFIRM}>
+    <Modal name={ModalName.DELETE_COMMENT_CONFIRM} isCompactMode={true}>
       <Confirm
         message='コメントを削除しますがよろしいですか？'
         okLabel='削除'

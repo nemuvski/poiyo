@@ -9,7 +9,7 @@ type Props = {
 
 const SignOffConfirmModal: React.FC<Props> = ({ okAction, cancelAction }) => {
   return (
-    <Modal name={ModalName.SIGN_OFF_CONFIRM}>
+    <Modal name={ModalName.SIGN_OFF_CONFIRM} isCompactMode={true}>
       <Confirm
         message='サービスを退会しますがよろしいですか？'
         okLabel='退会'
