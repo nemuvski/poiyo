@@ -6,7 +6,7 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import notFound from '../assets/not-found.svg';
 import '../styles/components/comment-list.scss';
 import Confirm from './Confirm';
-import Modal from './Modal';
+import Modal from './modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import SentryTracking from '../utilities/SentryTracking';
 

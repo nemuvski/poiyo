@@ -6,7 +6,7 @@ import ArticleSectionContent from '../components/ArticleSectionContent';
 import AccountsService from '../libs/services/AccountsService';
 import SentryTracking from '../utilities/SentryTracking';
 import Confirm from '../components/Confirm';
-import Modal from '../components/Modal';
+import Modal from '../components/modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import { signOut } from '../libs/services/FirebaseAuthService';
 import { useSelector } from 'react-redux';

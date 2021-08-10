@@ -6,7 +6,7 @@ import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
-import Modal from '../components/Modal';
+import Modal from '../components/modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import commentIcon from '../assets/icons/comment.svg';
 import CommentForm from '../components/CommentForm';
