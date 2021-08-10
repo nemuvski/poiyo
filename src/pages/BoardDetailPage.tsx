@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
 import { ModalName } from '../components/modals/Modal';
+import { CommentListContext } from '../contexts/CommentListContext';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
@@ -24,6 +25,7 @@ type Props = RouteComponentProps<Params>;
 const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const account = useSelector(selectAccount);
+  const { setupOperatingComment } = useContext(CommentListContext);
   const { openModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
@@ -60,6 +62,11 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
+  const handleOpenCommentFormModal = () => {
+    setupOperatingComment(null)
+    openModal(ModalName.COMMENT_FORM)
+  };
+
   return (
     <div className='page-board-detail'>
       {loading && <FullWideLoading />}
@@ -73,7 +80,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
               <button
                 type='button'
                 className='page-board-detail__comment-button is-black'
-                onClick={() => openModal(ModalName.COMMENT_FORM)}
+                onClick={() => handleOpenCommentFormModal()}
               >
                 <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
                 ボードにコメントする
@@ -86,7 +93,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
           <button
             type='button'
             className='page-board-detail__fixed-comment-button is-black'
-            onClick={() => openModal(ModalName.COMMENT_FORM)}
+            onClick={() => handleOpenCommentFormModal()}
           >
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
           </button>
