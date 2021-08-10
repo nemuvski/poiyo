@@ -7,6 +7,7 @@ import { ModalContext } from '../contexts/ModalContext';
 import settingsIcon from '../assets/icons/settings.svg';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import { ModalName } from './modals/Modal';
 import '../styles/components/comment-item.scss';
 
 type Props = {
@@ -23,13 +24,13 @@ const CommentItem: React.FC<Props> = (props: Props) => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openModal('edit-comment');
+    openModal(ModalName.COMMENT_FORM);
   };
 
   const handleDeleteButtonClick = () => {
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openModal('delete-comment');
+    openModal(ModalName.DELETE_COMMENT_CONFIRM);
   };
 
   return (

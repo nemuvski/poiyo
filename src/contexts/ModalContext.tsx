@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { ModalNameType } from '../components/modals/Modal';
 
 type ModalInfo = {
-  name: string;
+  name: ModalNameType;
   isOpen: boolean;
 };
 
@@ -10,10 +11,10 @@ type Props = {
 };
 
 type Context = {
-  closeModal: (name: string) => void;
-  openModal: (name: string) => void;
-  setupModal: (name: string) => void;
-  isOpen: (name: string) => boolean;
+  closeModal: (name: ModalNameType) => void;
+  openModal: (name: ModalNameType) => void;
+  setupModal: (name: ModalNameType) => void;
+  isOpen: (name: ModalNameType) => boolean;
 };
 
 export const ModalContext: React.Context<Context> = createContext<Context>({
@@ -25,37 +26,37 @@ export const ModalContext: React.Context<Context> = createContext<Context>({
 
 export const ModalProvider: React.FC<Props> = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<Array<ModalInfo>>([]);
-  const closeModal = (name: string) => {
+  const closeModal = (name: ModalNameType) => {
     const newState = isModalOpen.map((modalInfo) => {
-      if (modalInfo.name == name) {
+      if (modalInfo.name === name) {
         modalInfo.isOpen = false;
       }
       return modalInfo;
     });
     setIsModalOpen(newState);
   };
-  const openModal = (name: string) => {
+  const openModal = (name: ModalNameType) => {
     const newState = isModalOpen.map((modalInfo) => {
-      if (modalInfo.name == name) {
+      if (modalInfo.name === name) {
         modalInfo.isOpen = true;
       }
       return modalInfo;
     });
     setIsModalOpen(newState);
   };
-  const isOpen = (name: string): boolean => {
+  const isOpen = (name: ModalNameType): boolean => {
     for (let i = 0; i < isModalOpen.length; i++) {
-      if (isModalOpen[i].name == name) {
+      if (isModalOpen[i].name === name) {
         return isModalOpen[i].isOpen;
       }
     }
     return false;
   };
-  const setupModal = (name: string) => {
+  const setupModal = (name: ModalNameType) => {
     let exist = false;
     // すでに同じ名前のモーダルが登録されているか確認.
     for (let i = 0; i < isModalOpen.length; i++) {
-      if (isModalOpen[i].name == name) {
+      if (isModalOpen[i].name === name) {
         isModalOpen[i].isOpen = false;
         exist = true;
       }

@@ -10,6 +10,7 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import { ModalName } from './modals/Modal';
 import '../styles/components/comment-form.scss';
 
 type Props = {
@@ -72,7 +73,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal('edit-comment');
+          closeModal(ModalName.COMMENT_FORM);
         });
     } else {
       CommentsService.create(account.token, props.board.boardId, account.id, data.body)
@@ -86,7 +87,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal('edit-comment');
+          closeModal(ModalName.COMMENT_FORM);
         });
     }
   };

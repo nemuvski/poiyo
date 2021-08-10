@@ -6,14 +6,14 @@ import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
-import Modal from '../components/modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import commentIcon from '../assets/icons/comment.svg';
-import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import CommentFormModal from '../components/modals/CommentFormModal';
+import { ModalName } from '../components/modals/Modal';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
@@ -73,7 +73,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
               <button
                 type='button'
                 className='page-board-detail__comment-button is-black'
-                onClick={() => openModal('edit-comment')}
+                onClick={() => openModal(ModalName.COMMENT_FORM)}
               >
                 <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
                 ボードにコメントする
@@ -86,14 +86,12 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
           <button
             type='button'
             className='page-board-detail__fixed-comment-button is-black'
-            onClick={() => openModal('edit-comment')}
+            onClick={() => openModal(ModalName.COMMENT_FORM)}
           >
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
           </button>
 
-          <Modal name='edit-comment'>
-            <CommentForm board={board} />
-          </Modal>
+          <CommentFormModal board={board} />
         </>
       ) : (
         <NotFoundPage />

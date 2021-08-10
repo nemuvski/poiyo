@@ -4,11 +4,11 @@ import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
 import { CommentListContext } from '../contexts/CommentListContext';
 import notFound from '../assets/not-found.svg';
-import '../styles/components/comment-list.scss';
-import Confirm from './Confirm';
-import Modal from './modals/Modal';
+import { ModalName } from './modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import SentryTracking from '../utilities/SentryTracking';
+import DeleteCommentConfirmModal from './modals/DeleteCommentConfirmModal';
+import '../styles/components/comment-list.scss';
 
 const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
   const { commentList, nextPage, loading, loadLatestPage, loadNextPage } = useContext(CommentListContext);
@@ -21,7 +21,7 @@ const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
         SentryTracking.exception(error);
       })
       .finally(() => {
-        closeModal('delete-comment');
+        closeModal(ModalName.DELETE_COMMENT_CONFIRM);
       });
   };
 
@@ -55,14 +55,10 @@ const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
         )}
       </div>
 
-      <Modal name='delete-comment'>
-        <Confirm
-          message='コメントを削除しますがよろしいですか？'
-          cancelAction={() => closeModal('delete-comment')}
-          okAction={() => handleDeleteButtonClick()}
-          okLabel='削除'
-        />
-      </Modal>
+      <DeleteCommentConfirmModal
+        okAction={() => handleDeleteButtonClick()}
+        cancelAction={() => closeModal(ModalName.DELETE_COMMENT_CONFIRM)}
+      />
     </>
   );
 };
