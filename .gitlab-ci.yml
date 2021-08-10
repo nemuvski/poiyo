@@ -9,12 +9,21 @@ before_script:
   - yarn install
 
 stages:
-  - eslint
+  - lint
+  - format
 
-linting:
-  stage: eslint
+lint_check:
+  stage: lint
   script:
     - yarn run lint
-    - yarn run format:check
   except:
     - master
+    - production
+
+format_check:
+  stage: format
+  script:
+    - yarn run format
+  except:
+    - master
+    - production
