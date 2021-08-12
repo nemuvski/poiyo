@@ -5,12 +5,12 @@ import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import AccountsService from '../libs/services/AccountsService';
 import SentryTracking from '../utilities/SentryTracking';
-import { ModalName } from '../components/modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import { signOut } from '../libs/services/FirebaseAuthService';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
+import { ModalName } from '../stores/modal/slice';
 
 const HelpPage: React.FC = () => {
   const account = useSelector(selectAccount);

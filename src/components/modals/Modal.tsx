@@ -1,20 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import { ModalContext } from '../../contexts/ModalContext';
 import closeIcon from '../../assets/icons/modal-close.svg';
+import { ModalNameType } from '../../stores/modal/slice';
 import '../../styles/components/modal.scss';
-import clsx from 'clsx';
-
-/**
- * モーダルの識別名
- */
-export const ModalName = {
-  COMMENT_FORM: 'comment-form',
-  SIGN_OFF_CONFIRM: 'sign-off-confirm',
-  DELETE_COMMENT_CONFIRM: 'delete-comment-confirm',
-  DELETE_BOARD_CONFIRM: 'delete-board-confirm',
-} as const;
-export type ModalNameType = typeof ModalName[keyof typeof ModalName];
 
 type Props = {
   children?: React.ReactNode;

@@ -11,8 +11,8 @@ import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import { ModalContext } from '../contexts/ModalContext';
+import { ModalName } from '../stores/modal/slice';
 import DeleteBoardConfirmModal from './modals/DeleteBoardConfirmModal';
-import { ModalName } from './modals/Modal';
 import '../styles/components/board-card.scss';
 
 type Props = {

@@ -7,7 +7,7 @@ import { ModalContext } from '../contexts/ModalContext';
 import settingsIcon from '../assets/icons/settings.svg';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { ModalName } from './modals/Modal';
+import { ModalName } from '../stores/modal/slice';
 import '../styles/components/comment-item.scss';
 
 type Props = {

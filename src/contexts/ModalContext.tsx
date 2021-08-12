@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { ModalNameType } from '../components/modals/Modal';
+import { ModalNameType } from '../stores/modal/slice';
 
 type ModalInfo = {
   name: ModalNameType;

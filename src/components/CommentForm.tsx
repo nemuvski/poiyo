@@ -10,7 +10,7 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { ModalName } from './modals/Modal';
+import { ModalName } from '../stores/modal/slice';
 import '../styles/components/comment-form.scss';
 
 type Props = {

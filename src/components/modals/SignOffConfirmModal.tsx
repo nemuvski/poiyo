@@ -1,6 +1,7 @@
 import React from 'react';
-import Modal, { ModalName } from './Modal';
+import Modal from './Modal';
 import Confirm from '../Confirm';
+import { ModalName } from '../../stores/modal/slice';
 
 type Props = {
   okAction: () => void;

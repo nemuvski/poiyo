@@ -4,10 +4,10 @@ import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
 import { CommentListContext } from '../contexts/CommentListContext';
 import notFound from '../assets/not-found.svg';
-import { ModalName } from './modals/Modal';
 import { ModalContext } from '../contexts/ModalContext';
 import SentryTracking from '../utilities/SentryTracking';
 import DeleteCommentConfirmModal from './modals/DeleteCommentConfirmModal';
+import { ModalName } from '../stores/modal/slice';
 import '../styles/components/comment-list.scss';
 
 const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {

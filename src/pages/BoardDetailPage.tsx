@@ -13,9 +13,9 @@ import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
-import { ModalName } from '../components/modals/Modal';
 import { CommentListContext } from '../contexts/CommentListContext';
 import '../styles/pages/page-board-detail.scss';
+import { ModalName } from '../stores/modal/slice';
 
 type Params = {
   bid: string;
