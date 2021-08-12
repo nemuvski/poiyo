@@ -12,6 +12,7 @@ if (isProduction()) {
     integrations: [new Integrations.BrowserTracing()],
     // 特定のトランザクションがSentryに送信される可能性をパーセンテージを表す.
     tracesSampleRate: 0.7,
+    release: process.env.REACT_APP_VERSION,
   });
 }
 
