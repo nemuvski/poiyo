@@ -1,20 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import AccountsService from '../libs/services/AccountsService';
 import SentryTracking from '../utilities/SentryTracking';
-import { ModalName } from '../components/modals/Modal';
-import { ModalContext } from '../contexts/ModalContext';
 import { signOut } from '../libs/services/FirebaseAuthService';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
+import { ModalName } from '../stores/modal/slice';
+import { useModal } from '../hooks/useModal';
 
 const HelpPage: React.FC = () => {
   const account = useSelector(selectAccount);
-  const { openModal, closeModal } = useContext(ModalContext);
+  const [openModal, closeModal] = useModal(ModalName.SIGN_OFF_CONFIRM);
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {
@@ -81,7 +81,7 @@ const HelpPage: React.FC = () => {
           </p>
           <div className='align-center'>
             {account ? (
-              <button className='is-red' type='button' onClick={() => openModal(ModalName.SIGN_OFF_CONFIRM)}>
+              <button className='is-red' type='button' onClick={() => openModal()}>
                 退会する
               </button>
             ) : (
@@ -91,10 +91,7 @@ const HelpPage: React.FC = () => {
         </ArticleSectionContent>
       </ArticleSection>
 
-      <SignOffConfirmModal
-        cancelAction={() => closeModal(ModalName.SIGN_OFF_CONFIRM)}
-        okAction={() => handleSignOffButtonClick()}
-      />
+      <SignOffConfirmModal cancelAction={() => closeModal()} okAction={() => handleSignOffButtonClick()} />
     </ArticleInner>
   );
 };

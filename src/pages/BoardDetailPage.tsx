@@ -6,16 +6,16 @@ import BoardsService from '../libs/services/BoardsService';
 import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
-import { ModalContext } from '../contexts/ModalContext';
 import commentIcon from '../assets/icons/comment.svg';
 import CommentList from '../components/CommentList';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
-import { ModalName } from '../components/modals/Modal';
 import { CommentListContext } from '../contexts/CommentListContext';
 import '../styles/pages/page-board-detail.scss';
+import { ModalName } from '../stores/modal/slice';
+import { useModal } from '../hooks/useModal';
 
 type Params = {
   bid: string;
@@ -26,7 +26,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const account = useSelector(selectAccount);
   const { setupOperatingComment } = useContext(CommentListContext);
-  const { openModal } = useContext(ModalContext);
+  const [openModal] = useModal(ModalName.COMMENT_FORM);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
 
@@ -64,7 +64,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
 
   const handleOpenCommentFormModal = () => {
     setupOperatingComment(null);
-    openModal(ModalName.COMMENT_FORM);
+    openModal();
   };
 
   return (

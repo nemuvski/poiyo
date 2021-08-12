@@ -3,11 +3,11 @@ import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import { Comment } from '../libs/models/Comment';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import { CommentListContext } from '../contexts/CommentListContext';
-import { ModalContext } from '../contexts/ModalContext';
 import settingsIcon from '../assets/icons/settings.svg';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { ModalName } from './modals/Modal';
+import { useModal } from '../hooks/useModal';
+import { ModalName } from '../stores/modal/slice';
 import '../styles/components/comment-item.scss';
 
 type Props = {
@@ -18,19 +18,20 @@ const CommentItem: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const { setupOperatingComment } = useContext(CommentListContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
-  const { openModal } = useContext(ModalContext);
+  const [openCommentFormModal] = useModal(ModalName.COMMENT_FORM);
+  const [openDeleteCommentConfirmModal] = useModal(ModalName.DELETE_COMMENT_CONFIRM);
 
   const handleEditButtonClick = () => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openModal(ModalName.COMMENT_FORM);
+    openCommentFormModal();
   };
 
   const handleDeleteButtonClick = () => {
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openModal(ModalName.DELETE_COMMENT_CONFIRM);
+    openDeleteCommentConfirmModal();
   };
 
   return (

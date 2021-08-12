@@ -1,6 +1,9 @@
 import React from 'react';
-import Modal, { ModalName } from './Modal';
+import Modal from './Modal';
 import Confirm from '../Confirm';
+import { ModalName } from '../../stores/modal/slice';
+import { useSelector } from 'react-redux';
+import { selectModal } from '../../stores/modal/selector';
 
 type Props = {
   okAction: () => void;
@@ -8,8 +11,14 @@ type Props = {
 };
 
 const DeleteCommentConfirmModal: React.FC<Props> = ({ okAction, cancelAction }) => {
+  const modal = useSelector(selectModal);
+
+  if (modal !== ModalName.DELETE_COMMENT_CONFIRM) {
+    return null;
+  }
+
   return (
-    <Modal name={ModalName.DELETE_COMMENT_CONFIRM} isCompactMode={true}>
+    <Modal isCompactMode={true}>
       <Confirm
         message='コメントを削除しますがよろしいですか？'
         okLabel='削除'

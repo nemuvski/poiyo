@@ -4,12 +4,14 @@ import Header from './layouts/Header';
 import Router from './layouts/Router';
 import Footer from './layouts/Footer';
 import ScrollToTop from './layouts/ScrollToTop';
-import { useAuth } from './hooks/useAuth';
 import FullWideLoading from './components/FullWideLoading';
+import { useModalFixedScroll } from './hooks/useModal';
+import { useAuth } from './hooks/useAuth';
 import './styles/layouts/main.scss';
 
 const App: React.FC = () => {
-  const { isLoading, error } = useAuth();
+  useModalFixedScroll();
+  const [isLoading, error] = useAuth();
 
   if (error) {
     console.error(error);

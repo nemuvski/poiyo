@@ -5,12 +5,7 @@ import SentryTracking from '../utilities/SentryTracking';
 import { useDispatch } from 'react-redux';
 import { clearAccount, setAccount } from '../stores/account/slice';
 
-type ReturnParams = {
-  isLoading: boolean;
-  error: Error | null;
-};
-
-export const useAuth = (): ReturnParams => {
+export const useAuth = (): [isLoading: boolean, error: Error | null] => {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -45,5 +40,5 @@ export const useAuth = (): ReturnParams => {
     return () => unsubscribe();
   }, []);
 
-  return { isLoading, error };
+  return [isLoading, error];
 };

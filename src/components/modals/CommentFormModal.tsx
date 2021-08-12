@@ -1,15 +1,24 @@
 import React from 'react';
 import CommentForm from '../CommentForm';
-import Modal, { ModalName } from './Modal';
+import Modal from './Modal';
 import { Board } from '../../libs/models/Board';
+import { ModalName } from '../../stores/modal/slice';
+import { useSelector } from 'react-redux';
+import { selectModal } from '../../stores/modal/selector';
 
 type Props = {
   board: Board;
 };
 
 const CommentFormModal: React.FC<Props> = ({ board }) => {
+  const modal = useSelector(selectModal);
+
+  if (modal !== ModalName.COMMENT_FORM) {
+    return null;
+  }
+
   return (
-    <Modal name={ModalName.COMMENT_FORM}>
+    <Modal>
       <CommentForm board={board} />
     </Modal>
   );
