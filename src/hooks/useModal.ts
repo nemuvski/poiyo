@@ -5,20 +5,14 @@ import { clearModal, ModalNameType, setModal } from '../stores/modal/slice';
 
 export const useModal = (name: ModalNameType): [openModal: () => void, closeModal: () => void] => {
   const dispatch = useDispatch();
-
-  const openModal = () => {
-    dispatch(setModal(name));
-  };
-
-  const closeModal = () => {
-    dispatch(clearModal());
-  };
-
-  useEffect(() => {
-    return closeModal();
-  }, []);
-
-  return [openModal, closeModal];
+  return [
+    () => {
+      dispatch(setModal(name));
+    },
+    () => {
+      dispatch(clearModal());
+    },
+  ];
 };
 
 export const useModalFixedScroll = (): void => {

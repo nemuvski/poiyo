@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import CompactLoading from './CompactLoading';
@@ -10,7 +10,7 @@ import settingsIcon from '../assets/icons/settings.svg';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { ModalContext } from '../contexts/ModalContext';
+import { useModal } from '../hooks/useModal';
 import { ModalName } from '../stores/modal/slice';
 import DeleteBoardConfirmModal from './modals/DeleteBoardConfirmModal';
 import '../styles/components/board-card.scss';
@@ -22,7 +22,7 @@ type Props = {
 const BoardCard: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const history = useHistory();
-  const { openModal, closeModal } = useContext(ModalContext);
+  const [openModal, closeModal] = useModal(ModalName.DELETE_BOARD_CONFIRM);
   const [isOpenActions, setIsOpenActions] = useState(false);
 
   const handleDeleteButtonClick = () => {
@@ -66,7 +66,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
                       <li
                         onClick={() => {
                           setIsOpenActions(false);
-                          openModal(ModalName.DELETE_BOARD_CONFIRM);
+                          openModal();
                         }}
                       >
                         削除
@@ -87,10 +87,7 @@ const BoardCard: React.FC<Props> = (props: Props) => {
         )}
       </ShadowBox>
 
-      <DeleteBoardConfirmModal
-        okAction={() => handleDeleteButtonClick()}
-        cancelAction={() => closeModal(ModalName.DELETE_BOARD_CONFIRM)}
-      />
+      <DeleteBoardConfirmModal okAction={() => handleDeleteButtonClick()} cancelAction={() => closeModal()} />
     </div>
   );
 };

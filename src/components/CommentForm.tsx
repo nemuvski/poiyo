@@ -4,13 +4,12 @@ import clsx from 'clsx';
 import { Board } from '../libs/models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import CommentsService from '../libs/services/CommentsService';
-import { ModalContext } from '../contexts/ModalContext';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { ModalName } from '../stores/modal/slice';
+import { clearModal } from '../stores/modal/slice';
 import '../styles/components/comment-form.scss';
 
 type Props = {
@@ -37,9 +36,9 @@ const fieldRules = {
 };
 
 const CommentForm: React.FC<Props> = (props: Props) => {
+  const dispatch = useDispatch();
   const account = useSelector(selectAccount);
   const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
-  const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const { register, handleSubmit, reset, formState, watch } = useForm({
@@ -73,7 +72,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal(ModalName.COMMENT_FORM);
+          dispatch(clearModal());
         });
     } else {
       CommentsService.create(account.token, props.board.boardId, account.id, data.body)
@@ -87,7 +86,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          closeModal(ModalName.COMMENT_FORM);
+          dispatch(clearModal());
         });
     }
   };

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import { ModalProvider } from '../contexts/ModalContext';
 import { CommentListProvider } from '../contexts/CommentListContext';
 import FrontPage from '../pages/FrontPage';
 import CreateBoardPage from '../pages/CreateBoardPage';
@@ -31,32 +30,30 @@ const Router: React.FC = () => {
   }, []);
 
   return (
-    <ModalProvider>
-      <Switch>
-        <Route exact path='/help' component={HelpPage} />
-        <Route exact path='/terms' component={TermsPage} />
-        <Route exact path='/privacy' component={PrivacyPage} />
-        <Route exact path='/sign-out' render={() => (!account ? <Redirect to='/' /> : <SignOutPage />)} />
-        <Route exact path='/search' render={() => (!account ? <Redirect to='/' /> : <SearchPage />)} />
-        <Route exact path='/create-board' render={() => (!account ? <Redirect to='/' /> : <CreateBoardPage />)} />
-        <Route exact path='/edit-board' render={() => (!account ? <Redirect to='/' /> : <EditBoardPage />)} />
-        <Route exact path='/dashboard' render={() => (!account ? <Redirect to='/' /> : <DashboardPage />)} />
-        <Route
-          path='/board/:bid'
-          render={(props) =>
-            !account ? (
-              <Redirect to='/' />
-            ) : (
-              <CommentListProvider>
-                <BoardDetailPage {...props} />
-              </CommentListProvider>
-            )
-          }
-        />
-        <Route exact path='/' render={() => (account ? <Redirect to='/dashboard' /> : <FrontPage />)} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </ModalProvider>
+    <Switch>
+      <Route exact path='/help' component={HelpPage} />
+      <Route exact path='/terms' component={TermsPage} />
+      <Route exact path='/privacy' component={PrivacyPage} />
+      <Route exact path='/sign-out' render={() => (!account ? <Redirect to='/' /> : <SignOutPage />)} />
+      <Route exact path='/search' render={() => (!account ? <Redirect to='/' /> : <SearchPage />)} />
+      <Route exact path='/create-board' render={() => (!account ? <Redirect to='/' /> : <CreateBoardPage />)} />
+      <Route exact path='/edit-board' render={() => (!account ? <Redirect to='/' /> : <EditBoardPage />)} />
+      <Route exact path='/dashboard' render={() => (!account ? <Redirect to='/' /> : <DashboardPage />)} />
+      <Route
+        path='/board/:bid'
+        render={(props) =>
+          !account ? (
+            <Redirect to='/' />
+          ) : (
+            <CommentListProvider>
+              <BoardDetailPage {...props} />
+            </CommentListProvider>
+          )
+        }
+      />
+      <Route exact path='/' render={() => (account ? <Redirect to='/dashboard' /> : <FrontPage />)} />
+      <Route component={NotFoundPage} />
+    </Switch>
   );
 };
 
