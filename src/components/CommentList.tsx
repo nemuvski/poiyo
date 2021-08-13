@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { CommentListProps } from '../libs/models/Comment';
 import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
@@ -7,11 +6,11 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import notFound from '../assets/not-found.svg';
 import SentryTracking from '../utilities/SentryTracking';
 import DeleteCommentConfirmModal from './modals/DeleteCommentConfirmModal';
-import { clearModal } from '../stores/modal/slice';
+import { useModal } from '../hooks/useModal';
 import '../styles/components/comment-list.scss';
 
 const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
-  const dispatch = useDispatch();
+  const { closeModal } = useModal();
   const { commentList, nextPage, loading, loadLatestPage, loadNextPage, deleteComment } =
     useContext(CommentListContext);
 
@@ -21,7 +20,7 @@ const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
         SentryTracking.exception(error);
       })
       .finally(() => {
-        dispatch(clearModal());
+        closeModal();
       });
   };
 
@@ -55,10 +54,7 @@ const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
         )}
       </div>
 
-      <DeleteCommentConfirmModal
-        okAction={() => handleDeleteButtonClick()}
-        cancelAction={() => dispatch(clearModal())}
-      />
+      <DeleteCommentConfirmModal okAction={() => handleDeleteButtonClick()} cancelAction={() => closeModal()} />
     </>
   );
 };

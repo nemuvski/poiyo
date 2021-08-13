@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectModal } from '../stores/modal/selector';
 import { clearModal, ModalNameType, setModal } from '../stores/modal/slice';
 
-export const useModal = (name: ModalNameType): [openModal: () => void, closeModal: () => void] => {
+export const useModal = (name?: ModalNameType): { openModal: () => void; closeModal: () => void } => {
   const dispatch = useDispatch();
-  return [
-    () => {
-      dispatch(setModal(name));
+  return {
+    openModal: () => {
+      if (name) {
+        dispatch(setModal(name));
+      }
     },
-    () => {
+    closeModal: () => {
       dispatch(clearModal());
     },
-  ];
+  };
 };
 
 export const useModalFixedScroll = (): void => {

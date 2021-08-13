@@ -26,7 +26,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
   const location = useLocation<BoardLocationState>();
   const account = useSelector(selectAccount);
   const { setupOperatingComment } = useContext(CommentListContext);
-  const [openModal] = useModal(ModalName.COMMENT_FORM);
+  const { openModal } = useModal(ModalName.COMMENT_FORM);
   const [loading, setLoading] = useState(true);
   const [board, setBoard] = useState<Board | null>(null);
 

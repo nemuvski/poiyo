@@ -7,9 +7,9 @@ import CommentsService from '../libs/services/CommentsService';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { clearModal } from '../stores/modal/slice';
+import { useModal } from '../hooks/useModal';
 import '../styles/components/comment-form.scss';
 
 type Props = {
@@ -36,11 +36,11 @@ const fieldRules = {
 };
 
 const CommentForm: React.FC<Props> = (props: Props) => {
-  const dispatch = useDispatch();
   const account = useSelector(selectAccount);
   const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
   const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
+  const { closeModal } = useModal();
   const { register, handleSubmit, reset, formState, watch } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
@@ -72,7 +72,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          dispatch(clearModal());
+          closeModal();
         });
     } else {
       CommentsService.create(account.token, props.board.boardId, account.id, data.body)
@@ -86,7 +86,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
         })
         .finally(() => {
           setLoading(false);
-          dispatch(clearModal());
+          closeModal();
         });
     }
   };

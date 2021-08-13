@@ -22,7 +22,7 @@ type Props = {
 const BoardCard: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const history = useHistory();
-  const [openModal, closeModal] = useModal(ModalName.DELETE_BOARD_CONFIRM);
+  const { openModal, closeModal } = useModal(ModalName.DELETE_BOARD_CONFIRM);
   const [isOpenActions, setIsOpenActions] = useState(false);
 
   const handleDeleteButtonClick = () => {
