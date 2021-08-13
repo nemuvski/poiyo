@@ -18,20 +18,20 @@ const CommentItem: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const { setupOperatingComment } = useContext(CommentListContext);
   const [isOpenActions, setIsOpenActions] = useState(false);
-  const [openCommentFormModal] = useModal(ModalName.COMMENT_FORM);
-  const [openDeleteCommentConfirmModal] = useModal(ModalName.DELETE_COMMENT_CONFIRM);
+  const commentFormModal = useModal(ModalName.COMMENT_FORM);
+  const deleteCommentConfirmModal = useModal(ModalName.DELETE_COMMENT_CONFIRM);
 
   const handleEditButtonClick = () => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openCommentFormModal();
+    commentFormModal.openModal();
   };
 
   const handleDeleteButtonClick = () => {
     setupOperatingComment(props.comment);
     setIsOpenActions(false);
-    openDeleteCommentConfirmModal();
+    deleteCommentConfirmModal.openModal();
   };
 
   return (

@@ -14,7 +14,7 @@ import { useModal } from '../hooks/useModal';
 
 const HelpPage: React.FC = () => {
   const account = useSelector(selectAccount);
-  const [openModal, closeModal] = useModal(ModalName.SIGN_OFF_CONFIRM);
+  const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM);
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {

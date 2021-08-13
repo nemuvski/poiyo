@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import closeIcon from '../../assets/icons/modal-close.svg';
-import { clearModal } from '../../stores/modal/slice';
+import { useModal } from '../../hooks/useModal';
 import '../../styles/components/modal.scss';
 
 type Props = {
@@ -15,17 +14,17 @@ type Props = {
  * Modalの表示切り替えはModalContext経由で操作する.
  */
 const Modal: React.FC<Props> = ({ isCompactMode = false, children }) => {
-  const dispatch = useDispatch();
+  const { closeModal } = useModal();
   const rootElement = document.getElementById('root');
 
   useEffect(() => {
     return () => {
-      dispatch(clearModal());
+      closeModal();
     };
   }, []);
 
   return createPortal(
-    <div className='modal' onClick={() => dispatch(clearModal())}>
+    <div className='modal' onClick={() => closeModal()}>
       <div className={clsx(['modal__inner', { 'is-compact': isCompactMode }])}>
         <div className='modal__content' onClick={(event) => event.stopPropagation()}>
           {children}
