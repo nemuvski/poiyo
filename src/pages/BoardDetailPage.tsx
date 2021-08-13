@@ -13,9 +13,9 @@ import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
 import { CommentListContext } from '../contexts/CommentListContext';
-import '../styles/pages/page-board-detail.scss';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
+import '../styles/pages/page-board-detail.scss';
 
 type Params = {
   bid: string;
