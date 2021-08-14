@@ -1,16 +1,27 @@
 import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import { signOut } from '../libs/services/FirebaseAuthService';
-import FullWideLoading from '../components/FullWideLoading';
+import { useFullWideLoading } from '../hooks/useFullWideLoading';
+import ArticleInner from '../components/ArticleInner';
 
 const SignOutPage: React.FC = () => {
+  const { setFullWideLoading } = useFullWideLoading(true);
+
   useEffect(() => {
     setDocumentTitle('サインアウト');
     // サインアウト処理
-    signOut();
+    signOut().finally(() => {
+      setFullWideLoading(false);
+    });
   }, []);
 
-  return <FullWideLoading />;
+  return (
+    <ArticleInner>
+      <h1>サインアウト</h1>
+
+      <p>サインアウト中です。そのままお待ち下さい。</p>
+    </ArticleInner>
+  );
 };
 
 export default SignOutPage;

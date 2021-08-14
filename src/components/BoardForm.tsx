@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import BoardsService from '../libs/services/BoardsService';
-import FullWideLoading from './FullWideLoading';
 import { Board, BoardLocationState } from '../libs/models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
+import { useFullWideLoading } from '../hooks/useFullWideLoading';
 import '../styles/components/board-form.scss';
 
 type Props = {
@@ -47,12 +47,12 @@ const fieldRules = {
 
 const BoardForm: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
+  const { setFullWideLoading } = useFullWideLoading(false);
   const defaultValues: BoardFormFields = {
     // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
     title: props.board ? props.board.title : '',
     body: props.board ? props.board.body : '',
   };
-  const [loading, setLoading] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const history = useHistory();
   const { register, handleSubmit, reset, formState, watch, setValue } = useForm({
@@ -77,7 +77,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
       SentryTracking.exception('アカウント情報がないため、ボード更新・作成ができませんでした。');
       return;
     }
-    setLoading(true);
+    setFullWideLoading(true);
     if (props.board) {
       // ボードを更新する.
       const newBoard = props.board;
@@ -96,7 +96,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           SentryTracking.exception(error);
         })
         .finally(() => {
-          setLoading(false);
+          setFullWideLoading(false);
         });
     } else {
       // ボードを新規作成する.
@@ -113,15 +113,13 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           SentryTracking.exception(error);
         })
         .finally(() => {
-          setLoading(false);
+          setFullWideLoading(false);
         });
     }
   };
 
   return (
     <form className='board-form' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      {loading && <FullWideLoading />}
-
       <div className='board-form__field'>
         <label className='board-form__field-label'>タイトル</label>
         <input

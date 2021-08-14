@@ -10,6 +10,7 @@ import { CommentListContext } from '../contexts/CommentListContext';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
 import { useGetBoardQuery } from '../stores/board/api';
+import { useFullWideLoading } from '../hooks/useFullWideLoading';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
@@ -20,52 +21,54 @@ const BoardDetailPage: React.FC = () => {
   const { bid } = useParams<Params>();
   const { setupOperatingComment } = useContext(CommentListContext);
   const { openModal } = useModal(ModalName.COMMENT_FORM);
-  const { data } = useGetBoardQuery(bid);
+  const { data, isLoading, isError } = useGetBoardQuery(bid);
+  const { setFullWideLoading } = useFullWideLoading(true);
 
   useEffect(() => {
     setDocumentTitle('ボード');
   }, []);
+  useEffect(() => {
+    setFullWideLoading(isLoading);
+  }, [isLoading]);
 
   const handleOpenCommentFormModal = () => {
     setupOperatingComment(null);
     openModal();
   };
 
+  if (isError || !data) {
+    return <NotFoundPage />;
+  }
+
   return (
     <div className='page-board-detail'>
-      {data ? (
-        <>
-          <div className='page-board-detail__inner'>
-            <div className='page-board-detail__card'>
-              <BoardCard board={data} />
-            </div>
-            <div className='page-board-detail__comment-list'>
-              <button
-                type='button'
-                className='page-board-detail__comment-button is-black'
-                onClick={() => handleOpenCommentFormModal()}
-              >
-                <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
-                ボードにコメントする
-              </button>
-
-              <CommentList board={data} />
-            </div>
-          </div>
-
+      <div className='page-board-detail__inner'>
+        <div className='page-board-detail__card'>
+          <BoardCard board={data} />
+        </div>
+        <div className='page-board-detail__comment-list'>
           <button
             type='button'
-            className='page-board-detail__fixed-comment-button is-black'
+            className='page-board-detail__comment-button is-black'
             onClick={() => handleOpenCommentFormModal()}
           >
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+            ボードにコメントする
           </button>
 
-          <CommentFormModal board={data} />
-        </>
-      ) : (
-        <NotFoundPage />
-      )}
+          <CommentList board={data} />
+        </div>
+      </div>
+
+      <button
+        type='button'
+        className='page-board-detail__fixed-comment-button is-black'
+        onClick={() => handleOpenCommentFormModal()}
+      >
+        <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+      </button>
+
+      <CommentFormModal board={data} />
     </div>
   );
 };

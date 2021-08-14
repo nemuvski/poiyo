@@ -3,9 +3,11 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { accountSlice } from './account/slice';
 import { modalSlice } from './modal/slice';
 import { boardApi } from './board/api';
+import { fullWideLoadingSlice } from './fullWideLoading/slice';
 
 export const store = configureStore({
   reducer: {
+    fullWideLoadingReducer: fullWideLoadingSlice.reducer,
     modalReducer: modalSlice.reducer,
     accountReducer: accountSlice.reducer,
     [boardApi.reducerPath]: boardApi.reducer,

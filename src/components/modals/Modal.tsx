@@ -15,7 +15,7 @@ type Props = {
  */
 const Modal: React.FC<Props> = ({ isCompactMode = false, children }) => {
   const { closeModal } = useModal();
-  const rootElement = document.getElementById('root');
+  const rootElement = document.getElementById('modal');
 
   useEffect(() => {
     return () => {
