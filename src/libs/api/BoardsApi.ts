@@ -23,16 +23,6 @@ const post = (token: string, requestBody: BoardRequest): AxiosPromise<BoardRespo
 };
 
 /**
- * ボード1件取得のAPIを実行する.
- *
- * @param token トークン.
- * @param boardId ボードID.
- */
-const getSingle = (token: string, boardId: string): AxiosPromise<BoardResponse> => {
-  return Axios(token).get(`${path}/${boardId}`);
-};
-
-/**
  * ボード複数件取得のAPIを実行する。
  *
  * @param token トークン.
@@ -65,4 +55,4 @@ const patch = (token: string, requestBody: BoardRequest): AxiosPromise<BoardResp
   });
 };
 
-export default { post, getSingle, get, remove, patch };
+export default { post, get, remove, patch };

@@ -1,65 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { RouteComponentProps, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
-import { Board, BoardLocationState } from '../libs/models/Board';
-import BoardsService from '../libs/services/BoardsService';
-import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
 import commentIcon from '../assets/icons/comment.svg';
 import CommentList from '../components/CommentList';
-import SentryTracking from '../utilities/SentryTracking';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
 import { CommentListContext } from '../contexts/CommentListContext';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
+import { useGetBoardQuery } from '../stores/board/api';
 import '../styles/pages/page-board-detail.scss';
 
 type Params = {
   bid: string;
 };
-type Props = RouteComponentProps<Params>;
 
-const BoardDetailPage: React.FC<Props> = (props: Props) => {
-  const location = useLocation<BoardLocationState>();
-  const account = useSelector(selectAccount);
+const BoardDetailPage: React.FC = () => {
+  const { bid } = useParams<Params>();
   const { setupOperatingComment } = useContext(CommentListContext);
   const { openModal } = useModal(ModalName.COMMENT_FORM);
-  const [loading, setLoading] = useState(true);
-  const [board, setBoard] = useState<Board | null>(null);
+  const { data } = useGetBoardQuery(bid);
 
   useEffect(() => {
     setDocumentTitle('ボード');
-
-    // ボード情報を取得する処理.
-    const fetchBoard = async (boardId: string) => {
-      try {
-        if (account && account.id) {
-          const boardData = await BoardsService.getSingle(account.token, boardId);
-          if (boardData) {
-            setBoard(boardData);
-          }
-        }
-      } catch (error) {
-        SentryTracking.exception('ボード情報の取得に失敗しました。');
-        SentryTracking.exception(error);
-      }
-    };
-
-    // 表示するボード情報を取得.
-    if (location.state && location.state.board) {
-      setBoard(location.state.board);
-      setLoading(false);
-    }
-    // ボードがLocationStateで渡ってきていない場合はパスのボードIDでボード情報を取得.
-    else if (props.match.params && props.match.params.bid) {
-      // 関数側でboardはセットされる.
-      fetchBoard(props.match.params.bid).finally(() => {
-        setLoading(false);
-      });
-    }
   }, []);
 
   const handleOpenCommentFormModal = () => {
@@ -69,12 +33,11 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
 
   return (
     <div className='page-board-detail'>
-      {loading && <FullWideLoading />}
-      {board ? (
+      {data ? (
         <>
           <div className='page-board-detail__inner'>
             <div className='page-board-detail__card'>
-              <BoardCard board={board} />
+              <BoardCard board={data} />
             </div>
             <div className='page-board-detail__comment-list'>
               <button
@@ -86,7 +49,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
                 ボードにコメントする
               </button>
 
-              <CommentList board={board} />
+              <CommentList board={data} />
             </div>
           </div>
 
@@ -98,7 +61,7 @@ const BoardDetailPage: React.FC<Props> = (props: Props) => {
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
           </button>
 
-          <CommentFormModal board={board} />
+          <CommentFormModal board={data} />
         </>
       ) : (
         <NotFoundPage />

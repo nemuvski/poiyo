@@ -41,12 +41,12 @@ const Router: React.FC = () => {
       <Route exact path='/dashboard' render={() => (!account ? <Redirect to='/' /> : <DashboardPage />)} />
       <Route
         path='/board/:bid'
-        render={(props) =>
+        render={() =>
           !account ? (
             <Redirect to='/' />
           ) : (
             <CommentListProvider>
-              <BoardDetailPage {...props} />
+              <BoardDetailPage />
             </CommentListProvider>
           )
         }

@@ -26,21 +26,6 @@ const create = (token: string, title: string, body: string, ownerAccountId: stri
 };
 
 /**
- * ボードを1件取得する.
- *
- * @param token トークン.
- * @param boardId ボードID.
- */
-const getSingle = (token: string, boardId: string): Promise<Board> => {
-  return BoardsApi.getSingle(token, boardId).then((response) => {
-    if (response.status == 204) {
-      throw new Error('ボードが見つかりませんでした。');
-    }
-    return new Board(response.data);
-  });
-};
-
-/**
  * ボードをタイトルについてキーワードで絞り込んで取得する.
  *
  * @param token トークン.
@@ -146,4 +131,4 @@ const update = (token: string, board: Board): Promise<Board> => {
   });
 };
 
-export default { create, getSingle, getByKeyword, getByAccountId, get, remove, update };
+export default { create, getByKeyword, getByAccountId, get, remove, update };
