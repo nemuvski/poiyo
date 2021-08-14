@@ -25,7 +25,7 @@ export interface BoardsResponse {
   next_page?: number;
 }
 
-export interface BoardsQueryParams {
+export type BoardsQueryParams = {
   page: number;
   num_per_page: number;
   owner_account_id?: string;
@@ -35,12 +35,6 @@ export interface BoardsQueryParams {
 // ボード詳細ページへ遷移するときに渡すデータの型.
 export interface BoardLocationState {
   board: Board;
-}
-
-// ボード一覧コンポーネントへ渡すプロパティ.
-export interface BoardListProps {
-  keyword?: string;
-  accountId?: string;
 }
 
 // 処理で利用するモデル.
@@ -79,3 +73,31 @@ export class Boards {
     }
   }
 }
+
+export const buildBoardQueryParams = (page: number, ownerAccountId?: string, search?: string, numPerPage = 50): BoardsQueryParams => ({
+  page,
+  num_per_page: numPerPage,
+  owner_account_id: ownerAccountId,
+  search,
+});
+
+export const buildBoard = (boardResponse: BoardResponse) => {
+  const { board_id, title, body, owner_account_id, created_timestamp, updated_timestamp } = boardResponse;
+  return {
+    boardId: board_id,
+    title,
+    body,
+    ownerAccountId: owner_account_id,
+    createdTimestamp: created_timestamp,
+    updatedTimestamp: (updated_timestamp && updated_timestamp.Valid) ? updated_timestamp.Time : null,
+  };
+}
+
+export const buildBoards = (boardsResponse: BoardsResponse) => {
+  const { items, current_page, next_page } = boardsResponse;
+  return {
+    items: items.map((data) => buildBoard(data)),
+    currentPage: current_page,
+    nextPage: next_page,
+  };
+};
