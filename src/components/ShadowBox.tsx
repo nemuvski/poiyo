@@ -5,8 +5,8 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const ShadowBox: React.FC<Props> = (props: Props) => {
-  return <div className='shadow-box'>{props.children}</div>;
+const ShadowBox: React.FC<Props> = ({ children }) => {
+  return <div className='shadow-box'>{children}</div>;
 };
 
 export default ShadowBox;

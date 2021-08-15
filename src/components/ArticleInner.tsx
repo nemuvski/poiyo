@@ -5,8 +5,8 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const ArticleInner: React.FC<Props> = (props: Props) => {
-  return <div className='article-inner'>{props.children}</div>;
+const ArticleInner: React.FC<Props> = ({ children }) => {
+  return <div className='article-inner'>{children}</div>;
 };
 
 export default ArticleInner;
