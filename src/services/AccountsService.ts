@@ -2,7 +2,7 @@
  * アカウントに関するサービス関数を定義.
  */
 
-import AccountsApi from '../../repositories/AccountsApi';
+import AccountsApi from '../repositories/AccountsApi';
 
 /**
  *

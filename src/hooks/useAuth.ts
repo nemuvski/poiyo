@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { auth } from '../libs/common/Firebase';
-import AuthService from '../libs/services/AuthService';
+import AuthService from '../services/AuthService';
 import SentryTracking from '../utilities/SentryTracking';
 import { useDispatch } from 'react-redux';
 import { clearAccount, setAccount } from '../stores/account/slice';

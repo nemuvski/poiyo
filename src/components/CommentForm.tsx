@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Board } from '../models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
-import CommentsService from '../libs/services/CommentsService';
+import CommentsService from '../services/CommentsService';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';

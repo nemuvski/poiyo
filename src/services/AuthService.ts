@@ -2,9 +2,9 @@
  * 認証に関するサービス関数を定義.
  */
 
-import AuthApi from '../../repositories/AuthApi';
-import { Account } from '../../models/Account';
-import { AuthRequest } from '../../models/Auth';
+import AuthApi from '../repositories/AuthApi';
+import { Account } from '../models/Account';
+import { AuthRequest } from '../models/Auth';
 
 /**
  * 認証してアカウント情報を取得する.

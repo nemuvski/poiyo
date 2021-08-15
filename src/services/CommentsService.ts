@@ -2,8 +2,8 @@
  * ボードに関するサービス関数を定義.
  */
 
-import CommentsApi from '../../repositories/CommentsApi';
-import { CommentRequest, Comment, Comments, CommentsQueryParams } from '../../models/Comment';
+import CommentsApi from '../repositories/CommentsApi';
+import { CommentRequest, Comment, Comments, CommentsQueryParams } from '../models/Comment';
 
 /**
  * コメントを1件登録する.

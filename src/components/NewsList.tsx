@@ -1,5 +1,5 @@
 import React from 'react';
-import NewsService from '../libs/services/NewsService';
+import NewsService from '../services/NewsService';
 import { formatYMD } from '../libs/common/Dayjs';
 import '../styles/components/news-list.scss';
 

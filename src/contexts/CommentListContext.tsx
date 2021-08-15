@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { Comment } from '../models/Comment';
-import CommentsService from '../libs/services/CommentsService';
+import CommentsService from '../services/CommentsService';
 import SentryTracking from '../utilities/SentryTracking';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';

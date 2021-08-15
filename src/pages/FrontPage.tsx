@@ -9,7 +9,7 @@ import searchIcon from '../assets/icons/search-feature.svg';
 import penIcon from '../assets/icons/pen-feature.svg';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NewsList from '../components/NewsList';
-import { signIn } from '../libs/services/FirebaseAuthService';
+import { signIn } from '../services/FirebaseAuthService';
 import '../styles/pages/page-front.scss';
 
 const FrontPage: React.FC = () => {
