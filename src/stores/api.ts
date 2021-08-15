@@ -3,6 +3,7 @@ import { RootState } from './store';
 
 export const poiyoApi = createApi({
   reducerPath: 'poiyoApi',
+  tagTypes: ['Board'],
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_ENDPOINT}/api/v1`,
     prepareHeaders: (headers, { getState }) => {

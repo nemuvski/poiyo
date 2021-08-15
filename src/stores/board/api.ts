@@ -15,6 +15,7 @@ export const boardApi = poiyoApi.injectEndpoints({
     getBoard: builder.query<Board, string>({
       query: (boardId) => `/boards/${boardId}`,
       transformResponse: (response: BoardResponse) => buildBoard(response),
+      providesTags: (result) => (result ? [{ type: 'Board', id: result.boardId }] : ['Board']),
     }),
     getBoards: builder.mutation<Boards, BoardsQueryParams>({
       query: ({ owner_account_id, search, page, num_per_page }) => ({
@@ -35,6 +36,7 @@ export const boardApi = poiyoApi.injectEndpoints({
         },
       }),
       transformResponse: (response: BoardResponse) => buildBoard(response),
+      invalidatesTags: ['Board'],
     }),
     patchBoard: builder.mutation<Board, BoardRequest>({
       query: ({ boardId, title, body }) => ({
@@ -46,12 +48,14 @@ export const boardApi = poiyoApi.injectEndpoints({
         },
       }),
       transformResponse: (response: BoardResponse) => buildBoard(response),
+      invalidatesTags: (result) => (result ? [{ type: 'Board', id: result.boardId }] : ['Board']),
     }),
     deleteBoard: builder.mutation<void, string>({
       query: (boardId) => ({
         url: `/boards/${boardId}`,
         method: 'DELETE',
       }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Board', id: arg }],
     }),
   }),
 });
