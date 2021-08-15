@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
-import BoardsService from '../libs/services/BoardsService';
-import { Board, BoardLocationState } from '../libs/models/Board';
+import { Board, buildBoardRequest } from '../libs/models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import SentryTracking from '../utilities/SentryTracking';
+import { usePatchBoardMutation, usePostBoardMutation } from '../stores/board/api';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import { useFullWideLoading } from '../hooks/useFullWideLoading';
@@ -15,8 +15,7 @@ type Props = {
   board?: Board;
 };
 
-// inputまたはtextareaのnameに相当する.
-type BoardFormFields = {
+type FormFields = {
   title: string;
   body: string;
 };
@@ -45,72 +44,68 @@ const fieldRules = {
   },
 };
 
-const BoardForm: React.FC<Props> = (props: Props) => {
-  const account = useSelector(selectAccount);
-  const { setFullWideLoading } = useFullWideLoading(false);
-  const defaultValues: BoardFormFields = {
-    // 初期表示時に「board」がundefinedでセットされないため、useEffectで入れる
-    title: props.board ? props.board.title : '',
-    body: props.board ? props.board.body : '',
-  };
-  const [previewMode, setPreviewMode] = useState(false);
+const BoardForm: React.FC<Props> = ({ board }) => {
   const history = useHistory();
+  const [previewMode, setPreviewMode] = useState(false);
+  const defaultValues: FormFields = {
+    title: board ? board.title : '',
+    body: board ? board.body : '',
+  };
   const { register, handleSubmit, reset, formState, watch, setValue } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
     defaultValues,
   });
+  const account = useSelector(selectAccount);
+  const { setFullWideLoading } = useFullWideLoading(false);
+  const [postBoard] = usePostBoardMutation();
+  const [patchBoard] = usePatchBoardMutation();
 
   useEffect(() => {
-    if (props.board) {
-      setValue('title', props.board.title);
-      setValue('body', props.board.body);
+    if (board) {
+      // 初期表示時にboardがundefinedでセットされないため、useEffectで入れる
+      setValue('title', board.title);
+      setValue('body', board.body);
     }
-  }, [props.board]);
+  }, [board]);
 
-  // プレビューで利用.
-  const watchBody = watch('body', props.board ? props.board.body : '');
+  // プレビューで利用
+  const watchBody = watch('body', board ? board.body : '');
 
-  const onSubmit = (data: BoardFormFields) => {
+  const onSubmit = (formFields: FormFields) => {
     if (!account) {
+      console.error('アカウント情報がないため、ボード更新・作成ができませんでした。');
       SentryTracking.exception('アカウント情報がないため、ボード更新・作成ができませんでした。');
       return;
     }
+
+    const { title, body } = formFields;
     setFullWideLoading(true);
-    if (props.board) {
-      // ボードを更新する.
-      const newBoard = props.board;
-      newBoard.title = data.title;
-      newBoard.body = data.body;
-      BoardsService.update(account.token, newBoard)
+
+    // コンポーネントの引数boardの有無で、作成か編集を判定する
+    if (board) {
+      patchBoard(buildBoardRequest(title, body, board.ownerAccountId, board.boardId))
+        .unwrap()
         .then((updatedBoard) => {
-          const state: BoardLocationState = { board: updatedBoard };
-          history.replace({
-            pathname: `/board/${updatedBoard.boardId}`,
-            state,
-          });
+          history.replace(`/board/${updatedBoard.boardId}`);
         })
-        .catch((error) => {
+        .catch(() => {
+          console.error('ボード更新に失敗しました。');
           SentryTracking.exception('ボード更新に失敗しました。');
-          SentryTracking.exception(error);
         })
         .finally(() => {
           setFullWideLoading(false);
         });
     } else {
-      // ボードを新規作成する.
-      BoardsService.create(account.token, data.title, data.body, account.id)
+      postBoard(buildBoardRequest(title, body, account.id))
+        .unwrap()
         .then((createdBoard) => {
-          const state: BoardLocationState = { board: createdBoard };
-          history.replace({
-            pathname: `/board/${createdBoard.boardId}`,
-            state,
-          });
+          history.replace(`/board/${createdBoard.boardId}`);
         })
-        .catch((error) => {
+        .catch(() => {
+          console.error('ボード作成に失敗しました。');
           SentryTracking.exception('ボード作成に失敗しました。');
-          SentryTracking.exception(error);
         })
         .finally(() => {
           setFullWideLoading(false);
@@ -168,7 +163,7 @@ const BoardForm: React.FC<Props> = (props: Props) => {
           disabled={formState.isSubmitting}
           onClick={() => reset(defaultValues)}
         >
-          {props.board ? '元に戻す' : 'クリア'}
+          {board ? '元に戻す' : 'クリア'}
         </button>
         <button type='submit' disabled={formState.isSubmitting}>
           内容を保存
