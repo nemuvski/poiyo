@@ -1,7 +1,7 @@
 /**
  * お知らせに関するサービス関数を定義.
  */
-import { News } from '../models/News';
+import { News } from '../../models/News';
 
 const data: Array<News> = [
   new News('2021-08-12', '🏎 機能のリファクタリング'),

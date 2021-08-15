@@ -3,8 +3,8 @@
  */
 
 import AuthApi from '../api/AuthApi';
-import { Account } from '../models/Account';
-import { AuthRequest } from '../models/Auth';
+import { Account } from '../../models/Account';
+import { AuthRequest } from '../../models/Auth';
 
 /**
  * 認証してアカウント情報を取得する.

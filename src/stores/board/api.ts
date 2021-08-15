@@ -8,7 +8,7 @@ import {
   BoardsResponse,
   buildBoard,
   buildBoards,
-} from '../../libs/models/Board';
+} from '../../models/Board';
 
 export const boardApi = poiyoApi.injectEndpoints({
   endpoints: (builder) => ({

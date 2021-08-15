@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Board, BoardLocationState } from '../libs/models/Board';
+import { Board, BoardLocationState } from '../models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import CompactLoading from './CompactLoading';
 import ShadowBox from './ShadowBox';

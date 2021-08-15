@@ -3,7 +3,7 @@
  */
 
 import CommentsApi from '../api/CommentsApi';
-import { CommentRequest, Comment, Comments, CommentsQueryParams } from '../models/Comment';
+import { CommentRequest, Comment, Comments, CommentsQueryParams } from '../../models/Comment';
 
 /**
  * コメントを1件登録する.

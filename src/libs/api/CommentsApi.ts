@@ -4,7 +4,7 @@
 
 import Axios from '../common/Axios';
 import { AxiosPromise } from 'axios';
-import { CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams } from '../models/Comment';
+import { CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams } from '../../models/Comment';
 
 const path = '/api/v1/comments';
 

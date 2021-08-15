@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentForm from '../CommentForm';
 import Modal from './Modal';
-import { Board } from '../../libs/models/Board';
+import { Board } from '../../models/Board';
 import { ModalName } from '../../stores/modal/slice';
 import { useSelector } from 'react-redux';
 import { selectModal } from '../../stores/modal/selector';

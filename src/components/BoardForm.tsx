@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
-import { Board, buildBoardRequest } from '../libs/models/Board';
+import { Board, buildBoardRequest } from '../models/Board';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import SentryTracking from '../utilities/SentryTracking';
 import { usePatchBoardMutation, usePostBoardMutation } from '../stores/board/api';

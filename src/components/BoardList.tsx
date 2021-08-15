@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Board, buildBoardQueryParams } from '../libs/models/Board';
+import { Board, buildBoardQueryParams } from '../models/Board';
 import BoardItem from './BoardItem';
 import CompactLoading from './CompactLoading';
 import SentryTracking from '../utilities/SentryTracking';

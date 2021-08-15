@@ -4,7 +4,7 @@
 
 import Axios from '../common/Axios';
 import { AxiosPromise } from 'axios';
-import { AuthRequest, AuthResponse } from '../models/Auth';
+import { AuthRequest, AuthResponse } from '../../models/Auth';
 
 const path = '/api/v1/auth';
 

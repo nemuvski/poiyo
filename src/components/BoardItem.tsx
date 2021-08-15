@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Board, BoardLocationState } from '../libs/models/Board';
+import { Board, BoardLocationState } from '../models/Board';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';

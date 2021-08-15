@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
-import { Comment } from '../libs/models/Comment';
+import { Comment } from '../models/Comment';
 import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
 import { CommentListContext } from '../contexts/CommentListContext';
 import settingsIcon from '../assets/icons/settings.svg';
