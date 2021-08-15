@@ -9,7 +9,12 @@ export type BoardRequest = {
   body: string;
   ownerAccountId: string;
 };
-export const buildBoardRequest = (title: string, body: string, ownerAccountId: string, boardId?: string): BoardRequest => ({
+export const buildBoardRequest = (
+  title: string,
+  body: string,
+  ownerAccountId: string,
+  boardId?: string
+): BoardRequest => ({
   boardId: boardId ?? null,
   title,
   body,

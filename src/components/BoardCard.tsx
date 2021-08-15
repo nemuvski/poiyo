@@ -13,7 +13,7 @@ import { useModal } from '../hooks/useModal';
 import { ModalName } from '../stores/modal/slice';
 import DeleteBoardConfirmModal from './modals/DeleteBoardConfirmModal';
 import '../styles/components/board-card.scss';
-import {useDeleteBoardMutation} from '../stores/board/api';
+import { useDeleteBoardMutation } from '../stores/board/api';
 
 type Props = {
   board: Board | null;
@@ -32,12 +32,15 @@ const BoardCard: React.FC<Props> = ({ board }) => {
       SentryTracking.exception('処理中に問題があたったため、ボードの削除処理は中断されました。');
       return;
     }
-    deleteBoard(board.boardId).unwrap().catch(() => {
-      console.error('ボード削除に失敗しました。');
-      SentryTracking.exception('ボード削除に失敗しました。');
-    }).finally(() => {
-      history.replace('/search');
-    })
+    deleteBoard(board.boardId)
+      .unwrap()
+      .catch(() => {
+        console.error('ボード削除に失敗しました。');
+        SentryTracking.exception('ボード削除に失敗しました。');
+      })
+      .finally(() => {
+        history.replace('/search');
+      });
   };
 
   return (
@@ -75,10 +78,7 @@ const BoardCard: React.FC<Props> = ({ board }) => {
               )}
               <time className='board-card__date'>{formatYMDHm(Dayjs(board.createdTimestamp))}</time>
             </div>
-            <div
-              className='md board-card__body'
-              dangerouslySetInnerHTML={convertMarkdownTextToHTML(board.body)}
-            />
+            <div className='md board-card__body' dangerouslySetInnerHTML={convertMarkdownTextToHTML(board.body)} />
           </div>
         ) : (
           <CompactLoading />

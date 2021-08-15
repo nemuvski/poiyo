@@ -37,8 +37,8 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
 
   return (
     <div className='board-list'>
-      {boardList && (
-        boardList.length === 0 ? (
+      {boardList &&
+        (boardList.length === 0 ? (
           <p className='board-list__not-found'>
             <img alt='何も見つかりませんでした。' src={notFound} />
             ボードが見つかりませんでした。
@@ -47,8 +47,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
           boardList.map((board) => {
             return <BoardItem key={board.boardId} board={board} />;
           })
-        )
-      )}
+        ))}
       {isLoading && <CompactLoading />}
       {nextPage > 0 && (
         <div className='board-list__more'>
