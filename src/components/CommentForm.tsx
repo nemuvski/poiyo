@@ -17,8 +17,13 @@ type Props = {
 };
 
 // inputまたはtextareaのnameに相当する.
-type CommentFormFields = {
+type FormFields = {
   body: string;
+};
+
+type Preview = {
+  isActive: boolean;
+  content: string;
 };
 
 // 各フィールドのルール.
@@ -39,21 +44,18 @@ const CommentForm: React.FC<Props> = (props: Props) => {
   const account = useSelector(selectAccount);
   const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
   const [loading, setLoading] = useState(false);
-  const [previewMode, setPreviewMode] = useState(false);
+  const [preview, setPreview] = useState<Preview>({ isActive: false, content: '' });
   const { closeModal } = useModal();
-  const { register, handleSubmit, reset, formState, watch } = useForm({
+  const { register, handleSubmit, reset, formState } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
     defaultValues: {
       body: operatingComment ? operatingComment.body : '',
-    } as CommentFormFields,
+    } as FormFields,
   });
 
-  // プレビューで利用.
-  const watchBody = watch('body', operatingComment ? operatingComment.body : '');
-
-  const onSubmit = (data: CommentFormFields) => {
+  const onSubmit = (formFields: FormFields) => {
     if (!account) {
       SentryTracking.exception('アカウント情報がないため、コメント更新・削除ができませんでした。');
       return;
@@ -64,7 +66,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
     // ※CommentListContextを参照.
     if (operatingComment) {
       const editedComment = { ...operatingComment };
-      editedComment.body = data.body;
+      editedComment.body = formFields.body;
       updateComment(editedComment)
         .catch((error) => {
           SentryTracking.exception('コメント更新に失敗しました。');
@@ -75,7 +77,7 @@ const CommentForm: React.FC<Props> = (props: Props) => {
           closeModal();
         });
     } else {
-      CommentsService.create(account.token, props.board.boardId, account.id, data.body)
+      CommentsService.create(account.token, props.board.boardId, account.id, formFields.body)
         .then(() => {
           // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
           loadLatestPage(props.board.boardId);
@@ -100,26 +102,28 @@ const CommentForm: React.FC<Props> = (props: Props) => {
           <div className='comment-form__field'>
             <label className='comment-form__field-label'>コメント</label>
             <button
-              className={clsx([{ 'is-black': !previewMode }])}
+              className={clsx([{ 'is-black': !preview.isActive }])}
               type='button'
-              onClick={() => setPreviewMode(!previewMode)}
+              onClick={handleSubmit(({ body }: FormFields) => {
+                setPreview({ isActive: !preview.isActive, content: body });
+              })}
             >
-              {previewMode ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
+              {preview.isActive ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
             </button>
             <textarea
               className={clsx([
                 'comment-form__field-value',
                 { 'is-invalid': formState.errors.body },
-                { 'is-hidden': previewMode },
+                { 'is-hidden': preview.isActive },
               ])}
               {...register('body', fieldRules.body)}
             />
-            {previewMode && (
+            {preview.isActive && (
               <div
                 className={clsx(['md', 'comment-form__field-preview'])}
-                dangerouslySetInnerHTML={convertMarkdownTextToHTML(watchBody)}
+                dangerouslySetInnerHTML={convertMarkdownTextToHTML(preview.content)}
                 // プレビューの領域をクリックするとモードが切り替わる.
-                onClick={() => setPreviewMode(false)}
+                onClick={() => setPreview({ ...preview, isActive: false })}
               />
             )}
             <p className='comment-form__field-help'>500文字以内</p>
@@ -131,7 +135,10 @@ const CommentForm: React.FC<Props> = (props: Props) => {
               className='comment-form__button comment-form__button--reset is-white'
               type='button'
               disabled={formState.isSubmitting}
-              onClick={() => reset()}
+              onClick={() => {
+                setPreview({ ...preview, isActive: false });
+                reset();
+              }}
             >
               {operatingComment ? '元に戻す' : 'クリア'}
             </button>
