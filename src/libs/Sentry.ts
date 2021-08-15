@@ -4,7 +4,7 @@
 
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
-import { isProduction } from '../../utilities/NodeEnv';
+import { isProduction } from '../utilities/NodeEnv';
 
 if (isProduction()) {
   Sentry.init({

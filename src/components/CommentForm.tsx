@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import { Board } from '../libs/models/Board';
-import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
-import CommentsService from '../libs/services/CommentsService';
+import { Board } from '../models/Board';
+import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
+import CommentsService from '../services/CommentsService';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';

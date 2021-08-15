@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { CommentListProps } from '../libs/models/Comment';
+import { CommentListProps } from '../models/Comment';
 import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
 import { CommentListContext } from '../contexts/CommentListContext';

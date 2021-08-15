@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
-import { auth } from '../common/Firebase';
-import SentryTracking from '../../utilities/SentryTracking';
+import { auth } from '../libs/Firebase';
+import SentryTracking from '../utilities/SentryTracking';
 
 /**
  * Firebase Authenticationでサインインを実行

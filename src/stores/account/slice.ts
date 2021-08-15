@@ -1,4 +1,4 @@
-import { Account } from '../../libs/models/Account';
+import { Account } from '../../models/Account';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AccountState {

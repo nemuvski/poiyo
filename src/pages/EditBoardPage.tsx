@@ -4,7 +4,7 @@ import { setDocumentTitle } from '../utilities/DocumentTitle';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import BoardForm from '../components/BoardForm';
-import { Board, BoardLocationState } from '../libs/models/Board';
+import { Board, BoardLocationState } from '../models/Board';
 
 const EditBoardPage: React.FC = () => {
   const location = useLocation<BoardLocationState>();

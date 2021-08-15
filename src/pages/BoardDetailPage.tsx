@@ -1,108 +1,74 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { RouteComponentProps, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
-import { Board, BoardLocationState } from '../libs/models/Board';
-import BoardsService from '../libs/services/BoardsService';
-import FullWideLoading from '../components/FullWideLoading';
 import NotFoundPage from './NotFoundPage';
 import BoardCard from '../components/BoardCard';
 import commentIcon from '../assets/icons/comment.svg';
 import CommentList from '../components/CommentList';
-import SentryTracking from '../utilities/SentryTracking';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
 import CommentFormModal from '../components/modals/CommentFormModal';
 import { CommentListContext } from '../contexts/CommentListContext';
-import '../styles/pages/page-board-detail.scss';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
+import { useGetBoardQuery } from '../stores/board/api';
+import { useFullWideLoading } from '../hooks/useFullWideLoading';
+import '../styles/pages/page-board-detail.scss';
 
 type Params = {
   bid: string;
 };
-type Props = RouteComponentProps<Params>;
 
-const BoardDetailPage: React.FC<Props> = (props: Props) => {
-  const location = useLocation<BoardLocationState>();
-  const account = useSelector(selectAccount);
+const BoardDetailPage: React.FC = () => {
+  const { bid } = useParams<Params>();
   const { setupOperatingComment } = useContext(CommentListContext);
   const { openModal } = useModal(ModalName.COMMENT_FORM);
-  const [loading, setLoading] = useState(true);
-  const [board, setBoard] = useState<Board | null>(null);
+  const { data, isLoading, isError } = useGetBoardQuery(bid);
+  const { setFullWideLoading } = useFullWideLoading(true);
 
   useEffect(() => {
     setDocumentTitle('ボード');
-
-    // ボード情報を取得する処理.
-    const fetchBoard = async (boardId: string) => {
-      try {
-        if (account && account.id) {
-          const boardData = await BoardsService.getSingle(account.token, boardId);
-          if (boardData) {
-            setBoard(boardData);
-          }
-        }
-      } catch (error) {
-        SentryTracking.exception('ボード情報の取得に失敗しました。');
-        SentryTracking.exception(error);
-      }
-    };
-
-    // 表示するボード情報を取得.
-    if (location.state && location.state.board) {
-      setBoard(location.state.board);
-      setLoading(false);
-    }
-    // ボードがLocationStateで渡ってきていない場合はパスのボードIDでボード情報を取得.
-    else if (props.match.params && props.match.params.bid) {
-      // 関数側でboardはセットされる.
-      fetchBoard(props.match.params.bid).finally(() => {
-        setLoading(false);
-      });
-    }
   }, []);
+  useEffect(() => {
+    setFullWideLoading(isLoading);
+  }, [isLoading]);
 
   const handleOpenCommentFormModal = () => {
     setupOperatingComment(null);
     openModal();
   };
 
+  if (isError || !data) {
+    return <NotFoundPage />;
+  }
+
   return (
     <div className='page-board-detail'>
-      {loading && <FullWideLoading />}
-      {board ? (
-        <>
-          <div className='page-board-detail__inner'>
-            <div className='page-board-detail__card'>
-              <BoardCard board={board} />
-            </div>
-            <div className='page-board-detail__comment-list'>
-              <button
-                type='button'
-                className='page-board-detail__comment-button is-black'
-                onClick={() => handleOpenCommentFormModal()}
-              >
-                <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
-                ボードにコメントする
-              </button>
-
-              <CommentList board={board} />
-            </div>
-          </div>
-
+      <div className='page-board-detail__inner'>
+        <div className='page-board-detail__card'>
+          <BoardCard board={data} />
+        </div>
+        <div className='page-board-detail__comment-list'>
           <button
             type='button'
-            className='page-board-detail__fixed-comment-button is-black'
+            className='page-board-detail__comment-button is-black'
             onClick={() => handleOpenCommentFormModal()}
           >
             <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+            ボードにコメントする
           </button>
 
-          <CommentFormModal board={board} />
-        </>
-      ) : (
-        <NotFoundPage />
-      )}
+          <CommentList board={data} />
+        </div>
+      </div>
+
+      <button
+        type='button'
+        className='page-board-detail__fixed-comment-button is-black'
+        onClick={() => handleOpenCommentFormModal()}
+      >
+        <img aria-hidden='true' alt='コメント' title='コメントのフォームを開きます。' src={commentIcon} />
+      </button>
+
+      <CommentFormModal board={data} />
     </div>
   );
 };

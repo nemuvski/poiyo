@@ -2,11 +2,11 @@
  * コメント関連のAPIを実行.
  */
 
-import Axios from '../common/Axios';
+import Axios from '../libs/Axios';
 import { AxiosPromise } from 'axios';
 import { CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams } from '../models/Comment';
 
-const path = '/api/v1/comments';
+const path = '/repositories/v1/comments';
 
 /**
  * コメント登録のAPIを実行する。

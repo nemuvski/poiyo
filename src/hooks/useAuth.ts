@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { auth } from '../libs/common/Firebase';
-import AuthService from '../libs/services/AuthService';
+import { auth } from '../libs/Firebase';
+import AuthService from '../services/AuthService';
 import SentryTracking from '../utilities/SentryTracking';
 import { useDispatch } from 'react-redux';
 import { clearAccount, setAccount } from '../stores/account/slice';
+import { useFullWideLoading } from './useFullWideLoading';
 
-export const useAuth = (): [isLoading: boolean, error: Error | null] => {
+export const useAuth = (): { error: Error | null } => {
   const dispatch = useDispatch();
-
-  const [isLoading, setIsLoading] = useState(true);
+  const { setFullWideLoading } = useFullWideLoading(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      setIsLoading(true);
+      setFullWideLoading(true);
       setError(null);
 
       if (user) {
@@ -34,11 +34,11 @@ export const useAuth = (): [isLoading: boolean, error: Error | null] => {
         dispatch(clearAccount());
       }
 
-      setIsLoading(false);
+      setFullWideLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  return [isLoading, error];
+  return { error };
 };

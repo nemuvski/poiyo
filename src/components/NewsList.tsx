@@ -1,6 +1,6 @@
 import React from 'react';
-import NewsService from '../libs/services/NewsService';
-import { formatYMD } from '../libs/common/Dayjs';
+import NewsService from '../services/NewsService';
+import { formatYMD } from '../libs/Dayjs';
 import '../styles/components/news-list.scss';
 
 const NewsList: React.FC = () => {
