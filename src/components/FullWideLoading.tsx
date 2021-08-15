@@ -6,13 +6,10 @@ import '../styles/components/full-wide-loading.scss';
 
 const FullWideLoading: React.FC = () => {
   const isLoading = useSelector(selectFullWideLoading);
-  const rootElement = document.getElementById('loading');
-
   if (!isLoading) {
     return null;
   }
-
-  return createPortal(<div className='full-wide-loading' />, rootElement as Element);
+  return createPortal(<div className='full-wide-loading' />, document.getElementById('loading') as Element);
 };
 
 export default FullWideLoading;
