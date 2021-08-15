@@ -2,7 +2,7 @@
  * コメント関連のAPIを実行.
  */
 
-import Axios from '../libs/common/Axios';
+import Axios from '../libs/Axios';
 import { AxiosPromise } from 'axios';
 import { CommentRequest, CommentResponse, CommentsResponse, CommentsQueryParams } from '../models/Comment';
 

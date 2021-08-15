@@ -2,7 +2,7 @@
  * Firebase Analyticsのトラッキングのヘルパー関数を定義.
  */
 
-import firebase from '../libs/common/Firebase';
+import firebase from '../libs/Firebase';
 
 const appName = 'poiyo';
 

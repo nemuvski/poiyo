@@ -9,7 +9,7 @@ import ScrollToTop from './layouts/ScrollToTop';
 import FullWideLoading from './components/FullWideLoading';
 import { useFixedScroll } from './hooks/useFixedScroll';
 import { useAuth } from './hooks/useAuth';
-import Sentry from './libs/common/Sentry';
+import Sentry from './libs/Sentry';
 import './styles/layouts/main.scss';
 
 const App: React.FC = () => {

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Board } from '../models/Board';
-import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
+import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
 import CommentsService from '../services/CommentsService';
 import CompactLoading from './CompactLoading';
 import { CommentListContext } from '../contexts/CommentListContext';

@@ -2,7 +2,7 @@
  * OAuth認証後にアカウントデータの取得をするAPIを実行.
  */
 
-import Axios from '../libs/common/Axios';
+import Axios from '../libs/Axios';
 import { AxiosPromise } from 'axios';
 import { AuthRequest, AuthResponse } from '../models/Auth';
 

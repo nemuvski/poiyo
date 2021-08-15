@@ -2,7 +2,7 @@
  * アカウント関連のAPIを実行.
  */
 
-import Axios from '../libs/common/Axios';
+import Axios from '../libs/Axios';
 import { AxiosPromise } from 'axios';
 
 const path = '/repositories/v1/accounts';

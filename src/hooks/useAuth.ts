@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { auth } from '../libs/common/Firebase';
+import { auth } from '../libs/Firebase';
 import AuthService from '../services/AuthService';
 import SentryTracking from '../utilities/SentryTracking';
 import { useDispatch } from 'react-redux';

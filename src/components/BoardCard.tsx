@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Board, BoardLocationState } from '../models/Board';
-import Dayjs, { formatYMDHm } from '../libs/common/Dayjs';
+import Dayjs, { formatYMDHm } from '../libs/Dayjs';
 import CompactLoading from './CompactLoading';
 import ShadowBox from './ShadowBox';
-import { convertMarkdownTextToHTML } from '../libs/common/DOMPurify';
+import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
 import { useHistory } from 'react-router-dom';
 import settingsIcon from '../assets/icons/settings.svg';
 import SentryTracking from '../utilities/SentryTracking';

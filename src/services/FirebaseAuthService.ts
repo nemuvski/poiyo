@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import { auth } from '../libs/common/Firebase';
+import { auth } from '../libs/Firebase';
 import SentryTracking from '../utilities/SentryTracking';
 
 /**
