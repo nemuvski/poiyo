@@ -68,4 +68,4 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
   );
 };
 
-export default React.memo(BoardList);
+export default BoardList;
