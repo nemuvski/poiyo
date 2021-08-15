@@ -2,11 +2,11 @@
  * OAuth認証後にアカウントデータの取得をするAPIを実行.
  */
 
-import Axios from '../common/Axios';
+import Axios from '../libs/common/Axios';
 import { AxiosPromise } from 'axios';
-import { AuthRequest, AuthResponse } from '../../models/Auth';
+import { AuthRequest, AuthResponse } from '../models/Auth';
 
-const path = '/api/v1/auth';
+const path = '/repositories/v1/auth';
 
 /**
  * 認証APIを実行する.

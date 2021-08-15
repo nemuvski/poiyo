@@ -2,7 +2,7 @@
  * 認証に関するサービス関数を定義.
  */
 
-import AuthApi from '../api/AuthApi';
+import AuthApi from '../../repositories/AuthApi';
 import { Account } from '../../models/Account';
 import { AuthRequest } from '../../models/Auth';
 
