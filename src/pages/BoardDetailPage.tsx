@@ -36,6 +36,11 @@ const BoardDetailPage: React.FC = () => {
     openModal();
   };
 
+  // ローディング中は内容は空とする
+  if (isLoading) {
+    return null;
+  }
+  // ローディング後にエラー、またはデータがないという場合は404コンテンツを表示する
   if (isError || !data) {
     return <NotFoundPage />;
   }

@@ -6,7 +6,7 @@ import Axios from '../libs/Axios';
 import { AxiosPromise } from 'axios';
 import { AuthRequest, AuthResponse } from '../models/Auth';
 
-const path = '/repositories/v1/auth';
+const path = '/api/v1/auth';
 
 /**
  * 認証APIを実行する.
