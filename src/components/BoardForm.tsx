@@ -20,6 +20,11 @@ type FormFields = {
   body: string;
 };
 
+type Preview = {
+  isActive: boolean;
+  content: string;
+};
+
 // 各フィールドのルール.
 const fieldRules = {
   text: {
@@ -46,12 +51,12 @@ const fieldRules = {
 
 const BoardForm: React.FC<Props> = ({ board }) => {
   const history = useHistory();
-  const [previewMode, setPreviewMode] = useState(false);
+  const [preview, setPreview] = useState<Preview>({ isActive: false, content: '' });
   const defaultValues: FormFields = {
     title: board ? board.title : '',
     body: board ? board.body : '',
   };
-  const { register, handleSubmit, reset, formState, watch, setValue } = useForm({
+  const { register, handleSubmit, reset, formState, setValue } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
     criteriaMode: 'firstError',
@@ -69,9 +74,6 @@ const BoardForm: React.FC<Props> = ({ board }) => {
       setValue('body', board.body);
     }
   }, [board]);
-
-  // プレビューで利用
-  const watchBody = watch('body', board ? board.body : '');
 
   const onSubmit = (formFields: FormFields) => {
     if (!account) {
@@ -129,27 +131,29 @@ const BoardForm: React.FC<Props> = ({ board }) => {
       <div className='board-form__field'>
         <label className='board-form__field-label'>本文</label>
         <button
-          className={clsx([{ 'is-black': !previewMode }])}
+          className={clsx([{ 'is-black': !preview.isActive }])}
           type='button'
-          onClick={() => setPreviewMode(!previewMode)}
+          onClick={handleSubmit(({ body }: FormFields) => {
+            setPreview({ isActive: !preview.isActive, content: body });
+          })}
         >
-          {previewMode ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
+          {preview.isActive ? 'エディタモードへ切替' : 'プレビューモードへ切替'}
         </button>
         <textarea
           className={clsx([
             'board-form__field-value',
             'board-form__field-value--body',
             { 'is-invalid': formState.errors.body },
-            { 'is-hidden': previewMode },
+            { 'is-hidden': preview.isActive },
           ])}
           {...register('body', fieldRules.body)}
         />
-        {previewMode && (
+        {preview.isActive && (
           <div
             className={clsx(['md', 'board-form__field-preview'])}
-            dangerouslySetInnerHTML={convertMarkdownTextToHTML(watchBody)}
+            dangerouslySetInnerHTML={convertMarkdownTextToHTML(preview.content)}
             // プレビューの領域をクリックするとモードが切り替わる.
-            onClick={() => setPreviewMode(false)}
+            onClick={() => setPreview({ ...preview, isActive: false })}
           />
         )}
         <p className='board-form__field-help'>1000文字以内</p>
@@ -161,7 +165,10 @@ const BoardForm: React.FC<Props> = ({ board }) => {
           className='is-white'
           type='button'
           disabled={formState.isSubmitting}
-          onClick={() => reset(defaultValues)}
+          onClick={() => {
+            setPreview({ ...preview, isActive: false });
+            reset(defaultValues);
+          }}
         >
           {board ? '元に戻す' : 'クリア'}
         </button>
