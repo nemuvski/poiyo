@@ -1,61 +1,66 @@
-import React, { useContext, useEffect } from 'react';
-import { CommentListProps } from '../models/Comment';
+import React, { useEffect, useState } from 'react';
 import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
-import { CommentListContext } from '../contexts/CommentListContext';
 import notFound from '../assets/not-found.svg';
 import SentryTracking from '../utilities/SentryTracking';
-import DeleteCommentConfirmModal from './modals/DeleteCommentConfirmModal';
-import { useModal } from '../hooks/useModal';
+import { Board } from '../models/Board';
+import { useGetCommentsLazyQuery } from '../stores/comment/api';
+import { buildCommentsQueryParams, Comment } from '../models/Comment';
 import '../styles/components/comment-list.scss';
 
-const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
-  const { closeModal } = useModal();
-  const { commentList, nextPage, loading, loadLatestPage, loadNextPage, deleteComment } =
-    useContext(CommentListContext);
+type Props = {
+  board: Board;
+};
 
-  const handleDeleteButtonClick = () => {
-    deleteComment()
-      .catch((error) => {
-        SentryTracking.exception(error);
-      })
-      .finally(() => {
-        closeModal();
-      });
-  };
+const CommentList: React.FC<Props> = ({ board }) => {
+  const [getCommentsTrigger, { data: fetchedData, isLoading, error }] = useGetCommentsLazyQuery();
+  const [commentList, setCommentList] = useState<Array<Comment> | null>(null);
+  const [nextPage, setNextPage] = useState(-1);
 
+  // 初期表示の処理
   useEffect(() => {
-    loadLatestPage(props.board.boardId);
+    getCommentsTrigger(buildCommentsQueryParams(1, board.boardId));
   }, []);
+  // コメント取得時にエラーが発生した場合の処理
+  useEffect(() => {
+    if (error) {
+      setCommentList(null);
+      setNextPage(-1);
+      SentryTracking.exception('コメントデータの取得時にエラーが発生しました。');
+    }
+  }, [error]);
+  // 取得したデータが変わったときの処理
+  useEffect(() => {
+    if (fetchedData) {
+      setCommentList(commentList ? commentList.concat(fetchedData.items) : fetchedData.items);
+      setNextPage(fetchedData.nextPage ?? -1);
+    }
+  }, [fetchedData]);
 
   return (
-    <>
-      <div className='comment-list'>
-        {commentList != null &&
-          (commentList.length == 0 ? (
-            <p className='comment-list__not-found'>
-              <img alt='何も見つかりませんでした。' src={notFound} />
-              まだコメントされていません。
-            </p>
-          ) : (
-            commentList.map((comment) => {
-              return <CommentItem key={comment.commentId} comment={comment} />;
-            })
-          ))}
+    <div className='comment-list'>
+      {commentList &&
+        (commentList.length === 0 ? (
+          <p className='comment-list__not-found'>
+            <img alt='何も見つかりませんでした。' src={notFound} />
+            まだコメントされていません。
+          </p>
+        ) : (
+          commentList.map((comment) => {
+            return <CommentItem key={comment.commentId} comment={comment} />;
+          })
+        ))}
 
-        {loading && <CompactLoading />}
+      {isLoading && <CompactLoading />}
 
-        {commentList != null && nextPage >= 1 && (
-          <div className='comment-list__more'>
-            <button type='button' onClick={() => loadNextPage(props.board.boardId)}>
-              さらにコメントを読み込む
-            </button>
-          </div>
-        )}
-      </div>
-
-      <DeleteCommentConfirmModal okAction={() => handleDeleteButtonClick()} cancelAction={() => closeModal()} />
-    </>
+      {commentList != null && nextPage >= 1 && (
+        <div className='comment-list__more'>
+          <button type='button' onClick={() => getCommentsTrigger(buildCommentsQueryParams(nextPage, board.boardId))}>
+            さらにコメントを読み込む
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

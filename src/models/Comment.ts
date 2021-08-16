@@ -1,75 +1,82 @@
 /**
  * コメントAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
-import { Board } from './Board';
 import { NullTime } from './Time';
 
-export interface CommentRequest {
+export type CommentRequest = {
   commentId: string | null;
   boardId: string;
   ownerAccountId: string;
   body: string;
-}
+};
+export const buildCommentRequest = (
+  boardId: string,
+  ownerAccountId: string,
+  body: string,
+  commentId?: string
+): CommentRequest => ({
+  commentId: commentId ?? null,
+  boardId,
+  ownerAccountId,
+  body,
+});
 
-export interface CommentResponse {
+export type CommentResponse = {
   comment_id: string;
   board_id: string;
   owner_account_id: string;
   body: string;
   created_timestamp: string;
   updated_timestamp: NullTime;
-}
+};
 
-export interface CommentsResponse {
+export type CommentsResponse = {
   items: Array<CommentResponse>;
   current_page: number;
   next_page?: number;
-}
+};
 
-export interface CommentsQueryParams {
+export type CommentsQueryParams = {
   page: number;
   num_per_page: number;
   board_id: string;
-}
+};
+export const buildCommentsQueryParams = (page: number, boardId: string, numPerPage = 50): CommentsQueryParams => ({
+  page,
+  board_id: boardId,
+  num_per_page: numPerPage,
+});
 
-// ボード一覧コンポーネントへ渡すプロパティ.
-export interface CommentListProps {
-  board: Board;
-}
-
-// 処理で利用するモデル.
-export class Comment {
+export type Comment = {
   commentId: string;
   boardId: string;
   ownerAccountId: string;
   body: string;
   createdTimestamp: string;
   updatedTimestamp: string | null;
+};
+export const buildComment = (commentResponse: CommentResponse): Comment => {
+  const { comment_id, body, board_id, owner_account_id, created_timestamp, updated_timestamp } = commentResponse;
+  return {
+    commentId: comment_id,
+    body,
+    boardId: board_id,
+    ownerAccountId: owner_account_id,
+    createdTimestamp: created_timestamp,
+    updatedTimestamp: updated_timestamp && updated_timestamp.Valid ? updated_timestamp.Time : null,
+  };
+};
 
-  constructor(commentResponse: CommentResponse) {
-    this.commentId = commentResponse.comment_id;
-    this.boardId = commentResponse.board_id;
-    this.ownerAccountId = commentResponse.owner_account_id;
-    this.body = commentResponse.body;
-    this.createdTimestamp = commentResponse.created_timestamp;
-    this.updatedTimestamp = null;
-    if (commentResponse.updated_timestamp.Valid) {
-      this.updatedTimestamp = commentResponse.updated_timestamp.Time;
-    }
-  }
-}
-export class Comments {
+export type Comments = {
   items: Array<Comment>;
   currentPage: number;
   nextPage?: number;
-
-  constructor(commentsResponse: CommentsResponse) {
-    this.items = commentsResponse.items.map((singleResponseData) => {
-      return new Comment(singleResponseData);
-    });
-    this.currentPage = commentsResponse.current_page;
-    if (commentsResponse.next_page) {
-      this.nextPage = commentsResponse.next_page;
-    }
-  }
-}
+};
+export const buildComments = (commentsResponse: CommentsResponse): Comments => {
+  const { items, current_page, next_page } = commentsResponse;
+  return {
+    items: items.map((data) => buildComment(data)),
+    currentPage: current_page,
+    nextPage: next_page,
+  };
+};
