@@ -11,6 +11,7 @@ import {
 } from '../../models/Board';
 
 export const boardApi = poiyoApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getBoard: builder.query<Board, string>({
       query: (boardId) => `/boards/${boardId}`,
