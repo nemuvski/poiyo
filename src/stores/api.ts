@@ -17,3 +17,8 @@ export const poiyoApi = createApi({
   }),
   endpoints: () => ({}),
 });
+
+export const defaultValidateStatus = ({ status }: Response): boolean => {
+  console.info('Status: ', status);
+  return status === 200 || status === 201;
+};

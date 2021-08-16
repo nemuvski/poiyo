@@ -14,7 +14,7 @@ import './styles/layouts/main.scss';
 
 const App: React.FC = () => {
   useFixedScroll();
-  const { error } = useAuth();
+  useAuth();
   const account = useSelector(selectAccount);
 
   useEffect(() => {
@@ -22,10 +22,6 @@ const App: React.FC = () => {
       scope.setUser({ id: account ? account.id : undefined });
     });
   }, [account]);
-
-  if (error) {
-    console.error(error);
-  }
 
   return (
     <BrowserRouter>

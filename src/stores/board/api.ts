@@ -1,4 +1,4 @@
-import { poiyoApi } from '../api';
+import { defaultValidateStatus, poiyoApi } from '../api';
 import {
   Board,
   BoardRequest,
@@ -22,6 +22,7 @@ export const boardApi = poiyoApi.injectEndpoints({
         url: '/boards',
         method: 'GET',
         params: { owner_account_id, search, page, num_per_page },
+        validateStatus: defaultValidateStatus,
       }),
       transformResponse: (response: BoardsResponse) => buildBoards(response),
     }),
@@ -34,6 +35,7 @@ export const boardApi = poiyoApi.injectEndpoints({
           body,
           owner_account_id: ownerAccountId,
         },
+        validateStatus: defaultValidateStatus,
       }),
       transformResponse: (response: BoardResponse) => buildBoard(response),
       invalidatesTags: ['Board'],
@@ -46,6 +48,7 @@ export const boardApi = poiyoApi.injectEndpoints({
           title,
           body,
         },
+        validateStatus: defaultValidateStatus,
       }),
       transformResponse: (response: BoardResponse) => buildBoard(response),
       invalidatesTags: (result) => (result ? [{ type: 'Board', id: result.boardId }] : ['Board']),
@@ -54,6 +57,7 @@ export const boardApi = poiyoApi.injectEndpoints({
       query: (boardId) => ({
         url: `/boards/${boardId}`,
         method: 'DELETE',
+        validateStatus: defaultValidateStatus,
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Board', id: arg }],
     }),
