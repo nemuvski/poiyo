@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
-import AccountsService from '../services/AccountsService';
 import SentryTracking from '../utilities/SentryTracking';
 import { signOut } from '../services/FirebaseAuthService';
 import { useSelector } from 'react-redux';
@@ -11,22 +11,30 @@ import { selectAccount } from '../stores/account/selector';
 import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
+import { useSignOffMutation } from '../stores/account/api';
 
 const HelpPage: React.FC = () => {
+  const history = useHistory();
   const account = useSelector(selectAccount);
   const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM);
+  const [signOff] = useSignOffMutation();
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {
       SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。');
       return;
     }
-    AccountsService.remove(account.token, account.id)
+    signOff(account.id)
+      .unwrap()
       .then(() => {
         signOut();
       })
-      .catch((error) => {
-        SentryTracking.exception(error);
+      .catch(() => {
+        SentryTracking.exception('退会処理中に問題が発生したため、中断されました。');
+      })
+      .finally(() => {
+        closeModal();
+        history.push('/');
       });
   };
 
