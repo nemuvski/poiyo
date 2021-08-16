@@ -4,7 +4,7 @@ import { accountSlice } from './account/slice';
 import { modalSlice } from './modal/slice';
 import { boardApi } from './board/api';
 import { fullWideLoadingSlice } from './fullWideLoading/slice';
-import {accountApi} from './account/api';
+import { accountApi } from './account/api';
 
 export const store = configureStore({
   reducer: {

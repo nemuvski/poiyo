@@ -70,10 +70,5 @@ export const boardApi = poiyoApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetBoardQuery,
-  usePostBoardMutation,
-  usePatchBoardMutation,
-  useDeleteBoardMutation,
-} = boardApi;
+export const { useGetBoardQuery, usePostBoardMutation, usePatchBoardMutation, useDeleteBoardMutation } = boardApi;
 export const useGetBoardsLazyQuery = boardApi.endpoints.getBoards.useLazyQuery;
