@@ -17,7 +17,7 @@ export const boardApi = poiyoApi.injectEndpoints({
       transformResponse: (response: BoardResponse) => buildBoard(response),
       providesTags: (result) => (result ? [{ type: 'Board', id: result.boardId }] : ['Board']),
     }),
-    getBoards: builder.mutation<Boards, BoardsQueryParams>({
+    getBoards: builder.query<Boards, BoardsQueryParams>({
       query: ({ owner_account_id, search, page, num_per_page }) => ({
         url: '/boards',
         method: 'GET',
@@ -25,6 +25,12 @@ export const boardApi = poiyoApi.injectEndpoints({
         validateStatus: defaultValidateStatus,
       }),
       transformResponse: (response: BoardsResponse) => buildBoards(response),
+      providesTags: (result) => {
+        if (result && result.items.length) {
+          return result.items.map((board) => ({ type: 'Board', id: board.boardId }));
+        }
+        return ['Board'];
+      },
     }),
     postBoard: builder.mutation<Board, BoardRequest>({
       query: ({ title, body, ownerAccountId }) => ({
@@ -66,8 +72,8 @@ export const boardApi = poiyoApi.injectEndpoints({
 
 export const {
   useGetBoardQuery,
-  useGetBoardsMutation,
   usePostBoardMutation,
   usePatchBoardMutation,
   useDeleteBoardMutation,
 } = boardApi;
+export const useGetBoardsLazyQuery = boardApi.endpoints.getBoards.useLazyQuery;

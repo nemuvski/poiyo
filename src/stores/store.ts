@@ -4,12 +4,14 @@ import { accountSlice } from './account/slice';
 import { modalSlice } from './modal/slice';
 import { boardApi } from './board/api';
 import { fullWideLoadingSlice } from './fullWideLoading/slice';
+import {accountApi} from './account/api';
 
 export const store = configureStore({
   reducer: {
     fullWideLoadingReducer: fullWideLoadingSlice.reducer,
     modalReducer: modalSlice.reducer,
     accountReducer: accountSlice.reducer,
+    [accountApi.reducerPath]: accountApi.reducer,
     [boardApi.reducerPath]: boardApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(boardApi.middleware),
