@@ -4,7 +4,7 @@ import BoardItem from './BoardItem';
 import CompactLoading from './CompactLoading';
 import SentryTracking from '../utilities/SentryTracking';
 import notFound from '../assets/not-found.svg';
-import { useGetBoardsMutation } from '../stores/board/api';
+import { useGetBoardsLazyQuery } from '../stores/board/api';
 import '../styles/components/board-list.scss';
 
 type Props = {
@@ -13,27 +13,30 @@ type Props = {
 };
 
 const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
-  const [getBoards, { isLoading }] = useGetBoardsMutation();
+  const [getBoardsTrigger, { data: fetchedData, isLoading, error }] = useGetBoardsLazyQuery();
   const [boardList, setBoardList] = useState<Array<Board> | null>(null);
   const [nextPage, setNextPage] = useState(-1);
 
-  const getResources = async (targetPage: number, initialize = false) => {
-    try {
-      const boards = await getBoards(buildBoardQueryParams(targetPage, accountId, keyword)).unwrap();
-      const { items, nextPage } = boards;
-      setBoardList(!initialize && boardList ? boardList.concat(items) : items);
-      setNextPage(nextPage ?? -1);
-    } catch {
+  // 初期表示、または引数のkeyword, accountIdが変わった時の処理
+  useEffect(() => {
+    setBoardList(null);
+    getBoardsTrigger(buildBoardQueryParams(1, accountId, keyword));
+  }, [keyword, accountId]);
+  // ボード取得時にエラーが発生した場合の処理
+  useEffect(() => {
+    if (error) {
       setBoardList(null);
       setNextPage(-1);
       SentryTracking.exception('ボードデータの取得時にエラーが発生しました。');
     }
-  };
-
+  }, [error]);
+  // 取得したデータが変わった時の処理
   useEffect(() => {
-    setBoardList(null);
-    getResources(1, true);
-  }, [keyword, accountId]);
+    if (fetchedData) {
+      setBoardList(boardList ? boardList.concat(fetchedData.items) : fetchedData.items);
+      setNextPage(fetchedData.nextPage ?? -1);
+    }
+  }, [fetchedData]);
 
   return (
     <div className='board-list'>
@@ -56,7 +59,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
             disabled={isLoading}
             onClick={() => {
               if (nextPage > 0) {
-                getResources(nextPage);
+                getBoardsTrigger(buildBoardQueryParams(nextPage, accountId, keyword));
               }
             }}
           >
