@@ -88,7 +88,7 @@ export const buildBoards = (boardsResponse: BoardsResponse): Boards => {
   };
 };
 
-// ボード詳細ページへ遷移するときに渡すデータの型.
+// ボード編集ページへ遷移するときに渡すデータの型.
 export type BoardLocationState = {
   board: Board;
 };
