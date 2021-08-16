@@ -6,7 +6,7 @@ import { clearAccount, setAccount } from '../stores/account/slice';
 import { useFullWideLoading } from './useFullWideLoading';
 import { useSignInMutation } from '../stores/account/api';
 import { buildAuthRequest } from '../models/Auth';
-import {buildAccount} from '../models/Account';
+import { buildAccount } from '../models/Account';
 
 export const useAuth = (): void => {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import {defaultValidateStatus, poiyoApi} from '../api';
+import { defaultValidateStatus, poiyoApi } from '../api';
 import {
   Board,
   BoardRequest,

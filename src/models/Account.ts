@@ -1,7 +1,7 @@
 /**
  * アカウントに紐づく情報のモデル.
  */
-import {AuthResponse} from './Auth';
+import { AuthResponse } from './Auth';
 
 export type Account = {
   id: string;

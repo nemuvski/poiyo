@@ -10,7 +10,12 @@ export type AuthRequest = {
   // Firebase Authenticationで発行したトークン（JWT）
   token: string;
 };
-export const buildAuthRequest = (token: string, email: string | null, serviceId: string, serviceType = 'ggl'): AuthRequest => {
+export const buildAuthRequest = (
+  token: string,
+  email: string | null,
+  serviceId: string,
+  serviceType = 'ggl'
+): AuthRequest => {
   return {
     serviceType,
     serviceId,
