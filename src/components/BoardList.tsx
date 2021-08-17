@@ -16,6 +16,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
   const [getBoardsTrigger, { data: fetchedData, isLoading, isFetching, error }] = useGetBoardsLazyQuery();
   const [boardList, setBoardList] = useState<Array<Board> | null>(null);
   const [nextPage, setNextPage] = useState(-1);
+  const [clickedMoreButton, setClickedMoreButton] = useState(false);
 
   // 初期表示、または引数のkeyword, accountIdが変わった時の処理
   useEffect(() => {
@@ -33,8 +34,9 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
   // 取得したデータが変わった時の処理
   useEffect(() => {
     if (fetchedData) {
-      setBoardList(boardList ? boardList.concat(fetchedData.items) : fetchedData.items);
+      setBoardList(boardList && clickedMoreButton ? boardList.concat(fetchedData.items) : fetchedData.items);
       setNextPage(fetchedData.nextPage ?? -1);
+      setClickedMoreButton(false);
     }
   }, [fetchedData]);
 
@@ -52,15 +54,14 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
           })
         ))}
       {(isLoading || isFetching) && <CompactLoading />}
-      {nextPage > 0 && (
+      {boardList && nextPage > 0 && (
         <div className='board-list__more'>
           <button
             type='button'
             disabled={isFetching}
             onClick={() => {
-              if (nextPage > 0) {
-                getBoardsTrigger(buildBoardQueryParams(nextPage, accountId, keyword));
-              }
+              setClickedMoreButton(true);
+              getBoardsTrigger(buildBoardQueryParams(nextPage, accountId, keyword));
             }}
           >
             さらにボードを読み込む
