@@ -13,7 +13,7 @@ type Props = {
 };
 
 const CommentList: React.FC<Props> = ({ board }) => {
-  const [getCommentsTrigger, { data: fetchedData, isLoading, error }] = useGetCommentsLazyQuery();
+  const [getCommentsTrigger, { data: fetchedData, isLoading, isFetching, error }] = useGetCommentsLazyQuery();
   const [commentList, setCommentList] = useState<Array<Comment> | null>(null);
   const [nextPage, setNextPage] = useState(-1);
 
@@ -50,12 +50,14 @@ const CommentList: React.FC<Props> = ({ board }) => {
             return <CommentItem key={comment.commentId} comment={comment} />;
           })
         ))}
-
-      {isLoading && <CompactLoading />}
-
+      {(isLoading || isFetching) && <CompactLoading />}
       {commentList != null && nextPage >= 1 && (
         <div className='comment-list__more'>
-          <button type='button' onClick={() => getCommentsTrigger(buildCommentsQueryParams(nextPage, board.boardId))}>
+          <button
+            type='button'
+            disabled={isFetching}
+            onClick={() => getCommentsTrigger(buildCommentsQueryParams(nextPage, board.boardId))}
+          >
             さらにコメントを読み込む
           </button>
         </div>

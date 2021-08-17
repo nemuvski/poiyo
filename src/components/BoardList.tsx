@@ -13,7 +13,7 @@ type Props = {
 };
 
 const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
-  const [getBoardsTrigger, { data: fetchedData, isLoading, error }] = useGetBoardsLazyQuery();
+  const [getBoardsTrigger, { data: fetchedData, isLoading, isFetching, error }] = useGetBoardsLazyQuery();
   const [boardList, setBoardList] = useState<Array<Board> | null>(null);
   const [nextPage, setNextPage] = useState(-1);
 
@@ -51,12 +51,12 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
             return <BoardItem key={board.boardId} board={board} />;
           })
         ))}
-      {isLoading && <CompactLoading />}
+      {(isLoading || isFetching) && <CompactLoading />}
       {nextPage > 0 && (
         <div className='board-list__more'>
           <button
             type='button'
-            disabled={isLoading}
+            disabled={isFetching}
             onClick={() => {
               if (nextPage > 0) {
                 getBoardsTrigger(buildBoardQueryParams(nextPage, accountId, keyword));
