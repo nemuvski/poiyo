@@ -1,5 +1,14 @@
 import { defaultValidateStatus, poiyoApi } from '../api';
-import { buildComments, CommentRequest, Comments, CommentsQueryParams, CommentsResponse } from '../../models/Comment';
+import {
+  buildComment,
+  buildComments,
+  CommentRequest,
+  CommentResponse,
+  Comment,
+  Comments,
+  CommentsQueryParams,
+  CommentsResponse,
+} from '../../models/Comment';
 
 export const commentApi = poiyoApi.injectEndpoints({
   overrideExisting: false,
@@ -30,6 +39,7 @@ export const commentApi = poiyoApi.injectEndpoints({
         },
         validateStatus: defaultValidateStatus,
       }),
+      transformResponse: (response: CommentResponse) => buildComment(response),
       invalidatesTags: ['Comment'],
     }),
     patchComment: builder.mutation<Comment, CommentRequest>({
@@ -42,7 +52,9 @@ export const commentApi = poiyoApi.injectEndpoints({
         },
         validateStatus: defaultValidateStatus,
       }),
-      invalidatesTags: ['Comment'],
+      transformResponse: (response: CommentResponse) => buildComment(response),
+      invalidatesTags: (result) =>
+        result ? [{ type: 'Comment', id: `${result.boardId}:${result.commentId}` }] : ['Comment'],
     }),
     deleteComment: builder.mutation<void, { boardId: string; commentId: string }>({
       query: ({ boardId, commentId }) => ({
