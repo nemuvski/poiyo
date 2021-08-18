@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import { auth } from '../libs/Firebase';
-import SentryTracking from '../utilities/SentryTracking';
+import SentryTracking from './SentryTracking';
 
 /**
  * Firebase Authenticationでサインインを実行
@@ -21,5 +21,3 @@ export const signOut = (): Promise<void> => {
     SentryTracking.exception(error);
   });
 };
-
-export default { signIn, signOut };
