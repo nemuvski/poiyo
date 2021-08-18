@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NotFoundPage from './NotFoundPage';
@@ -6,12 +6,15 @@ import BoardCard from '../components/BoardCard';
 import commentIcon from '../assets/icons/comment.svg';
 import CommentList from '../components/CommentList';
 import CommentFormModal from '../components/modals/CommentFormModal';
-import { CommentListContext } from '../contexts/CommentListContext';
+import DeleteCommentConfirmModal from '../components/modals/DeleteCommentConfirmModal';
 import { ModalName } from '../stores/modal/slice';
 import { useModal } from '../hooks/useModal';
-import { useGetBoardQuery } from '../stores/board/api';
 import { useFullWideLoading } from '../hooks/useFullWideLoading';
+import { useOperatingComment } from '../hooks/useOperatingComment';
+import { useGetBoardQuery } from '../stores/board/api';
 import '../styles/pages/page-board-detail.scss';
+import { useDispatch } from 'react-redux';
+import { clearCommentListCurrentPage } from '../stores/comment/slice';
 
 type Params = {
   bid: string;
@@ -19,20 +22,26 @@ type Params = {
 
 const BoardDetailPage: React.FC = () => {
   const { bid } = useParams<Params>();
-  const { setupOperatingComment } = useContext(CommentListContext);
+  const dispatch = useDispatch();
+  const { clearOperatingComment } = useOperatingComment();
   const { openModal } = useModal(ModalName.COMMENT_FORM);
   const { data, isLoading, isError } = useGetBoardQuery(bid);
   const { setFullWideLoading } = useFullWideLoading(true);
 
   useEffect(() => {
     setDocumentTitle('ボード');
+
+    // ページから離れる時にコメント一覧の現在のページをリセットする
+    return () => {
+      dispatch(clearCommentListCurrentPage());
+    };
   }, []);
   useEffect(() => {
     setFullWideLoading(isLoading);
   }, [isLoading]);
 
   const handleOpenCommentFormModal = () => {
-    setupOperatingComment(null);
+    clearOperatingComment();
     openModal();
   };
 
@@ -74,6 +83,7 @@ const BoardDetailPage: React.FC = () => {
       </button>
 
       <CommentFormModal board={data} />
+      <DeleteCommentConfirmModal board={data} />
     </div>
   );
 };

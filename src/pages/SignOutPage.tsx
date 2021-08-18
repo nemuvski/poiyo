@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
-import { signOut } from '../services/FirebaseAuthService';
+import { signOut } from '../utilities/FirebaseAuth';
 import { useFullWideLoading } from '../hooks/useFullWideLoading';
 import ArticleInner from '../components/ArticleInner';
 

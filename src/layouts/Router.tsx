@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import { CommentListProvider } from '../contexts/CommentListContext';
 import FrontPage from '../pages/FrontPage';
 import CreateBoardPage from '../pages/CreateBoardPage';
 import TermsPage from '../pages/TermsPage';
@@ -39,18 +38,7 @@ const Router: React.FC = () => {
       <Route exact path='/create-board' render={() => (!account ? <Redirect to='/' /> : <CreateBoardPage />)} />
       <Route exact path='/edit-board' render={() => (!account ? <Redirect to='/' /> : <EditBoardPage />)} />
       <Route exact path='/dashboard' render={() => (!account ? <Redirect to='/' /> : <DashboardPage />)} />
-      <Route
-        path='/board/:bid'
-        render={() =>
-          !account ? (
-            <Redirect to='/' />
-          ) : (
-            <CommentListProvider>
-              <BoardDetailPage />
-            </CommentListProvider>
-          )
-        }
-      />
+      <Route path='/board/:bid' render={() => (!account ? <Redirect to='/' /> : <BoardDetailPage />)} />
       <Route exact path='/' render={() => (account ? <Redirect to='/dashboard' /> : <FrontPage />)} />
       <Route component={NotFoundPage} />
     </Switch>

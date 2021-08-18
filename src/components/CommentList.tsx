@@ -1,61 +1,80 @@
-import React, { useContext, useEffect } from 'react';
-import { CommentListProps } from '../models/Comment';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CompactLoading from './CompactLoading';
 import CommentItem from './CommentItem';
-import { CommentListContext } from '../contexts/CommentListContext';
-import notFound from '../assets/not-found.svg';
 import SentryTracking from '../utilities/SentryTracking';
-import DeleteCommentConfirmModal from './modals/DeleteCommentConfirmModal';
-import { useModal } from '../hooks/useModal';
+import notFound from '../assets/not-found.svg';
+import { selectCommentListCurrentPage } from '../stores/comment/selector';
+import { Board } from '../models/Board';
+import { useGetCommentsLazyQuery } from '../stores/comment/api';
+import { buildCommentsQueryParams, Comment } from '../models/Comment';
+import Pagination from './Pagination';
+import { setCommentListCurrentPage } from '../stores/comment/slice';
 import '../styles/components/comment-list.scss';
 
-const CommentList: React.FC<CommentListProps> = (props: CommentListProps) => {
-  const { closeModal } = useModal();
-  const { commentList, nextPage, loading, loadLatestPage, loadNextPage, deleteComment } =
-    useContext(CommentListContext);
+type Props = {
+  board: Board;
+};
 
-  const handleDeleteButtonClick = () => {
-    deleteComment()
-      .catch((error) => {
-        SentryTracking.exception(error);
-      })
-      .finally(() => {
-        closeModal();
-      });
-  };
+const CommentList: React.FC<Props> = ({ board }) => {
+  const dispatch = useDispatch();
+  const commentListCurrentPage = useSelector(selectCommentListCurrentPage);
+  const [getCommentsTrigger, { isLoading, isFetching, error, data: fetchedComments }] = useGetCommentsLazyQuery();
+  const [commentList, setCommentList] = useState<Array<Comment>>([]);
+  const [prevPage, setPrevPage] = useState<number | undefined>();
+  const [nextPage, setNextPage] = useState<number | undefined>();
 
+  // 初期表示時の処理
   useEffect(() => {
-    loadLatestPage(props.board.boardId);
-  }, []);
+    getCommentsTrigger(buildCommentsQueryParams(commentListCurrentPage, board.boardId));
+  }, [commentListCurrentPage]);
+  // 取得したデータが変わったときの処理
+  useEffect(() => {
+    if (fetchedComments) {
+      setPrevPage(fetchedComments.currentPage - 1 < 1 ? undefined : fetchedComments.currentPage - 1);
+      setNextPage(fetchedComments.nextPage);
+      setCommentList(fetchedComments.items);
+    }
+  }, [fetchedComments]);
+  // エラー発生時の処理
+  useEffect(() => {
+    if (error) {
+      console.error('コメント取得時に問題が発生したため、処理を中断します。', error);
+      SentryTracking.exception('コメント取得時に問題が発生したため、処理を中断します。');
+    }
+  }, [error]);
 
   return (
-    <>
-      <div className='comment-list'>
-        {commentList != null &&
-          (commentList.length == 0 ? (
-            <p className='comment-list__not-found'>
-              <img alt='何も見つかりませんでした。' src={notFound} />
-              まだコメントされていません。
-            </p>
-          ) : (
-            commentList.map((comment) => {
-              return <CommentItem key={comment.commentId} comment={comment} />;
-            })
-          ))}
-
-        {loading && <CompactLoading />}
-
-        {commentList != null && nextPage >= 1 && (
-          <div className='comment-list__more'>
-            <button type='button' onClick={() => loadNextPage(props.board.boardId)}>
-              さらにコメントを読み込む
-            </button>
+    <div className='comment-list'>
+      {isLoading || isFetching ? (
+        <CompactLoading />
+      ) : commentList.length ? (
+        <>
+          <Pagination
+            prevPage={prevPage}
+            nextPage={nextPage}
+            prevButtonAction={() => dispatch(setCommentListCurrentPage(prevPage ?? 0))}
+            nextButtonAction={() => dispatch(setCommentListCurrentPage(nextPage ?? 0))}
+          />
+          <div className='comment-list__content'>
+            {commentList.map((comment) => (
+              <CommentItem key={comment.commentId} comment={comment} />
+            ))}
           </div>
-        )}
-      </div>
-
-      <DeleteCommentConfirmModal okAction={() => handleDeleteButtonClick()} cancelAction={() => closeModal()} />
-    </>
+          <Pagination
+            prevPage={prevPage}
+            nextPage={nextPage}
+            prevButtonAction={() => dispatch(setCommentListCurrentPage(prevPage ?? 0))}
+            nextButtonAction={() => dispatch(setCommentListCurrentPage(nextPage ?? 0))}
+          />
+        </>
+      ) : (
+        <p className='comment-list__not-found'>
+          <img alt='何も見つかりませんでした。' src={notFound} />
+          まだコメントされていません。
+        </p>
+      )}
+    </div>
   );
 };
 

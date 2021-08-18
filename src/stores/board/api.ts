@@ -11,6 +11,7 @@ import {
 } from '../../models/Board';
 
 export const boardApi = poiyoApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     getBoard: builder.query<Board, string>({
       query: (boardId) => `/boards/${boardId}`,
@@ -18,10 +19,10 @@ export const boardApi = poiyoApi.injectEndpoints({
       providesTags: (result) => (result ? [{ type: 'Board', id: result.boardId }] : ['Board']),
     }),
     getBoards: builder.query<Boards, BoardsQueryParams>({
-      query: ({ owner_account_id, search, page, num_per_page }) => ({
+      query: (params) => ({
         url: '/boards',
         method: 'GET',
-        params: { owner_account_id, search, page, num_per_page },
+        params,
         validateStatus: defaultValidateStatus,
       }),
       transformResponse: (response: BoardsResponse) => buildBoards(response),
@@ -65,6 +66,7 @@ export const boardApi = poiyoApi.injectEndpoints({
         method: 'DELETE',
         validateStatus: defaultValidateStatus,
       }),
+      // レスポンス内容は使わないため、transformResponseは省略
       invalidatesTags: (result, error, arg) => [{ type: 'Board', id: arg }],
     }),
   }),

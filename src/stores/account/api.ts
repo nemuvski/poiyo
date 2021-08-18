@@ -2,6 +2,7 @@ import { defaultValidateStatus, poiyoApi } from '../api';
 import { AuthRequest, AuthResponse } from '../../models/Auth';
 
 export const accountApi = poiyoApi.injectEndpoints({
+  overrideExisting: false,
   endpoints: (builder) => ({
     // 認証（サインイン）時に呼び出す
     signIn: builder.mutation<AuthResponse, AuthRequest>({

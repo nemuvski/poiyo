@@ -1,19 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import { Board } from '../models/Board';
+import { buildCommentRequest, Comment } from '../models/Comment';
 import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
-import CommentsService from '../services/CommentsService';
 import CompactLoading from './CompactLoading';
-import { CommentListContext } from '../contexts/CommentListContext';
 import SentryTracking from '../utilities/SentryTracking';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
-import { useModal } from '../hooks/useModal';
+import { usePatchCommentMutation, usePostCommentMutation } from '../stores/comment/api';
+import { clearCommentListCurrentPage } from '../stores/comment/slice';
 import '../styles/components/comment-form.scss';
 
 type Props = {
   board: Board;
+  operatingComment: Comment | null;
+  closeAction: () => void;
 };
 
 // inputまたはtextareaのnameに相当する.
@@ -40,12 +42,12 @@ const fieldRules = {
   },
 };
 
-const CommentForm: React.FC<Props> = (props: Props) => {
+const CommentForm: React.FC<Props> = ({ board, operatingComment, closeAction }) => {
+  const dispatch = useDispatch();
   const account = useSelector(selectAccount);
-  const { loadLatestPage, operatingComment, updateComment } = useContext(CommentListContext);
-  const [loading, setLoading] = useState(false);
+  const [postComment, { isLoading: isPosting }] = usePostCommentMutation();
+  const [patchComment, { isLoading: isPatching }] = usePatchCommentMutation();
   const [preview, setPreview] = useState<Preview>({ isActive: false, content: '' });
-  const { closeModal } = useModal();
   const { register, handleSubmit, reset, formState } = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
@@ -60,42 +62,37 @@ const CommentForm: React.FC<Props> = (props: Props) => {
       SentryTracking.exception('アカウント情報がないため、コメント更新・削除ができませんでした。');
       return;
     }
-    setLoading(true);
 
     // 操作対象のCommentオブジェクトが設定されているときは更新処理と判定.
-    // ※CommentListContextを参照.
     if (operatingComment) {
-      const editedComment = { ...operatingComment };
-      editedComment.body = formFields.body;
-      updateComment(editedComment)
+      const { boardId, ownerAccountId, commentId } = operatingComment;
+      patchComment(buildCommentRequest(boardId, ownerAccountId, formFields.body, commentId))
+        .unwrap()
         .catch((error) => {
-          SentryTracking.exception('コメント更新に失敗しました。');
-          SentryTracking.exception(error);
+          console.error('コメント更新時に問題が発生したため、コメントは更新されませんでした。', error);
+          SentryTracking.exception('コメント更新時に問題が発生したため、コメントは更新されませんでした。');
         })
         .finally(() => {
-          setLoading(false);
-          closeModal();
+          closeAction();
         });
     } else {
-      CommentsService.create(account.token, props.board.boardId, account.id, formFields.body)
-        .then(() => {
-          // 無事投稿できたら、最新のコメントを読み込みコメント一覧に反映する.
-          loadLatestPage(props.board.boardId);
-        })
+      postComment(buildCommentRequest(board.boardId, account.id, formFields.body))
+        .unwrap()
         .catch((error) => {
-          SentryTracking.exception('コメント作成に失敗しました。');
-          SentryTracking.exception(error);
+          console.error('コメント作成時に問題が発生したため、コメントは作成されませんでした。', error);
+          SentryTracking.exception('コメント作成時に問題が発生したため、コメントは作成されませんでした。');
         })
         .finally(() => {
-          setLoading(false);
-          closeModal();
+          // 新規作成後はボードのコメント一覧をリセットする
+          dispatch(clearCommentListCurrentPage());
+          closeAction();
         });
     }
   };
 
   return (
     <>
-      {loading ? (
+      {isPosting || isPatching ? (
         <CompactLoading />
       ) : (
         <form className='comment-form' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>

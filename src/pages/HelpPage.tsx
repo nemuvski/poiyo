@@ -5,7 +5,7 @@ import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import SentryTracking from '../utilities/SentryTracking';
-import { signOut } from '../services/FirebaseAuthService';
+import { signOut } from '../utilities/FirebaseAuth';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';

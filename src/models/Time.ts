@@ -5,7 +5,7 @@
 /**
  * GolangのNull許容のタイムスタンプの型.
  */
-export interface NullTime {
+export type NullTime = {
   Time: string;
   Valid: boolean;
-}
+};

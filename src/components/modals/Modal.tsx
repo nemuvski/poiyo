@@ -8,23 +8,36 @@ import '../../styles/components/modal.scss';
 type Props = {
   children?: React.ReactNode;
   isCompactMode?: boolean;
+  // モーダルを閉じる直前に実行する処理
+  closeAction?: () => void;
 };
 
 /**
  * Modalの表示切り替えはModalContext経由で操作する.
  */
-const Modal: React.FC<Props> = ({ isCompactMode = false, children }) => {
+const Modal: React.FC<Props> = ({ isCompactMode = false, closeAction, children }) => {
   const { closeModal } = useModal();
   const rootElement = document.getElementById('modal');
 
   useEffect(() => {
     return () => {
+      if (closeAction) {
+        closeAction();
+      }
       closeModal();
     };
   }, []);
 
   return createPortal(
-    <div className='modal' onClick={() => closeModal()}>
+    <div
+      className='modal'
+      onClick={() => {
+        if (closeAction) {
+          closeAction();
+        }
+        closeModal();
+      }}
+    >
       <div className={clsx(['modal__inner', { 'is-compact': isCompactMode }])}>
         <div className='modal__content' onClick={(event) => event.stopPropagation()}>
           {children}
