@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import { useModal } from '../hooks/useModal';
 import { ModalName } from '../stores/modal/slice';
-import '../styles/components/comment-item.scss';
 import { useOperatingComment } from '../hooks/useOperatingComment';
+import '../styles/components/comment-item.scss';
 
 type Props = {
   comment: Comment;

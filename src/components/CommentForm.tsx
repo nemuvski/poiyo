@@ -6,9 +6,10 @@ import { buildCommentRequest, Comment } from '../models/Comment';
 import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
 import CompactLoading from './CompactLoading';
 import SentryTracking from '../utilities/SentryTracking';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import { usePatchCommentMutation, usePostCommentMutation } from '../stores/comment/api';
+import { clearCommentListCurrentPage } from '../stores/comment/slice';
 import '../styles/components/comment-form.scss';
 
 type Props = {
@@ -42,6 +43,7 @@ const fieldRules = {
 };
 
 const CommentForm: React.FC<Props> = ({ board, operatingComment, closeAction }) => {
+  const dispatch = useDispatch();
   const account = useSelector(selectAccount);
   const [postComment, { isLoading: isPosting }] = usePostCommentMutation();
   const [patchComment, { isLoading: isPatching }] = usePatchCommentMutation();
@@ -81,6 +83,8 @@ const CommentForm: React.FC<Props> = ({ board, operatingComment, closeAction }) 
           SentryTracking.exception('コメント作成時に問題が発生したため、コメントは作成されませんでした。');
         })
         .finally(() => {
+          // 新規作成後はボードのコメント一覧をリセットする
+          dispatch(clearCommentListCurrentPage());
           closeAction();
         });
     }

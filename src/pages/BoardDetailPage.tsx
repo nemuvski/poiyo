@@ -13,6 +13,8 @@ import { useFullWideLoading } from '../hooks/useFullWideLoading';
 import { useOperatingComment } from '../hooks/useOperatingComment';
 import { useGetBoardQuery } from '../stores/board/api';
 import '../styles/pages/page-board-detail.scss';
+import { useDispatch } from 'react-redux';
+import { clearCommentListCurrentPage } from '../stores/comment/slice';
 
 type Params = {
   bid: string;
@@ -20,6 +22,7 @@ type Params = {
 
 const BoardDetailPage: React.FC = () => {
   const { bid } = useParams<Params>();
+  const dispatch = useDispatch();
   const { clearOperatingComment } = useOperatingComment();
   const { openModal } = useModal(ModalName.COMMENT_FORM);
   const { data, isLoading, isError } = useGetBoardQuery(bid);
@@ -27,6 +30,11 @@ const BoardDetailPage: React.FC = () => {
 
   useEffect(() => {
     setDocumentTitle('ボード');
+
+    // ページから離れる時にコメント一覧の現在のページをリセットする
+    return () => {
+      dispatch(clearCommentListCurrentPage());
+    };
   }, []);
   useEffect(() => {
     setFullWideLoading(isLoading);
