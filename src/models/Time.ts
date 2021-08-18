@@ -8,4 +8,4 @@
 export type NullTime = {
   Time: string;
   Valid: boolean;
-}
+};
