@@ -2,7 +2,8 @@
  * Firebase Analyticsのトラッキングのヘルパー関数を定義.
  */
 
-import firebase from '../libs/Firebase';
+import { firebaseAnalytics } from '../libs/Firebase';
+import { logEvent } from 'firebase/analytics';
 
 const appName = 'poiyo';
 
@@ -10,7 +11,7 @@ const search = (term: string): void => {
   if (!term) {
     return;
   }
-  firebase.analytics().logEvent('search', {
+  logEvent(firebaseAnalytics, 'search', {
     search_term: term,
     app_name: appName,
   });

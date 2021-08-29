@@ -2,9 +2,9 @@
  * Firebaseについての設定, Firebase Analyticsの初期化.
  */
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/analytics';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { initializeAnalytics, setAnalyticsCollectionEnabled } from 'firebase/analytics';
 import { isProduction } from '../utilities/NodeEnv';
 
 const firebaseConfig = {
@@ -18,9 +18,10 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics().setAnalyticsCollectionEnabled(isProduction());
+const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseAnalytics = initializeAnalytics(firebaseApp);
+export const firebaseAuth = getAuth(firebaseApp);
 
-export const auth = firebase.auth();
+setAnalyticsCollectionEnabled(firebaseAnalytics, isProduction());
 
-export default firebase;
+export default firebaseApp;

@@ -9,7 +9,7 @@ import searchIcon from '../assets/icons/search-feature.svg';
 import penIcon from '../assets/icons/pen-feature.svg';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
 import NewsList from '../components/NewsList';
-import { signIn } from '../utilities/FirebaseAuth';
+import { firebaseSignIn } from '../utilities/FirebaseAuth';
 import '../styles/pages/page-front.scss';
 
 const FrontPage: React.FC = () => {
@@ -49,7 +49,7 @@ const FrontPage: React.FC = () => {
             に同意した上でサインインしてください。
           </p>
           <div className='page-front__signin-wrapper'>
-            <button onClick={() => signIn()} className='is-white page-front__signin-button'>
+            <button onClick={() => firebaseSignIn()} className='is-white page-front__signin-button'>
               <img src={googleIcon} alt='Google' />
               <span>Googleでサインイン</span>
             </button>

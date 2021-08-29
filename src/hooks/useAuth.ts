@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { auth } from '../libs/Firebase';
-import SentryTracking from '../utilities/SentryTracking';
 import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from '../libs/Firebase';
+import { firebaseSignOut } from '../utilities/FirebaseAuth';
+import SentryTracking from '../utilities/SentryTracking';
 import { clearAccount, setAccount } from '../stores/account/slice';
 import { useFullWideLoading } from './useFullWideLoading';
 import { useSignInMutation } from '../stores/account/api';
@@ -14,7 +16,7 @@ export const useAuth = (): void => {
   const [signIn] = useSignInMutation();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
       setFullWideLoading(true);
 
       if (user) {
@@ -27,7 +29,7 @@ export const useAuth = (): void => {
           console.error('アカウント認証中にエラーが発生しました。', error);
           SentryTracking.exception('アカウント認証中にエラーが発生しました。');
           // JWT取得、認証API実行で問題があった場合はFirebase Authでサインアウト処理を実行する.
-          await auth.signOut();
+          await firebaseSignOut();
           dispatch(clearAccount());
         }
       } else {

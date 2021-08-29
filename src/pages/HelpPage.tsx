@@ -5,7 +5,7 @@ import ArticleInner from '../components/ArticleInner';
 import ArticleSection from '../components/ArticleSection';
 import ArticleSectionContent from '../components/ArticleSectionContent';
 import SentryTracking from '../utilities/SentryTracking';
-import { signOut } from '../utilities/FirebaseAuth';
+import { firebaseSignOut } from '../utilities/FirebaseAuth';
 import { useSelector } from 'react-redux';
 import { selectAccount } from '../stores/account/selector';
 import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
@@ -27,7 +27,7 @@ const HelpPage: React.FC = () => {
     signOff(account.id)
       .unwrap()
       .then(() => {
-        signOut();
+        firebaseSignOut();
       })
       .catch(() => {
         SentryTracking.exception('退会処理中に問題が発生したため、中断されました。');

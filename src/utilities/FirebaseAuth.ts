@@ -1,12 +1,12 @@
-import firebase from 'firebase/compat/app';
-import { auth } from '../libs/Firebase';
+import { signInWithRedirect, signOut, GoogleAuthProvider } from 'firebase/auth';
+import { firebaseAuth } from '../libs/Firebase';
 import SentryTracking from './SentryTracking';
 
 /**
  * Firebase Authenticationでサインインを実行
  */
-export const signIn = (): Promise<void> => {
-  return auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()).catch((error) => {
+export const firebaseSignIn = (): Promise<void> => {
+  return signInWithRedirect(firebaseAuth, new GoogleAuthProvider()).catch((error) => {
     SentryTracking.exception('FirebaseAuth: サインイン中にエラーが発生しました。');
     SentryTracking.exception(error);
   });
@@ -15,8 +15,8 @@ export const signIn = (): Promise<void> => {
 /**
  * Firebase Authenticationでサインアウトを実行
  */
-export const signOut = (): Promise<void> => {
-  return auth.signOut().catch((error) => {
+export const firebaseSignOut = (): Promise<void> => {
+  return signOut(firebaseAuth).catch((error) => {
     SentryTracking.exception('FirebaseAuth: サインアウト中にエラーが発生しました。');
     SentryTracking.exception(error);
   });

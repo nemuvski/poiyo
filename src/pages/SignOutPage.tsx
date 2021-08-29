@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../utilities/DocumentTitle';
-import { signOut } from '../utilities/FirebaseAuth';
+import { firebaseSignOut } from '../utilities/FirebaseAuth';
 import { useFullWideLoading } from '../hooks/useFullWideLoading';
 import ArticleInner from '../components/ArticleInner';
 
@@ -10,7 +10,7 @@ const SignOutPage: React.FC = () => {
   useEffect(() => {
     setDocumentTitle('サインアウト');
     // サインアウト処理
-    signOut().finally(() => {
+    firebaseSignOut().finally(() => {
       setFullWideLoading(false);
     });
   }, []);
