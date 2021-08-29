@@ -1,5 +1,5 @@
-# Node.js v12.x
-image: node:erbium-alpine3.12
+# Node.js v14.x
+image: node:14.17-alpine3.12
 
 cache:
   paths:
