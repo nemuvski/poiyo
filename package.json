@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "private": true,
   "engines": {
-    "node": "~12"
+    "node": "~14"
   },
   "dependencies": {
     "@firebase/testing": "^0.20.11",
@@ -16,26 +16,26 @@
     "@types/dompurify": "^2.2.3",
     "@types/jest": "^27.0.1",
     "@types/marked": "^3.0.0",
-    "@types/node": "^16.7.1",
+    "@types/node": "^16.7.5",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
     "clsx": "^1.1.1",
     "dayjs": "^1.10.6",
     "dompurify": "^2.3.1",
-    "firebase": "^8.10.0",
-    "marked": "^3.0.1",
+    "firebase": "^9.0.0",
+    "marked": "^3.0.2",
     "normalize.css": "^8.0.1",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.13.0",
+    "react-hook-form": "^7.14.0",
     "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
-    "sass": "^1.38.1",
+    "sass": "^1.38.2",
     "scroll-behavior-polyfill": "^2.0.13",
-    "typescript": "^4.3.5",
+    "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
