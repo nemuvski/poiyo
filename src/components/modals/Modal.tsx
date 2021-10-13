@@ -12,9 +12,6 @@ type Props = {
   closeAction?: () => void;
 };
 
-/**
- * Modalの表示切り替えはModalContext経由で操作する.
- */
 const Modal: React.FC<Props> = ({ isCompactMode = false, closeAction, children }) => {
   const { closeModal } = useModal();
   const rootElement = document.getElementById('modal');
