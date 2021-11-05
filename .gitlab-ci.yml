@@ -1,4 +1,4 @@
-# Node.js v14.x
+# Node.js v16.x
 image: node:16.13-alpine3.12
 
 cache:
