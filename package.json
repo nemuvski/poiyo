@@ -6,6 +6,7 @@
     "node": "~14"
   },
   "dependencies": {
+    "@craco/craco": "^6.4.0",
     "@firebase/testing": "^0.20.11",
     "@reduxjs/toolkit": "^1.6.2",
     "@sentry/react": "^6.14.0",
@@ -40,14 +41,11 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "REACT_APP_VERSION=\"$npm_package_version.`git rev-parse --short HEAD`\" react-scripts start",
-    "build": "REACT_APP_VERSION=\"$npm_package_version.`git rev-parse --short HEAD`\" react-scripts build",
-    "eject": "react-scripts eject",
+    "start": "REACT_APP_VERSION=\"$npm_package_version.`git rev-parse --short HEAD`\" craco start",
+    "build": "REACT_APP_VERSION=\"$npm_package_version.`git rev-parse --short HEAD`\" craco build",
     "lint": "eslint src/",
     "format": "prettier --check 'src/**/*.{js,ts,jsx,tsx}'",
-    "format:fix": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'",
-    "test": "jest",
-    "test:dom": "react-scripts test"
+    "format:fix": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'"
   },
   "eslintConfig": {
     "extends": [
