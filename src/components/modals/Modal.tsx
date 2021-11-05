@@ -6,7 +6,6 @@ import { useModal } from '~/hooks/useModal'
 import '~/styles/components/modal.scss'
 
 type Props = {
-  children?: React.ReactNode
   isCompactMode?: boolean
   // モーダルを閉じる直前に実行する処理
   closeAction?: () => void

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { usePageTitle } from '~/hooks/usePageTitle'
 import BoardList from '~/components/BoardList'
@@ -14,10 +14,11 @@ const SearchPage: React.FC = () => {
   usePageTitle('ボードを探す')
   const { handleSubmit, formState, register } = useForm()
   const [keyword, setKeyword] = useState('')
-  const onSubmit = (data: SearchFormFields) => {
+
+  const onSubmit = useCallback((data: SearchFormFields) => {
     setKeyword(data.keyword)
     AnalyticsTracking.search(data.keyword)
-  }
+  }, [])
 
   return (
     <div className='page-search'>

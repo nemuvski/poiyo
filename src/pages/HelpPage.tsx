@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useSignOffMutation } from '~/stores/account/api'
@@ -20,7 +20,7 @@ const HelpPage: React.FC = () => {
   const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM)
   const [signOff] = useSignOffMutation()
 
-  const handleSignOffButtonClick = () => {
+  const handleSignOffButtonClick = useCallback(() => {
     if (!account || !account.token || !account.id) {
       SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。')
       return
@@ -37,7 +37,7 @@ const HelpPage: React.FC = () => {
         closeModal()
         navigate('/')
       })
-  }
+  }, [account, closeModal, signOff, navigate])
 
   return (
     <ArticleInner>

@@ -23,6 +23,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
     setBoardList(null)
     getBoardsTrigger(buildBoardQueryParams(1, accountId, keyword))
   }, [keyword, accountId, getBoardsTrigger])
+
   // ボード取得時にエラーが発生した場合の処理
   useEffect(() => {
     if (error) {
@@ -31,6 +32,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
       SentryTracking.exception('ボードデータの取得時にエラーが発生しました。')
     }
   }, [error])
+
   // 取得したデータが変わった時の処理
   useEffect(() => {
     if (fetchedData) {

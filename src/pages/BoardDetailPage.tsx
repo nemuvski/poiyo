@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import NotFoundPage from '~/pages/NotFoundPage'
@@ -39,10 +39,10 @@ const BoardDetailPage: React.FC = () => {
     setFullWideLoading(isLoading)
   }, [isLoading, setFullWideLoading])
 
-  const handleOpenCommentFormModal = () => {
+  const handleOpenCommentFormModal = useCallback(() => {
     clearOperatingComment()
     openModal()
-  }
+  }, [clearOperatingComment, openModal])
 
   // ローディング中は内容は空とする
   if (isLoading) {

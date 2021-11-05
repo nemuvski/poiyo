@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { News } from '~/models/News'
 import { formatYMD } from '~/libs/Dayjs'
 import '~/styles/components/news-list.scss'
 
 const NewsList: React.FC = () => {
-  const newsList = [
+  const newsList = useRef([
     new News('2021-08-29', '✨ 一部のライブラリのアップデート'),
     new News('2021-08-18', '🚀 一部UIを改善, WebAPIの改修, 機能のリファクタリング'),
     new News('2021-08-12', '🛠 機能のリファクタリング'),
@@ -16,11 +16,11 @@ const NewsList: React.FC = () => {
     new News('2021-02-18', '🐛 日付フォーマットを変更, 日付関連のバグを修正'),
     new News('2021-02-16', '🛠 ボードまたはコメント削除時とサービス退会時にモーダルを表示'),
     new News('2021-02-14', '🎉 本サービスリリース開始'),
-  ]
+  ])
 
   return (
     <div className='news-list'>
-      {newsList.map((news, index) => {
+      {newsList.current.map((news, index) => {
         return (
           <div className='news-list__item' key={index}>
             <time className='news-list__item-date'>{formatYMD(news.day, true)}</time>
