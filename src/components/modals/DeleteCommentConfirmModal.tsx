@@ -1,27 +1,27 @@
-import React from 'react';
-import Modal from './Modal';
-import Confirm from '../Confirm';
-import { ModalName } from '../../stores/modal/slice';
-import { useSelector } from 'react-redux';
-import { selectModal } from '../../stores/modal/selector';
-import { useModal } from '../../hooks/useModal';
-import { useOperatingComment } from '../../hooks/useOperatingComment';
-import { useDeleteCommentMutation } from '../../stores/comment/api';
-import { Board } from '../../models/Board';
-import SentryTracking from '../../utilities/SentryTracking';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import Modal from '~/components/modals/Modal'
+import Confirm from '~/components/Confirm'
+import { ModalName } from '~/stores/modal/slice'
+import { selectModal } from '~/stores/modal/selector'
+import { useModal } from '~/hooks/useModal'
+import { useOperatingComment } from '~/hooks/useOperatingComment'
+import { useDeleteCommentMutation } from '~/stores/comment/api'
+import { Board } from '~/models/Board'
+import SentryTracking from '~/utilities/SentryTracking'
 
 type Props = {
-  board: Board;
-};
+  board: Board
+}
 
 const DeleteCommentConfirmModal: React.FC<Props> = ({ board }) => {
-  const [deleteComment] = useDeleteCommentMutation();
-  const { closeModal } = useModal();
-  const { operatingComment, clearOperatingComment } = useOperatingComment();
-  const modal = useSelector(selectModal);
+  const [deleteComment] = useDeleteCommentMutation()
+  const { closeModal } = useModal()
+  const { operatingComment, clearOperatingComment } = useOperatingComment()
+  const modal = useSelector(selectModal)
 
   if (modal !== ModalName.DELETE_COMMENT_CONFIRM) {
-    return null;
+    return null
   }
 
   return (
@@ -31,27 +31,27 @@ const DeleteCommentConfirmModal: React.FC<Props> = ({ board }) => {
         okLabel='削除'
         okAction={() => {
           if (!operatingComment) {
-            console.error('削除対象のコメントが見つからないため処理を中断しました。');
-            return;
+            console.error('削除対象のコメントが見つからないため処理を中断しました。')
+            return
           }
           deleteComment({ boardId: board.boardId, commentId: operatingComment.commentId })
             .unwrap()
             .catch((error) => {
-              console.error('コメント削除時に問題が発生したため、削除されませんでした。', error);
-              SentryTracking.exception('コメント削除時に問題が発生したため、削除されませんでした。');
+              console.error('コメント削除時に問題が発生したため、削除されませんでした。', error)
+              SentryTracking.exception('コメント削除時に問題が発生したため、削除されませんでした。')
             })
             .finally(() => {
-              clearOperatingComment();
-              closeModal();
-            });
+              clearOperatingComment()
+              closeModal()
+            })
         }}
         cancelAction={() => {
-          clearOperatingComment();
-          closeModal();
+          clearOperatingComment()
+          closeModal()
         }}
       />
     </Modal>
-  );
-};
+  )
+}
 
-export default DeleteCommentConfirmModal;
+export default DeleteCommentConfirmModal

@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Board } from '../models/Board';
-import Dayjs, { formatYMDHm } from '../libs/Dayjs';
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
-import '../styles/components/board-item.scss';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
+import { Board } from '~/models/Board'
+import Dayjs, { formatYMDHm } from '~/libs/Dayjs'
+import { selectAccount } from '~/stores/account/selector'
+import '~/styles/components/board-item.scss'
 
 type Props = {
-  board: Board;
-};
+  board: Board
+}
 
 const BoardItem: React.FC<Props> = ({ board }) => {
-  const account = useSelector(selectAccount);
+  const account = useSelector(selectAccount)
 
   return (
     <div className='board-item'>
@@ -27,7 +27,7 @@ const BoardItem: React.FC<Props> = ({ board }) => {
         <time className='board-item__date'>{formatYMDHm(Dayjs(board.createdTimestamp))}</time>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(BoardItem);
+export default React.memo(BoardItem)

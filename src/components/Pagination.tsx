@@ -1,16 +1,16 @@
-import React from 'react';
-import '../styles/components/pagination.scss';
+import React from 'react'
+import '~/styles/components/pagination.scss'
 
 type Props = {
-  prevPage?: number;
-  nextPage?: number;
-  prevButtonAction: () => void;
-  nextButtonAction: () => void;
-};
+  prevPage?: number
+  nextPage?: number
+  prevButtonAction: () => void
+  nextButtonAction: () => void
+}
 
 const Pagination: React.FC<Props> = ({ prevPage, nextPage, prevButtonAction, nextButtonAction }) => {
   if (!prevPage && !nextPage) {
-    return null;
+    return null
   }
 
   return (
@@ -20,7 +20,7 @@ const Pagination: React.FC<Props> = ({ prevPage, nextPage, prevButtonAction, nex
         disabled={!prevPage}
         onClick={() => {
           if (prevPage) {
-            prevButtonAction();
+            prevButtonAction()
           }
         }}
       >
@@ -31,14 +31,14 @@ const Pagination: React.FC<Props> = ({ prevPage, nextPage, prevButtonAction, nex
         disabled={!nextPage}
         onClick={() => {
           if (nextPage) {
-            nextButtonAction();
+            nextButtonAction()
           }
         }}
       >
         次
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

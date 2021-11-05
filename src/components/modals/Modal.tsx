@@ -1,38 +1,38 @@
-import React, { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import clsx from 'clsx';
-import closeIcon from '../../assets/icons/modal-close.svg';
-import { useModal } from '../../hooks/useModal';
-import '../../styles/components/modal.scss';
+import React, { useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import clsx from 'clsx'
+import closeIcon from '~/assets/icons/modal-close.svg'
+import { useModal } from '~/hooks/useModal'
+import '~/styles/components/modal.scss'
 
 type Props = {
-  children?: React.ReactNode;
-  isCompactMode?: boolean;
+  children?: React.ReactNode
+  isCompactMode?: boolean
   // モーダルを閉じる直前に実行する処理
-  closeAction?: () => void;
-};
+  closeAction?: () => void
+}
 
 const Modal: React.FC<Props> = ({ isCompactMode = false, closeAction, children }) => {
-  const { closeModal } = useModal();
-  const rootElement = document.getElementById('modal');
+  const { closeModal } = useModal()
+  const rootElement = document.getElementById('modal')
 
   useEffect(() => {
     return () => {
       if (closeAction) {
-        closeAction();
+        closeAction()
       }
-      closeModal();
-    };
-  }, []);
+      closeModal()
+    }
+  }, [])
 
   return createPortal(
     <div
       className='modal'
       onClick={() => {
         if (closeAction) {
-          closeAction();
+          closeAction()
         }
-        closeModal();
+        closeModal()
       }}
     >
       <div className={clsx(['modal__inner', { 'is-compact': isCompactMode }])}>
@@ -46,7 +46,7 @@ const Modal: React.FC<Props> = ({ isCompactMode = false, closeAction, children }
       </div>
     </div>,
     rootElement as Element
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

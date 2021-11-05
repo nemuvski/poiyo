@@ -1,7 +1,7 @@
-import React from 'react';
-import { News } from '../models/News';
-import { formatYMD } from '../libs/Dayjs';
-import '../styles/components/news-list.scss';
+import React from 'react'
+import { News } from '~/models/News'
+import { formatYMD } from '~/libs/Dayjs'
+import '~/styles/components/news-list.scss'
 
 const NewsList: React.FC = () => {
   const newsList = [
@@ -16,7 +16,7 @@ const NewsList: React.FC = () => {
     new News('2021-02-18', '🐛 日付フォーマットを変更, 日付関連のバグを修正'),
     new News('2021-02-16', '🛠 ボードまたはコメント削除時とサービス退会時にモーダルを表示'),
     new News('2021-02-14', '🎉 本サービスリリース開始'),
-  ];
+  ]
 
   return (
     <div className='news-list'>
@@ -26,10 +26,10 @@ const NewsList: React.FC = () => {
             <time className='news-list__item-date'>{formatYMD(news.day, true)}</time>
             <div className='news-list__item-title'>{news.title}</div>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default NewsList;
+export default NewsList

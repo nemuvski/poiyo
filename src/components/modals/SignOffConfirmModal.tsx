@@ -1,20 +1,20 @@
-import React from 'react';
-import Modal from './Modal';
-import Confirm from '../Confirm';
-import { ModalName } from '../../stores/modal/slice';
-import { useSelector } from 'react-redux';
-import { selectModal } from '../../stores/modal/selector';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import Modal from '~/components/modals/Modal'
+import Confirm from '~/components/Confirm'
+import { ModalName } from '~/stores/modal/slice'
+import { selectModal } from '~/stores/modal/selector'
 
 type Props = {
-  okAction: () => void;
-  cancelAction: () => void;
-};
+  okAction: () => void
+  cancelAction: () => void
+}
 
 const SignOffConfirmModal: React.FC<Props> = ({ okAction, cancelAction }) => {
-  const modal = useSelector(selectModal);
+  const modal = useSelector(selectModal)
 
   if (modal !== ModalName.SIGN_OFF_CONFIRM) {
-    return null;
+    return null
   }
 
   return (
@@ -26,7 +26,7 @@ const SignOffConfirmModal: React.FC<Props> = ({ okAction, cancelAction }) => {
         cancelAction={cancelAction}
       />
     </Modal>
-  );
-};
+  )
+}
 
-export default SignOffConfirmModal;
+export default SignOffConfirmModal

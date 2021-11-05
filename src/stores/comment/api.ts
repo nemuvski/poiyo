@@ -1,4 +1,4 @@
-import { defaultValidateStatus, poiyoApi } from '../api';
+import { defaultValidateStatus, poiyoApi } from '~/stores/api'
 import {
   buildComment,
   buildComments,
@@ -8,7 +8,7 @@ import {
   Comments,
   CommentsQueryParams,
   CommentsResponse,
-} from '../../models/Comment';
+} from '~/models/Comment'
 
 export const commentApi = poiyoApi.injectEndpoints({
   overrideExisting: false,
@@ -23,9 +23,9 @@ export const commentApi = poiyoApi.injectEndpoints({
       transformResponse: (response: CommentsResponse) => buildComments(response),
       providesTags: (result) => {
         if (result && result.items.length) {
-          return result.items.map(({ boardId, commentId }) => ({ type: 'Comment', id: `${boardId}:${commentId}` }));
+          return result.items.map(({ boardId, commentId }) => ({ type: 'Comment', id: `${boardId}:${commentId}` }))
         }
-        return ['Comment'];
+        return ['Comment']
       },
     }),
     postComment: builder.mutation<Comment, CommentRequest>({
@@ -66,7 +66,7 @@ export const commentApi = poiyoApi.injectEndpoints({
       invalidatesTags: (result, error, { boardId, commentId }) => [{ type: 'Comment', id: `${boardId}:${commentId}` }],
     }),
   }),
-});
+})
 
-export const { usePostCommentMutation, usePatchCommentMutation, useDeleteCommentMutation } = commentApi;
-export const useGetCommentsLazyQuery = commentApi.endpoints.getComments.useLazyQuery;
+export const { usePostCommentMutation, usePatchCommentMutation, useDeleteCommentMutation } = commentApi
+export const useGetCommentsLazyQuery = commentApi.endpoints.getComments.useLazyQuery

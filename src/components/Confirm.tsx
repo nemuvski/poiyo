@@ -1,13 +1,13 @@
-import React from 'react';
-import '../styles/components/confirm.scss';
+import React from 'react'
+import '~/styles/components/confirm.scss'
 
 type Props = {
-  message: string;
-  okLabel?: string;
-  okAction: () => void;
-  cancelLabel?: string;
-  cancelAction: () => void;
-};
+  message: string
+  okLabel?: string
+  okAction: () => void
+  cancelLabel?: string
+  cancelAction: () => void
+}
 
 const Confirm: React.FC<Props> = ({
   message,
@@ -32,7 +32,7 @@ const Confirm: React.FC<Props> = ({
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Confirm;
+export default Confirm

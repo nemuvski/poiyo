@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import BoardList from '../components/BoardList';
-import searchIcon from '../assets/icons/search-form.svg';
-import AnalyticsTracking from '../utilities/AnalyticsTracking';
-import '../styles/pages/page-search.scss';
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import BoardList from '../components/BoardList'
+import searchIcon from '../assets/icons/search-form.svg'
+import AnalyticsTracking from '../utilities/AnalyticsTracking'
+import '../styles/pages/page-search.scss'
 
 type SearchFormFields = {
-  keyword: string;
-};
+  keyword: string
+}
 
 const SearchPage: React.FC = () => {
-  const { handleSubmit, formState, register } = useForm();
+  const { handleSubmit, formState, register } = useForm()
 
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState('')
 
   const onSubmit = (data: SearchFormFields) => {
-    setKeyword(data.keyword);
-    AnalyticsTracking.search(data.keyword);
-  };
+    setKeyword(data.keyword)
+    AnalyticsTracking.search(data.keyword)
+  }
 
   useEffect(() => {
-    setDocumentTitle('ボードを探す');
-  }, []);
+    setDocumentTitle('ボードを探す')
+  }, [])
 
   return (
     <div className='page-search'>
@@ -42,7 +42,7 @@ const SearchPage: React.FC = () => {
 
       <BoardList keyword={keyword} />
     </div>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default SearchPage

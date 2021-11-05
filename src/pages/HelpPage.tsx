@@ -1,46 +1,46 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import ArticleInner from '../components/ArticleInner';
-import ArticleSection from '../components/ArticleSection';
-import ArticleSectionContent from '../components/ArticleSectionContent';
-import SentryTracking from '../utilities/SentryTracking';
-import { firebaseSignOut } from '../utilities/FirebaseAuth';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
-import SignOffConfirmModal from '../components/modals/SignOffConfirmModal';
-import { ModalName } from '../stores/modal/slice';
-import { useModal } from '../hooks/useModal';
-import { useSignOffMutation } from '../stores/account/api';
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import ArticleInner from '../components/ArticleInner'
+import ArticleSection from '../components/ArticleSection'
+import ArticleSectionContent from '../components/ArticleSectionContent'
+import SentryTracking from '../utilities/SentryTracking'
+import { firebaseSignOut } from '../utilities/FirebaseAuth'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '../stores/account/selector'
+import SignOffConfirmModal from '../components/modals/SignOffConfirmModal'
+import { ModalName } from '../stores/modal/slice'
+import { useModal } from '../hooks/useModal'
+import { useSignOffMutation } from '../stores/account/api'
 
 const HelpPage: React.FC = () => {
-  const history = useHistory();
-  const account = useSelector(selectAccount);
-  const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM);
-  const [signOff] = useSignOffMutation();
+  const history = useHistory()
+  const account = useSelector(selectAccount)
+  const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM)
+  const [signOff] = useSignOffMutation()
 
   const handleSignOffButtonClick = () => {
     if (!account || !account.token || !account.id) {
-      SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。');
-      return;
+      SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。')
+      return
     }
     signOff(account.id)
       .unwrap()
       .then(() => {
-        firebaseSignOut();
+        firebaseSignOut()
       })
       .catch(() => {
-        SentryTracking.exception('退会処理中に問題が発生したため、中断されました。');
+        SentryTracking.exception('退会処理中に問題が発生したため、中断されました。')
       })
       .finally(() => {
-        closeModal();
-        history.push('/');
-      });
-  };
+        closeModal()
+        history.push('/')
+      })
+  }
 
   useEffect(() => {
-    setDocumentTitle('ヘルプ');
-  }, []);
+    setDocumentTitle('ヘルプ')
+  }, [])
 
   return (
     <ArticleInner>
@@ -101,7 +101,7 @@ const HelpPage: React.FC = () => {
 
       <SignOffConfirmModal cancelAction={() => closeModal()} okAction={() => handleSignOffButtonClick()} />
     </ArticleInner>
-  );
-};
+  )
+}
 
-export default HelpPage;
+export default HelpPage

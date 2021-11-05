@@ -2,10 +2,10 @@
  * Firebaseについての設定, Firebase Analyticsの初期化.
  */
 
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { initializeAnalytics, setAnalyticsCollectionEnabled } from 'firebase/analytics';
-import { isProduction } from '../utilities/NodeEnv';
+import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { initializeAnalytics, setAnalyticsCollectionEnabled } from 'firebase/analytics'
+import { isProduction } from '~/utilities/NodeEnv'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,12 +16,12 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
+}
 
-const firebaseApp = initializeApp(firebaseConfig);
-export const firebaseAnalytics = initializeAnalytics(firebaseApp);
-export const firebaseAuth = getAuth(firebaseApp);
+const firebaseApp = initializeApp(firebaseConfig)
+export const firebaseAnalytics = initializeAnalytics(firebaseApp)
+export const firebaseAuth = getAuth(firebaseApp)
 
-setAnalyticsCollectionEnabled(firebaseAnalytics, isProduction());
+setAnalyticsCollectionEnabled(firebaseAnalytics, isProduction())
 
-export default firebaseApp;
+export default firebaseApp

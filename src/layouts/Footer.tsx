@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/logo.svg';
-import koredanaLogo from '../assets/icons/koredana.svg';
-import '../styles/layouts/footer.scss';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import logo from '~/assets/logo.svg'
+import koredanaLogo from '~/assets/icons/koredana.svg'
+import '~/styles/layouts/footer.scss'
 
 const Footer: React.FC = () => {
   return (
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
         <p className='footer__copyright'>© 2021 Poiyo</p>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
