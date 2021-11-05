@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Dayjs, { formatYMDHm } from '~/libs/Dayjs'
 import { Comment } from '~/models/Comment'
@@ -21,18 +21,18 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
   const commentFormModal = useModal(ModalName.COMMENT_FORM)
   const deleteCommentConfirmModal = useModal(ModalName.DELETE_COMMENT_CONFIRM)
 
-  const handleEditButtonClick = () => {
+  const handleEditButtonClick = useCallback(() => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
     setOperatingComment(comment)
     setIsOpenActions(false)
     commentFormModal.openModal()
-  }
+  }, [comment, setOperatingComment, commentFormModal])
 
-  const handleDeleteButtonClick = () => {
+  const handleDeleteButtonClick = useCallback(() => {
     setOperatingComment(comment)
     setIsOpenActions(false)
     deleteCommentConfirmModal.openModal()
-  }
+  }, [comment, setOperatingComment, deleteCommentConfirmModal])
 
   return (
     <div className='comment-item'>

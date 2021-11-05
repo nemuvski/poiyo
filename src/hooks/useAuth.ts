@@ -40,5 +40,5 @@ export const useAuth = (): void => {
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [dispatch, setFullWideLoading, signIn])
 }

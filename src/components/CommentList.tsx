@@ -27,7 +27,7 @@ const CommentList: React.FC<Props> = ({ board }) => {
   // 初期表示時の処理
   useEffect(() => {
     getCommentsTrigger(buildCommentsQueryParams(commentListCurrentPage, board.boardId))
-  }, [commentListCurrentPage])
+  }, [commentListCurrentPage, getCommentsTrigger, board.boardId])
   // 取得したデータが変わったときの処理
   useEffect(() => {
     if (fetchedComments) {

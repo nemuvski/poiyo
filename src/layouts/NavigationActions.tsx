@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import searchIcon from '~/assets/icons/search.svg'
 import '~/styles/layouts/navigation-actions.scss'
+import { useChangeLocation } from '~/hooks/useChangeLocation'
 
 const NavigationActions: React.FC = () => {
   const [open, setOpen] = useState(false)
-  const history = useHistory()
-
-  useEffect(() => {
-    // ルーティングの変更を検知し、メニューを閉じる.
-    const unsubscribe = history.listen(() => {
-      setOpen(false)
-    })
-    return () => {
-      unsubscribe()
-    }
-  }, [])
+  // パスが変わったときに、メニューを閉じる
+  useChangeLocation(() => setOpen(false))
 
   const actions = [
     { link: '/dashboard', label: 'ダッシュボード', icon: 'dashboard' },

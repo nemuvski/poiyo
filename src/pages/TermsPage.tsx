@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSection from '../components/ArticleSection'
-import ArticleSectionContent from '../components/ArticleSectionContent'
+import React from 'react'
+import { usePageTitle } from '~/hooks/usePageTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSection from '~/components/ArticleSection'
+import ArticleSectionContent from '~/components/ArticleSectionContent'
 
 const TermsPage: React.FC = () => {
-  useEffect(() => {
-    setDocumentTitle('利用規約')
-  }, [])
+  usePageTitle('利用規約')
 
   return (
     <ArticleInner>

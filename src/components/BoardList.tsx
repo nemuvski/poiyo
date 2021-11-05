@@ -22,7 +22,8 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
   useEffect(() => {
     setBoardList(null)
     getBoardsTrigger(buildBoardQueryParams(1, accountId, keyword))
-  }, [keyword, accountId])
+  }, [keyword, accountId, getBoardsTrigger])
+
   // ボード取得時にエラーが発生した場合の処理
   useEffect(() => {
     if (error) {
@@ -31,6 +32,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
       SentryTracking.exception('ボードデータの取得時にエラーが発生しました。')
     }
   }, [error])
+
   // 取得したデータが変わった時の処理
   useEffect(() => {
     if (fetchedData) {
@@ -38,7 +40,7 @@ const BoardList: React.FC<Props> = ({ accountId, keyword }) => {
       setNextPage(fetchedData.nextPage ?? -1)
       setClickedMoreButton(false)
     }
-  }, [fetchedData])
+  }, [fetchedData, boardList, clickedMoreButton])
 
   return (
     <div className='board-list'>

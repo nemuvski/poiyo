@@ -1,25 +1,26 @@
-import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSection from '../components/ArticleSection'
-import ArticleSectionContent from '../components/ArticleSectionContent'
-import SentryTracking from '../utilities/SentryTracking'
-import { firebaseSignOut } from '../utilities/FirebaseAuth'
+import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectAccount } from '../stores/account/selector'
-import SignOffConfirmModal from '../components/modals/SignOffConfirmModal'
-import { ModalName } from '../stores/modal/slice'
-import { useModal } from '../hooks/useModal'
-import { useSignOffMutation } from '../stores/account/api'
+import { useSignOffMutation } from '~/stores/account/api'
+import { useModal } from '~/hooks/useModal'
+import { usePageTitle } from '~/hooks/usePageTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSection from '~/components/ArticleSection'
+import ArticleSectionContent from '~/components/ArticleSectionContent'
+import SentryTracking from '~/utilities/SentryTracking'
+import { firebaseSignOut } from '~/utilities/FirebaseAuth'
+import { selectAccount } from '~/stores/account/selector'
+import SignOffConfirmModal from '~/components/modals/SignOffConfirmModal'
+import { ModalName } from '~/stores/modal/slice'
 
 const HelpPage: React.FC = () => {
-  const history = useHistory()
+  usePageTitle('ヘルプ')
+  const navigate = useNavigate()
   const account = useSelector(selectAccount)
   const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM)
   const [signOff] = useSignOffMutation()
 
-  const handleSignOffButtonClick = () => {
+  const handleSignOffButtonClick = useCallback(() => {
     if (!account || !account.token || !account.id) {
       SentryTracking.exception('アカウント情報がないため、退会処理は実行されませんでした。')
       return
@@ -34,13 +35,9 @@ const HelpPage: React.FC = () => {
       })
       .finally(() => {
         closeModal()
-        history.push('/')
+        navigate('/')
       })
-  }
-
-  useEffect(() => {
-    setDocumentTitle('ヘルプ')
-  }, [])
+  }, [account, closeModal, signOff, navigate])
 
   return (
     <ArticleInner>

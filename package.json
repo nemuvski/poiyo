@@ -3,17 +3,13 @@
   "version": "1.2.2",
   "private": true,
   "engines": {
-    "node": "~14"
+    "node": "~16"
   },
   "dependencies": {
     "@craco/craco": "^6.4.0",
-    "@firebase/testing": "^0.20.11",
     "@reduxjs/toolkit": "^1.6.2",
     "@sentry/react": "^6.14.0",
     "@sentry/tracing": "^6.14.0",
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
     "@types/dompurify": "^2.3.1",
     "@types/jest": "^27.0.2",
     "@types/marked": "^3.0.2",
@@ -25,6 +21,7 @@
     "craco-alias": "^3.0.1",
     "dayjs": "^1.10.7",
     "dompurify": "^2.3.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "firebase": "^9.3.0",
     "marked": "^3.0.8",
     "normalize.css": "^8.0.1",
@@ -33,12 +30,10 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.18.1",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "^6.0.0",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
-    "scroll-behavior-polyfill": "^2.0.13",
-    "typescript": "^4.4.4",
-    "web-vitals": "^2.1.2"
+    "typescript": "^4.4.4"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=\"$npm_package_version.`git rev-parse --short HEAD`\" craco start",

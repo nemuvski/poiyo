@@ -8,6 +8,22 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+::-webkit-scrollbar-track {
+  border-radius: 0.4rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $color-storm-dust;
+  border-radius: 0.4rem;
+}
+
+::selection {
+  background-color: rgba($color-fuscous-gray, 0.8);
+  color: $color-white;
+}
+
 body {
   background-color: $color-gray;
   color: $color-fuscous-gray;

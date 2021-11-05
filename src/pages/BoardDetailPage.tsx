@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
 import NotFoundPage from '~/pages/NotFoundPage'
 import BoardCard from '~/components/BoardCard'
+import { usePageTitle } from '~/hooks/usePageTitle'
+import CompactLoading from '~/components/CompactLoading'
 import commentIcon from '~/assets/icons/comment.svg'
 import CommentList from '~/components/CommentList'
 import CommentFormModal from '~/components/modals/CommentFormModal'
 import DeleteCommentConfirmModal from '~/components/modals/DeleteCommentConfirmModal'
 import { ModalName } from '~/stores/modal/slice'
 import { useModal } from '~/hooks/useModal'
-import { useFullWideLoading } from '~/hooks/useFullWideLoading'
 import { useOperatingComment } from '~/hooks/useOperatingComment'
 import { useGetBoardQuery } from '~/stores/board/api'
 import { clearCommentListCurrentPage } from '~/stores/comment/slice'
@@ -21,33 +21,27 @@ type Params = {
 }
 
 const BoardDetailPage: React.FC = () => {
-  const { bid } = useParams<Params>()
+  usePageTitle('ボード')
+  const { bid } = useParams() as Params
   const dispatch = useDispatch()
   const { clearOperatingComment } = useOperatingComment()
   const { openModal } = useModal(ModalName.COMMENT_FORM)
   const { data, isLoading, isError } = useGetBoardQuery(bid)
-  const { setFullWideLoading } = useFullWideLoading(true)
 
   useEffect(() => {
-    setDocumentTitle('ボード')
-
     // ページから離れる時にコメント一覧の現在のページをリセットする
     return () => {
       dispatch(clearCommentListCurrentPage())
     }
-  }, [])
-  useEffect(() => {
-    setFullWideLoading(isLoading)
-  }, [isLoading])
+  }, [dispatch])
 
-  const handleOpenCommentFormModal = () => {
+  const handleOpenCommentFormModal = useCallback(() => {
     clearOperatingComment()
     openModal()
-  }
+  }, [clearOperatingComment, openModal])
 
-  // ローディング中は内容は空とする
   if (isLoading) {
-    return null
+    return <CompactLoading />
   }
   // ローディング後にエラー、またはデータがないという場合は404コンテンツを表示する
   if (isError || !data) {
