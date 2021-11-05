@@ -15,12 +15,12 @@
   border-radius: 0.4rem;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: $color-fuscous-gray;
+  background-color: $color-storm-dust;
   border-radius: 0.4rem;
 }
 
 ::selection {
-  background-color: $color-fuscous-gray;
+  background-color: rgba($color-fuscous-gray, 0.8);
   color: $color-white;
 }
 
