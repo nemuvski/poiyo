@@ -1,4 +1,6 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectFullWideLoading } from '~/stores/fullWideLoading/selector'
 import { useChangeLocation } from '~/hooks/useChangeLocation'
 import Header from '~/layouts/Header'
 import Router from '~/components/routes/Router'
@@ -17,9 +19,13 @@ const App: React.FC = () => {
   // パスが変わった時、スクロール位置を先頭にする
   useChangeLocation(() => window.scrollTo(0, 0))
 
+  const isLoading = useSelector(selectFullWideLoading)
+  if (isLoading) {
+    return <FullWideLoading />
+  }
+
   return (
     <>
-      <FullWideLoading />
       <Header />
       <main className='main'>
         <div className='main__inner'>

@@ -3,18 +3,18 @@ import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import NotFoundPage from '~/pages/NotFoundPage'
 import BoardCard from '~/components/BoardCard'
+import { usePageTitle } from '~/hooks/usePageTitle'
+import CompactLoading from '~/components/CompactLoading'
 import commentIcon from '~/assets/icons/comment.svg'
 import CommentList from '~/components/CommentList'
 import CommentFormModal from '~/components/modals/CommentFormModal'
 import DeleteCommentConfirmModal from '~/components/modals/DeleteCommentConfirmModal'
 import { ModalName } from '~/stores/modal/slice'
 import { useModal } from '~/hooks/useModal'
-import { useFullWideLoading } from '~/hooks/useFullWideLoading'
 import { useOperatingComment } from '~/hooks/useOperatingComment'
 import { useGetBoardQuery } from '~/stores/board/api'
 import { clearCommentListCurrentPage } from '~/stores/comment/slice'
 import '~/styles/pages/page-board-detail.scss'
-import { usePageTitle } from '~/hooks/usePageTitle'
 
 type Params = {
   bid: string
@@ -27,7 +27,6 @@ const BoardDetailPage: React.FC = () => {
   const { clearOperatingComment } = useOperatingComment()
   const { openModal } = useModal(ModalName.COMMENT_FORM)
   const { data, isLoading, isError } = useGetBoardQuery(bid)
-  const { setFullWideLoading } = useFullWideLoading(true)
 
   useEffect(() => {
     // ページから離れる時にコメント一覧の現在のページをリセットする
@@ -35,18 +34,14 @@ const BoardDetailPage: React.FC = () => {
       dispatch(clearCommentListCurrentPage())
     }
   }, [dispatch])
-  useEffect(() => {
-    setFullWideLoading(isLoading)
-  }, [isLoading, setFullWideLoading])
 
   const handleOpenCommentFormModal = useCallback(() => {
     clearOperatingComment()
     openModal()
   }, [clearOperatingComment, openModal])
 
-  // ローディング中は内容は空とする
   if (isLoading) {
-    return null
+    return <CompactLoading />
   }
   // ローディング後にエラー、またはデータがないという場合は404コンテンツを表示する
   if (isError || !data) {
