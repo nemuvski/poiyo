@@ -1,3 +1,3 @@
-import { RootState } from '../store';
+import { RootState } from '../store'
 
-export const selectFullWideLoading = (state: RootState): boolean => state.fullWideLoadingReducer.isActive;
+export const selectFullWideLoading = (state: RootState): boolean => state.fullWideLoadingReducer.isActive

@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
-import { accountSlice } from './account/slice';
-import { modalSlice } from './modal/slice';
-import { fullWideLoadingSlice } from './fullWideLoading/slice';
-import { commentSlice } from './comment/slice';
-import { poiyoApi } from './api';
-import { accountApi } from './account/api';
-import { boardApi } from './board/api';
-import { commentApi } from './comment/api';
+import { configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { accountSlice } from './account/slice'
+import { modalSlice } from './modal/slice'
+import { fullWideLoadingSlice } from './fullWideLoading/slice'
+import { commentSlice } from './comment/slice'
+import { poiyoApi } from './api'
+import { accountApi } from './account/api'
+import { boardApi } from './board/api'
+import { commentApi } from './comment/api'
 
 export const store = configureStore({
   reducer: {
@@ -22,9 +22,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(poiyoApi.middleware),
   // 本番モードでのビルド以外では開発ツール有効
   devTools: process.env.NODE_ENV !== 'production',
-});
+})
 
-setupListeners(store.dispatch);
+setupListeners(store.dispatch)
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import BoardList from '../components/BoardList';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import searchIcon from '../assets/icons/search-form.svg';
-import boardIcon from '../assets/icons/board-button.svg';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
-import '../styles/pages/page-dashboard.scss';
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import BoardList from '../components/BoardList'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import searchIcon from '../assets/icons/search-form.svg'
+import boardIcon from '../assets/icons/board-button.svg'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '../stores/account/selector'
+import '../styles/pages/page-dashboard.scss'
 
 const DashboardPage: React.FC = () => {
-  const account = useSelector(selectAccount);
-  const history = useHistory();
+  const account = useSelector(selectAccount)
+  const history = useHistory()
 
   useEffect(() => {
-    setDocumentTitle('ダッシュボード');
-  }, []);
+    setDocumentTitle('ダッシュボード')
+  }, [])
 
   return (
     <div className='page-dashboard'>
@@ -39,7 +39,7 @@ const DashboardPage: React.FC = () => {
         <BoardList accountId={account?.id} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage

@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import { useHistory } from 'react-router-dom';
-import ArticleInner from '../components/ArticleInner';
-import notFound from '../assets/not-found.svg';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
-import '../styles/pages/page-not-found.scss';
+import React, { useEffect } from 'react'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import { useHistory } from 'react-router-dom'
+import ArticleInner from '../components/ArticleInner'
+import notFound from '../assets/not-found.svg'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '../stores/account/selector'
+import '../styles/pages/page-not-found.scss'
 
 const NotFoundPage: React.FC = () => {
-  const account = useSelector(selectAccount);
-  const history = useHistory();
+  const account = useSelector(selectAccount)
+  const history = useHistory()
 
   useEffect(() => {
-    setDocumentTitle('ページが見つかりません');
-  }, []);
+    setDocumentTitle('ページが見つかりません')
+  }, [])
 
   return (
     <div className='page-not-found'>
@@ -34,7 +34,7 @@ const NotFoundPage: React.FC = () => {
         </p>
       </ArticleInner>
     </div>
-  );
-};
+  )
+}
 
-export default NotFoundPage;
+export default NotFoundPage

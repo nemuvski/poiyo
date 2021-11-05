@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import ArticleInner from '../components/ArticleInner';
-import ArticleSectionContent from '../components/ArticleSectionContent';
-import ArticleSection from '../components/ArticleSection';
+import React, { useEffect } from 'react'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import ArticleInner from '../components/ArticleInner'
+import ArticleSectionContent from '../components/ArticleSectionContent'
+import ArticleSection from '../components/ArticleSection'
 
 const PrivacyPage: React.FC = () => {
   useEffect(() => {
-    setDocumentTitle('プライバシーポリシー');
-  }, []);
+    setDocumentTitle('プライバシーポリシー')
+  }, [])
 
   return (
     <ArticleInner>
@@ -104,7 +104,7 @@ const PrivacyPage: React.FC = () => {
         [制定] <time>2021年2月12日</time>
       </p>
     </ArticleInner>
-  );
-};
+  )
+}
 
-export default PrivacyPage;
+export default PrivacyPage

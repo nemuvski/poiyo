@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import clsx from 'clsx';
-import searchIcon from '../assets/icons/search.svg';
-import '../styles/layouts/navigation-actions.scss';
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import clsx from 'clsx'
+import searchIcon from '../assets/icons/search.svg'
+import '../styles/layouts/navigation-actions.scss'
 
 const NavigationActions: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const history = useHistory();
+  const [open, setOpen] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     // ルーティングの変更を検知し、メニューを閉じる.
     const unsubscribe = history.listen(() => {
-      setOpen(false);
-    });
+      setOpen(false)
+    })
     return () => {
-      unsubscribe();
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
 
   const actions = [
     { link: '/dashboard', label: 'ダッシュボード', icon: 'dashboard' },
     { link: '/create-board', label: 'ボード作成', icon: 'board' },
     { link: '/sign-out', label: 'サインアウト', icon: 'sign-out' },
-  ];
+  ]
 
   return (
     <div className='navigation-actions'>
@@ -53,13 +53,13 @@ const NavigationActions: React.FC = () => {
                     {action.label}
                   </Link>
                 </li>
-              );
+              )
             })}
           </ul>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NavigationActions;
+export default NavigationActions

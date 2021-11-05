@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { setDocumentTitle } from '../utilities/DocumentTitle';
-import ArticleInner from '../components/ArticleInner';
-import ArticleSection from '../components/ArticleSection';
-import BoardForm from '../components/BoardForm';
-import { Board, BoardLocationState } from '../models/Board';
+import React, { useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { setDocumentTitle } from '../utilities/DocumentTitle'
+import ArticleInner from '../components/ArticleInner'
+import ArticleSection from '../components/ArticleSection'
+import BoardForm from '../components/BoardForm'
+import { Board, BoardLocationState } from '../models/Board'
 
 const EditBoardPage: React.FC = () => {
-  const location = useLocation<BoardLocationState>();
-  const history = useHistory();
-  const [board, setBoard] = useState<Board | undefined>();
+  const location = useLocation<BoardLocationState>()
+  const history = useHistory()
+  const [board, setBoard] = useState<Board | undefined>()
 
   useEffect(() => {
-    setDocumentTitle('ボード編集');
+    setDocumentTitle('ボード編集')
 
     if (location.state && location.state.board) {
-      setBoard(location.state.board);
+      setBoard(location.state.board)
     } else {
       // ボード詳細ページから遷移していないパターンであるため、ダッシュボード画面へ飛ばす.
-      history.replace('/dashboard');
+      history.replace('/dashboard')
     }
-  }, []);
+  }, [])
 
   return (
     <ArticleInner>
@@ -31,7 +31,7 @@ const EditBoardPage: React.FC = () => {
         </ArticleSection>
       </div>
     </ArticleInner>
-  );
-};
+  )
+}
 
-export default EditBoardPage;
+export default EditBoardPage

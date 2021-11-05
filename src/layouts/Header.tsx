@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/layouts/header.scss';
-import logo from '../assets/logo.svg';
-import Navigation from './Navigation';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import '../styles/layouts/header.scss'
+import logo from '../assets/logo.svg'
+import Navigation from './Navigation'
 
 const Header: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
         <Navigation />
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

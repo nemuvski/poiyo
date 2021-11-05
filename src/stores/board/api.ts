@@ -1,4 +1,4 @@
-import { defaultValidateStatus, poiyoApi } from '../api';
+import { defaultValidateStatus, poiyoApi } from '../api'
 import {
   Board,
   BoardRequest,
@@ -8,7 +8,7 @@ import {
   BoardsResponse,
   buildBoard,
   buildBoards,
-} from '../../models/Board';
+} from '../../models/Board'
 
 export const boardApi = poiyoApi.injectEndpoints({
   overrideExisting: false,
@@ -28,9 +28,9 @@ export const boardApi = poiyoApi.injectEndpoints({
       transformResponse: (response: BoardsResponse) => buildBoards(response),
       providesTags: (result) => {
         if (result && result.items.length) {
-          return result.items.map((board) => ({ type: 'Board', id: board.boardId }));
+          return result.items.map((board) => ({ type: 'Board', id: board.boardId }))
         }
-        return ['Board'];
+        return ['Board']
       },
     }),
     postBoard: builder.mutation<Board, BoardRequest>({
@@ -70,7 +70,7 @@ export const boardApi = poiyoApi.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Board', id: arg }],
     }),
   }),
-});
+})
 
-export const { useGetBoardQuery, usePostBoardMutation, usePatchBoardMutation, useDeleteBoardMutation } = boardApi;
-export const useGetBoardsLazyQuery = boardApi.endpoints.getBoards.useLazyQuery;
+export const { useGetBoardQuery, usePostBoardMutation, usePatchBoardMutation, useDeleteBoardMutation } = boardApi
+export const useGetBoardsLazyQuery = boardApi.endpoints.getBoards.useLazyQuery

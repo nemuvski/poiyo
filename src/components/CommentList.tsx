@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import CompactLoading from './CompactLoading';
-import CommentItem from './CommentItem';
-import SentryTracking from '../utilities/SentryTracking';
-import notFound from '../assets/not-found.svg';
-import { selectCommentListCurrentPage } from '../stores/comment/selector';
-import { Board } from '../models/Board';
-import { useGetCommentsLazyQuery } from '../stores/comment/api';
-import { buildCommentsQueryParams, Comment } from '../models/Comment';
-import Pagination from './Pagination';
-import { setCommentListCurrentPage } from '../stores/comment/slice';
-import '../styles/components/comment-list.scss';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import CompactLoading from './CompactLoading'
+import CommentItem from './CommentItem'
+import SentryTracking from '../utilities/SentryTracking'
+import notFound from '../assets/not-found.svg'
+import { selectCommentListCurrentPage } from '../stores/comment/selector'
+import { Board } from '../models/Board'
+import { useGetCommentsLazyQuery } from '../stores/comment/api'
+import { buildCommentsQueryParams, Comment } from '../models/Comment'
+import Pagination from './Pagination'
+import { setCommentListCurrentPage } from '../stores/comment/slice'
+import '../styles/components/comment-list.scss'
 
 type Props = {
-  board: Board;
-};
+  board: Board
+}
 
 const CommentList: React.FC<Props> = ({ board }) => {
-  const dispatch = useDispatch();
-  const commentListCurrentPage = useSelector(selectCommentListCurrentPage);
-  const [getCommentsTrigger, { isLoading, isFetching, error, data: fetchedComments }] = useGetCommentsLazyQuery();
-  const [commentList, setCommentList] = useState<Array<Comment>>([]);
-  const [prevPage, setPrevPage] = useState<number | undefined>();
-  const [nextPage, setNextPage] = useState<number | undefined>();
+  const dispatch = useDispatch()
+  const commentListCurrentPage = useSelector(selectCommentListCurrentPage)
+  const [getCommentsTrigger, { isLoading, isFetching, error, data: fetchedComments }] = useGetCommentsLazyQuery()
+  const [commentList, setCommentList] = useState<Array<Comment>>([])
+  const [prevPage, setPrevPage] = useState<number | undefined>()
+  const [nextPage, setNextPage] = useState<number | undefined>()
 
   // 初期表示時の処理
   useEffect(() => {
-    getCommentsTrigger(buildCommentsQueryParams(commentListCurrentPage, board.boardId));
-  }, [commentListCurrentPage]);
+    getCommentsTrigger(buildCommentsQueryParams(commentListCurrentPage, board.boardId))
+  }, [commentListCurrentPage])
   // 取得したデータが変わったときの処理
   useEffect(() => {
     if (fetchedComments) {
-      setPrevPage(fetchedComments.currentPage - 1 < 1 ? undefined : fetchedComments.currentPage - 1);
-      setNextPage(fetchedComments.nextPage);
-      setCommentList(fetchedComments.items);
+      setPrevPage(fetchedComments.currentPage - 1 < 1 ? undefined : fetchedComments.currentPage - 1)
+      setNextPage(fetchedComments.nextPage)
+      setCommentList(fetchedComments.items)
     }
-  }, [fetchedComments]);
+  }, [fetchedComments])
   // エラー発生時の処理
   useEffect(() => {
     if (error) {
-      console.error('コメント取得時に問題が発生したため、処理を中断します。', error);
-      SentryTracking.exception('コメント取得時に問題が発生したため、処理を中断します。');
+      console.error('コメント取得時に問題が発生したため、処理を中断します。', error)
+      SentryTracking.exception('コメント取得時に問題が発生したため、処理を中断します。')
     }
-  }, [error]);
+  }, [error])
 
   return (
     <div className='comment-list'>
@@ -75,7 +75,7 @@ const CommentList: React.FC<Props> = ({ board }) => {
         </p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CommentList;
+export default CommentList

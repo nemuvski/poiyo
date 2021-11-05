@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
-import Dayjs, { formatYMDHm } from '../libs/Dayjs';
-import { Comment } from '../models/Comment';
-import { convertMarkdownTextToHTML } from '../libs/DOMPurify';
-import settingsIcon from '../assets/icons/settings.svg';
-import { useSelector } from 'react-redux';
-import { selectAccount } from '../stores/account/selector';
-import { useModal } from '../hooks/useModal';
-import { ModalName } from '../stores/modal/slice';
-import { useOperatingComment } from '../hooks/useOperatingComment';
-import '../styles/components/comment-item.scss';
+import React, { useState } from 'react'
+import Dayjs, { formatYMDHm } from '../libs/Dayjs'
+import { Comment } from '../models/Comment'
+import { convertMarkdownTextToHTML } from '../libs/DOMPurify'
+import settingsIcon from '../assets/icons/settings.svg'
+import { useSelector } from 'react-redux'
+import { selectAccount } from '../stores/account/selector'
+import { useModal } from '../hooks/useModal'
+import { ModalName } from '../stores/modal/slice'
+import { useOperatingComment } from '../hooks/useOperatingComment'
+import '../styles/components/comment-item.scss'
 
 type Props = {
-  comment: Comment;
-};
+  comment: Comment
+}
 
 const CommentItem: React.FC<Props> = ({ comment }) => {
-  const account = useSelector(selectAccount);
-  const { setOperatingComment } = useOperatingComment();
-  const [isOpenActions, setIsOpenActions] = useState(false);
-  const commentFormModal = useModal(ModalName.COMMENT_FORM);
-  const deleteCommentConfirmModal = useModal(ModalName.DELETE_COMMENT_CONFIRM);
+  const account = useSelector(selectAccount)
+  const { setOperatingComment } = useOperatingComment()
+  const [isOpenActions, setIsOpenActions] = useState(false)
+  const commentFormModal = useModal(ModalName.COMMENT_FORM)
+  const deleteCommentConfirmModal = useModal(ModalName.DELETE_COMMENT_CONFIRM)
 
   const handleEditButtonClick = () => {
     // 操作対象のCommentオブジェクトを設定することで、コメント編集フォームに反映される.
-    setOperatingComment(comment);
-    setIsOpenActions(false);
-    commentFormModal.openModal();
-  };
+    setOperatingComment(comment)
+    setIsOpenActions(false)
+    commentFormModal.openModal()
+  }
 
   const handleDeleteButtonClick = () => {
-    setOperatingComment(comment);
-    setIsOpenActions(false);
-    deleteCommentConfirmModal.openModal();
-  };
+    setOperatingComment(comment)
+    setIsOpenActions(false)
+    deleteCommentConfirmModal.openModal()
+  }
 
   return (
     <div className='comment-item'>
@@ -53,7 +53,7 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CommentItem;
+export default CommentItem
