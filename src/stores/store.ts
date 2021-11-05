@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { accountSlice } from './account/slice'
-import { modalSlice } from './modal/slice'
-import { fullWideLoadingSlice } from './fullWideLoading/slice'
-import { commentSlice } from './comment/slice'
-import { poiyoApi } from './api'
-import { accountApi } from './account/api'
-import { boardApi } from './board/api'
-import { commentApi } from './comment/api'
+import { accountSlice } from '~/stores/account/slice'
+import { modalSlice } from '~/stores/modal/slice'
+import { fullWideLoadingSlice } from '~/stores/fullWideLoading/slice'
+import { commentSlice } from '~/stores/comment/slice'
+import { poiyoApi } from '~/stores/api'
+import { accountApi } from '~/stores/account/api'
+import { boardApi } from '~/stores/board/api'
+import { commentApi } from '~/stores/comment/api'
 
 export const store = configureStore({
   reducer: {

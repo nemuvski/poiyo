@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { onAuthStateChanged } from 'firebase/auth'
-import { firebaseAuth } from '../libs/Firebase'
-import { firebaseSignOut } from '../utilities/FirebaseAuth'
-import SentryTracking from '../utilities/SentryTracking'
-import { clearAccount, setAccount } from '../stores/account/slice'
+import { firebaseAuth } from '~/libs/Firebase'
+import { firebaseSignOut } from '~/utilities/FirebaseAuth'
+import SentryTracking from '~/utilities/SentryTracking'
+import { clearAccount, setAccount } from '~/stores/account/slice'
 import { useFullWideLoading } from './useFullWideLoading'
-import { useSignInMutation } from '../stores/account/api'
-import { buildAuthRequest } from '../models/Auth'
-import { buildAccount } from '../models/Account'
+import { useSignInMutation } from '~/stores/account/api'
+import { buildAuthRequest } from '~/models/Auth'
+import { buildAccount } from '~/models/Account'
 
 export const useAuth = (): void => {
   const dispatch = useDispatch()

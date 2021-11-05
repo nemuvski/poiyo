@@ -2,8 +2,8 @@
  * Firebase Analyticsのトラッキングのヘルパー関数を定義.
  */
 
-import { firebaseAnalytics } from '../libs/Firebase'
 import { logEvent } from 'firebase/analytics'
+import { firebaseAnalytics } from '~/libs/Firebase'
 
 const appName = 'poiyo'
 

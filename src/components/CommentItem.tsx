@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import Dayjs, { formatYMDHm } from '../libs/Dayjs'
-import { Comment } from '../models/Comment'
-import { convertMarkdownTextToHTML } from '../libs/DOMPurify'
-import settingsIcon from '../assets/icons/settings.svg'
 import { useSelector } from 'react-redux'
-import { selectAccount } from '../stores/account/selector'
-import { useModal } from '../hooks/useModal'
-import { ModalName } from '../stores/modal/slice'
-import { useOperatingComment } from '../hooks/useOperatingComment'
-import '../styles/components/comment-item.scss'
+import Dayjs, { formatYMDHm } from '~/libs/Dayjs'
+import { Comment } from '~/models/Comment'
+import { convertMarkdownTextToHTML } from '~/libs/DOMPurify'
+import settingsIcon from '~/assets/icons/settings.svg'
+import { selectAccount } from '~/stores/account/selector'
+import { useModal } from '~/hooks/useModal'
+import { ModalName } from '~/stores/modal/slice'
+import { useOperatingComment } from '~/hooks/useOperatingComment'
+import '~/styles/components/comment-item.scss'
 
 type Props = {
   comment: Comment

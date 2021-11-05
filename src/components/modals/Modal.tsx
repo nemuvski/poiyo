@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
-import closeIcon from '../../assets/icons/modal-close.svg'
-import { useModal } from '../../hooks/useModal'
-import '../../styles/components/modal.scss'
+import closeIcon from '~/assets/icons/modal-close.svg'
+import { useModal } from '~/hooks/useModal'
+import '~/styles/components/modal.scss'
 
 type Props = {
   children?: React.ReactNode

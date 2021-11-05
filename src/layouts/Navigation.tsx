@@ -1,8 +1,8 @@
 import React from 'react'
-import NavigationActions from './NavigationActions'
 import { useSelector } from 'react-redux'
-import { selectAccount } from '../stores/account/selector'
-import { firebaseSignIn } from '../utilities/FirebaseAuth'
+import { selectAccount } from '~/stores/account/selector'
+import { firebaseSignIn } from '~/utilities/FirebaseAuth'
+import NavigationActions from '~/layouts/NavigationActions'
 
 const Navigation: React.FC = () => {
   const account = useSelector(selectAccount)

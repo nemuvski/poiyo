@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Board, buildBoardQueryParams } from '../models/Board'
-import BoardItem from './BoardItem'
-import CompactLoading from './CompactLoading'
-import SentryTracking from '../utilities/SentryTracking'
-import notFound from '../assets/not-found.svg'
-import { useGetBoardsLazyQuery } from '../stores/board/api'
-import '../styles/components/board-list.scss'
+import { Board, buildBoardQueryParams } from '~/models/Board'
+import BoardItem from '~/components/BoardItem'
+import CompactLoading from '~/components/CompactLoading'
+import SentryTracking from '~/utilities/SentryTracking'
+import notFound from '~/assets/not-found.svg'
+import { useGetBoardsLazyQuery } from '~/stores/board/api'
+import '~/styles/components/board-list.scss'
 
 type Props = {
   keyword?: string

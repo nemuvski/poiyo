@@ -1,5 +1,5 @@
-import { defaultValidateStatus, poiyoApi } from '../api'
-import { AuthRequest, AuthResponse } from '../../models/Auth'
+import { defaultValidateStatus, poiyoApi } from '~/stores/api'
+import { AuthRequest, AuthResponse } from '~/models/Auth'
 
 export const accountApi = poiyoApi.injectEndpoints({
   overrideExisting: false,

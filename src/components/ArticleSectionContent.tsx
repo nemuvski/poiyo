@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/components/article-section-content.scss'
+import '~/styles/components/article-section-content.scss'
 
 type Props = {
   children?: React.ReactNode

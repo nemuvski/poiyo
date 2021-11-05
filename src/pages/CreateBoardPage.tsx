@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSection from '../components/ArticleSection'
-import BoardForm from '../components/BoardForm'
-import '../styles/pages/page-create-board.scss'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSection from '~/components/ArticleSection'
+import BoardForm from '~/components/BoardForm'
+import '~/styles/pages/page-create-board.scss'
 
 const CreateBoardPage: React.FC = () => {
   useEffect(() => {

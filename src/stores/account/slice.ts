@@ -1,5 +1,5 @@
-import { Account } from '../../models/Account'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Account } from '~/models/Account'
 
 export interface AccountState {
   account: Account | null

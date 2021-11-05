@@ -1,14 +1,14 @@
 import React from 'react'
-import Modal from './Modal'
-import Confirm from '../Confirm'
-import { ModalName } from '../../stores/modal/slice'
 import { useSelector } from 'react-redux'
-import { selectModal } from '../../stores/modal/selector'
-import { useModal } from '../../hooks/useModal'
-import { useOperatingComment } from '../../hooks/useOperatingComment'
-import { useDeleteCommentMutation } from '../../stores/comment/api'
-import { Board } from '../../models/Board'
-import SentryTracking from '../../utilities/SentryTracking'
+import Modal from '~/components/modals/Modal'
+import Confirm from '~/components/Confirm'
+import { ModalName } from '~/stores/modal/slice'
+import { selectModal } from '~/stores/modal/selector'
+import { useModal } from '~/hooks/useModal'
+import { useOperatingComment } from '~/hooks/useOperatingComment'
+import { useDeleteCommentMutation } from '~/stores/comment/api'
+import { Board } from '~/models/Board'
+import SentryTracking from '~/utilities/SentryTracking'
 
 type Props = {
   board: Board

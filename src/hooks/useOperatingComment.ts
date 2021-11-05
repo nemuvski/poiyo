@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectOperatingComment } from '../stores/comment/selector'
-import { Comment } from '../models/Comment'
-import { clearOperatingComment, setOperatingComment } from '../stores/comment/slice'
+import { selectOperatingComment } from '~/stores/comment/selector'
+import { Comment } from '~/models/Comment'
+import { clearOperatingComment, setOperatingComment } from '~/stores/comment/slice'
 
 export const useOperatingComment = (): {
   operatingComment: Comment | null

@@ -1,7 +1,7 @@
 import React from 'react'
-import { News } from '../models/News'
-import { formatYMD } from '../libs/Dayjs'
-import '../styles/components/news-list.scss'
+import { News } from '~/models/News'
+import { formatYMD } from '~/libs/Dayjs'
+import '~/styles/components/news-list.scss'
 
 const NewsList: React.FC = () => {
   const newsList = [

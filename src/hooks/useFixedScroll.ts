@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectModal } from '../stores/modal/selector'
-import { selectFullWideLoading } from '../stores/fullWideLoading/selector'
+import { selectModal } from '~/stores/modal/selector'
+import { selectFullWideLoading } from '~/stores/fullWideLoading/selector'
 
 export const useFixedScroll = (): void => {
   const modal = useSelector(selectModal)

@@ -1,7 +1,7 @@
 /**
  * コメントAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
-import { NullTime } from './Time'
+import { NullTime } from '~/models/Time'
 
 export type CommentRequest = {
   commentId: string | null

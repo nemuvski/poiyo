@@ -1,4 +1,4 @@
-import { defaultValidateStatus, poiyoApi } from '../api'
+import { defaultValidateStatus, poiyoApi } from '~/stores/api'
 import {
   buildComment,
   buildComments,
@@ -8,7 +8,7 @@ import {
   Comments,
   CommentsQueryParams,
   CommentsResponse,
-} from '../../models/Comment'
+} from '~/models/Comment'
 
 export const commentApi = poiyoApi.injectEndpoints({
   overrideExisting: false,

@@ -1,7 +1,7 @@
 /**
  * ボードAPIレスポンス・リクエストデータ、処理で利用するモデル.
  */
-import { NullTime } from './Time'
+import { NullTime } from '~/models/Time'
 
 export type BoardRequest = {
   boardId: string | null

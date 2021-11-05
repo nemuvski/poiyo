@@ -1,5 +1,5 @@
-import { Comment } from '../../models/Comment'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Comment } from '~/models/Comment'
 
 export interface CommentState {
   // 編集・削除の対象のCommentエンティティ

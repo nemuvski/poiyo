@@ -2,7 +2,7 @@
  * お知らせのコンテンツモデル.
  */
 import { Dayjs } from 'dayjs'
-import dayjs from '../libs/Dayjs'
+import dayjs from '~/libs/Dayjs'
 
 export class News {
   day: Dayjs

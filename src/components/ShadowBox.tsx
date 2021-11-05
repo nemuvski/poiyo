@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/components/shadow-box.scss'
+import '~/styles/components/shadow-box.scss'
 
 type Props = {
   children?: React.ReactNode

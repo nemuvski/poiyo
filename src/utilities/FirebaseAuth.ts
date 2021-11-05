@@ -1,6 +1,6 @@
 import { signInWithRedirect, signOut, GoogleAuthProvider } from 'firebase/auth'
-import { firebaseAuth } from '../libs/Firebase'
-import SentryTracking from './SentryTracking'
+import { firebaseAuth } from '~/libs/Firebase'
+import SentryTracking from '~/utilities/SentryTracking'
 
 /**
  * Firebase Authenticationでサインインを実行

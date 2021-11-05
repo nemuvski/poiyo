@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.svg'
-import koredanaLogo from '../assets/icons/koredana.svg'
-import '../styles/layouts/footer.scss'
+import logo from '~/assets/logo.svg'
+import koredanaLogo from '~/assets/icons/koredana.svg'
+import '~/styles/layouts/footer.scss'
 
 const Footer: React.FC = () => {
   return (

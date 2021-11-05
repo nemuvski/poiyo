@@ -1,9 +1,9 @@
 import React from 'react'
-import Modal from './Modal'
-import Confirm from '../Confirm'
-import { ModalName } from '../../stores/modal/slice'
 import { useSelector } from 'react-redux'
-import { selectModal } from '../../stores/modal/selector'
+import Modal from '~/components/modals/Modal'
+import Confirm from '~/components/Confirm'
+import { ModalName } from '~/stores/modal/slice'
+import { selectModal } from '~/stores/modal/selector'
 
 type Props = {
   okAction: () => void

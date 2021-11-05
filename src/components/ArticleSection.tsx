@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import '../styles/components/article-section.scss'
+import '~/styles/components/article-section.scss'
 
 type Props = {
   children?: React.ReactNode

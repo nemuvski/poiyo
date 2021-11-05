@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { store } from './stores/store'
+import { store } from '~/stores/store'
 import 'normalize.css'
 
-import App from './App'
-import reportWebVitals from './reportWebVitals'
-import './styles/global/base.scss'
-import './styles/global/md.scss'
+import App from '~/App'
+import reportWebVitals from '~/reportWebVitals'
+import '~/styles/global/base.scss'
+import '~/styles/global/md.scss'
 
 // スクロールのアニメーション用のポリフィル.
 if (!('scrollBehavior' in document.documentElement.style)) {

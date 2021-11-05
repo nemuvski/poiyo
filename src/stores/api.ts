@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { RootState } from './store'
+import { RootState } from '~/stores/store'
 
 export const poiyoApi = createApi({
   reducerPath: 'poiyoApi',

@@ -1,4 +1,4 @@
-import { defaultValidateStatus, poiyoApi } from '../api'
+import { defaultValidateStatus, poiyoApi } from '~/stores/api'
 import {
   Board,
   BoardRequest,
@@ -8,7 +8,7 @@ import {
   BoardsResponse,
   buildBoard,
   buildBoards,
-} from '../../models/Board'
+} from '~/models/Board'
 
 export const boardApi = poiyoApi.injectEndpoints({
   overrideExisting: false,
