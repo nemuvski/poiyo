@@ -73,7 +73,7 @@ const BoardForm: React.FC<Props> = ({ board }) => {
       setValue('title', board.title)
       setValue('body', board.body)
     }
-  }, [board])
+  }, [board, setValue])
 
   const onSubmit = (formFields: FormFields) => {
     if (!account) {

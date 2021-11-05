@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
 import { useNavigate } from 'react-router-dom'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import ArticleInner from '~/components/ArticleInner'
 import notFound from '~/assets/not-found.svg'
 import { selectAccount } from '~/stores/account/selector'
 import '~/styles/pages/page-not-found.scss'
 
 const NotFoundPage: React.FC = () => {
+  usePageTitle('ページが見つかりません')
   const navigate = useNavigate()
   const account = useSelector(selectAccount)
-
-  useEffect(() => {
-    setDocumentTitle('ページが見つかりません')
-  }, [])
 
   return (
     <div className='page-not-found'>

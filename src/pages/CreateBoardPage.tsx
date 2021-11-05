@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import React from 'react'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import ArticleInner from '~/components/ArticleInner'
 import ArticleSection from '~/components/ArticleSection'
 import BoardForm from '~/components/BoardForm'
 import '~/styles/pages/page-create-board.scss'
 
 const CreateBoardPage: React.FC = () => {
-  useEffect(() => {
-    setDocumentTitle('ボード作成')
-  }, [])
+  usePageTitle('ボード作成')
 
   return (
     <ArticleInner>

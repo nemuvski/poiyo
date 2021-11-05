@@ -23,7 +23,7 @@ const Modal: React.FC<Props> = ({ isCompactMode = false, closeAction, children }
       }
       closeModal()
     }
-  }, [])
+  }, [closeModal, closeAction])
 
   return createPortal(
     <div

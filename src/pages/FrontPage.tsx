@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import ArticleInner from '~/components/ArticleInner'
 import ArticleSection from '~/components/ArticleSection'
 import keyVisual from '~/assets/key-visual.svg'
@@ -7,15 +8,12 @@ import googleIcon from '~/assets/icons/google.svg'
 import boardIcon from '~/assets/icons/board-feature.svg'
 import searchIcon from '~/assets/icons/search-feature.svg'
 import penIcon from '~/assets/icons/pen-feature.svg'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
 import NewsList from '~/components/NewsList'
 import { firebaseSignIn } from '~/utilities/FirebaseAuth'
 import '~/styles/pages/page-front.scss'
 
 const FrontPage: React.FC = () => {
-  useEffect(() => {
-    setDocumentTitle('Poiyo（ぽいよ） - 匿名掲示板コミュニティサイト', false)
-  }, [])
+  usePageTitle('Poiyo（ぽいよ） - 匿名掲示板コミュニティサイト', false)
 
   return (
     <ArticleInner>

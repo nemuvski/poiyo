@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import BoardList from '~/components/BoardList'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
 import searchIcon from '~/assets/icons/search-form.svg'
 import boardIcon from '~/assets/icons/board-button.svg'
 import { selectAccount } from '~/stores/account/selector'
 import '~/styles/pages/page-dashboard.scss'
 
 const DashboardPage: React.FC = () => {
+  usePageTitle('ダッシュボード')
   const account = useSelector(selectAccount)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    setDocumentTitle('ダッシュボード')
-  }, [])
 
   return (
     <div className='page-dashboard'>

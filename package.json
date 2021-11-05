@@ -25,6 +25,7 @@
     "craco-alias": "^3.0.1",
     "dayjs": "^1.10.7",
     "dompurify": "^2.3.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "firebase": "^9.3.0",
     "marked": "^3.0.8",
     "normalize.css": "^8.0.1",

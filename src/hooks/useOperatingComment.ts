@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectOperatingComment } from '~/stores/comment/selector'
 import { Comment } from '~/models/Comment'
@@ -12,20 +12,27 @@ export const useOperatingComment = (): {
   const dispatch = useDispatch()
   const operatingComment = useSelector(selectOperatingComment)
 
+  const setOperatingCommentAction = useCallback(
+    (comment) => {
+      dispatch(setOperatingComment(comment))
+    },
+    [dispatch]
+  )
+
+  const clearOperatingCommentAction = useCallback(() => {
+    dispatch(clearOperatingComment())
+  }, [dispatch])
+
   useEffect(
     () => () => {
       dispatch(clearOperatingComment())
     },
-    []
+    [dispatch]
   )
 
   return {
     operatingComment,
-    setOperatingComment: (comment) => {
-      dispatch(setOperatingComment(comment))
-    },
-    clearOperatingComment: () => {
-      dispatch(clearOperatingComment())
-    },
+    setOperatingComment: setOperatingCommentAction,
+    clearOperatingComment: clearOperatingCommentAction,
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useChangeLocation } from '~/hooks/useChangeLocation'
 import Header from '~/layouts/Header'
 import Router from '~/components/routes/Router'
 import Footer from '~/layouts/Footer'
@@ -8,7 +9,6 @@ import { useFixedScroll } from '~/hooks/useFixedScroll'
 import { useAuth } from '~/hooks/useAuth'
 import { useSetUpSentry } from '~/hooks/useSetUpSentry'
 import '~/styles/layouts/main.scss'
-import { useChangeLocation } from '~/hooks/useChangeLocation'
 
 const App: React.FC = () => {
   useFixedScroll()

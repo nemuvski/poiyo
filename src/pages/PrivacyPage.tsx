@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import React from 'react'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import ArticleInner from '~/components/ArticleInner'
 import ArticleSectionContent from '~/components/ArticleSectionContent'
 import ArticleSection from '~/components/ArticleSection'
 
 const PrivacyPage: React.FC = () => {
-  useEffect(() => {
-    setDocumentTitle('プライバシーポリシー')
-  }, [])
+  usePageTitle('プライバシーポリシー')
 
   return (
     <ArticleInner>

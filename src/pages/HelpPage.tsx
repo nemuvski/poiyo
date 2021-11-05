@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import { useSignOffMutation } from '~/stores/account/api'
+import { useModal } from '~/hooks/useModal'
+import { usePageTitle } from '~/hooks/usePageTitle'
 import ArticleInner from '~/components/ArticleInner'
 import ArticleSection from '~/components/ArticleSection'
 import ArticleSectionContent from '~/components/ArticleSectionContent'
@@ -10,10 +12,9 @@ import { firebaseSignOut } from '~/utilities/FirebaseAuth'
 import { selectAccount } from '~/stores/account/selector'
 import SignOffConfirmModal from '~/components/modals/SignOffConfirmModal'
 import { ModalName } from '~/stores/modal/slice'
-import { useModal } from '~/hooks/useModal'
-import { useSignOffMutation } from '~/stores/account/api'
 
 const HelpPage: React.FC = () => {
+  usePageTitle('ヘルプ')
   const navigate = useNavigate()
   const account = useSelector(selectAccount)
   const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM)
@@ -37,10 +38,6 @@ const HelpPage: React.FC = () => {
         navigate('/')
       })
   }
-
-  useEffect(() => {
-    setDocumentTitle('ヘルプ')
-  }, [])
 
   return (
     <ArticleInner>

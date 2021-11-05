@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setDocumentTitle } from '~/utilities/DocumentTitle'
 import NotFoundPage from '~/pages/NotFoundPage'
 import BoardCard from '~/components/BoardCard'
 import commentIcon from '~/assets/icons/comment.svg'
@@ -15,12 +14,14 @@ import { useOperatingComment } from '~/hooks/useOperatingComment'
 import { useGetBoardQuery } from '~/stores/board/api'
 import { clearCommentListCurrentPage } from '~/stores/comment/slice'
 import '~/styles/pages/page-board-detail.scss'
+import { usePageTitle } from '~/hooks/usePageTitle'
 
 type Params = {
   bid: string
 }
 
 const BoardDetailPage: React.FC = () => {
+  usePageTitle('ボード')
   const { bid } = useParams() as Params
   const dispatch = useDispatch()
   const { clearOperatingComment } = useOperatingComment()
@@ -29,16 +30,14 @@ const BoardDetailPage: React.FC = () => {
   const { setFullWideLoading } = useFullWideLoading(true)
 
   useEffect(() => {
-    setDocumentTitle('ボード')
-
     // ページから離れる時にコメント一覧の現在のページをリセットする
     return () => {
       dispatch(clearCommentListCurrentPage())
     }
-  }, [])
+  }, [dispatch])
   useEffect(() => {
     setFullWideLoading(isLoading)
-  }, [isLoading])
+  }, [isLoading, setFullWideLoading])
 
   const handleOpenCommentFormModal = () => {
     clearOperatingComment()
