@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Board, BoardLocationState } from '~/models/Board'
 import Dayjs, { formatYMDHm } from '~/libs/Dayjs'
@@ -20,7 +20,7 @@ type Props = {
 }
 
 const BoardCard: React.FC<Props> = ({ board }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const account = useSelector(selectAccount)
   const { openModal, closeModal } = useModal(ModalName.DELETE_BOARD_CONFIRM)
   const [isOpenActions, setIsOpenActions] = useState(false)
@@ -39,7 +39,7 @@ const BoardCard: React.FC<Props> = ({ board }) => {
         SentryTracking.exception('ボード削除に失敗しました。')
       })
       .finally(() => {
-        history.replace('/search')
+        navigate('/search', { replace: true })
       })
   }
 
@@ -59,7 +59,7 @@ const BoardCard: React.FC<Props> = ({ board }) => {
                     <ul className='board-card__actions'>
                       <li
                         onClick={() => {
-                          history.push('/edit-board', { board } as BoardLocationState)
+                          navigate('/edit-board', { state: { board } as BoardLocationState })
                         }}
                       >
                         編集

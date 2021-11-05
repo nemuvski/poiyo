@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSection from '../components/ArticleSection'
-import ArticleSectionContent from '../components/ArticleSectionContent'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSection from '~/components/ArticleSection'
+import ArticleSectionContent from '~/components/ArticleSectionContent'
 
 const TermsPage: React.FC = () => {
   useEffect(() => {

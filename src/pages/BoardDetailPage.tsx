@@ -21,7 +21,7 @@ type Params = {
 }
 
 const BoardDetailPage: React.FC = () => {
-  const { bid } = useParams<Params>()
+  const { bid } = useParams() as Params
   const dispatch = useDispatch()
   const { clearOperatingComment } = useOperatingComment()
   const { openModal } = useModal(ModalName.COMMENT_FORM)

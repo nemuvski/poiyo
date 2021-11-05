@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSection from '../components/ArticleSection'
-import ArticleSectionContent from '../components/ArticleSectionContent'
-import SentryTracking from '../utilities/SentryTracking'
-import { firebaseSignOut } from '../utilities/FirebaseAuth'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectAccount } from '../stores/account/selector'
-import SignOffConfirmModal from '../components/modals/SignOffConfirmModal'
-import { ModalName } from '../stores/modal/slice'
-import { useModal } from '../hooks/useModal'
-import { useSignOffMutation } from '../stores/account/api'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSection from '~/components/ArticleSection'
+import ArticleSectionContent from '~/components/ArticleSectionContent'
+import SentryTracking from '~/utilities/SentryTracking'
+import { firebaseSignOut } from '~/utilities/FirebaseAuth'
+import { selectAccount } from '~/stores/account/selector'
+import SignOffConfirmModal from '~/components/modals/SignOffConfirmModal'
+import { ModalName } from '~/stores/modal/slice'
+import { useModal } from '~/hooks/useModal'
+import { useSignOffMutation } from '~/stores/account/api'
 
 const HelpPage: React.FC = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const account = useSelector(selectAccount)
   const { openModal, closeModal } = useModal(ModalName.SIGN_OFF_CONFIRM)
   const [signOff] = useSignOffMutation()
@@ -34,7 +34,7 @@ const HelpPage: React.FC = () => {
       })
       .finally(() => {
         closeModal()
-        history.push('/')
+        navigate('/')
       })
   }
 

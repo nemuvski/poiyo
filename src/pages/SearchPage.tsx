@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import BoardList from '../components/BoardList'
-import searchIcon from '../assets/icons/search-form.svg'
-import AnalyticsTracking from '../utilities/AnalyticsTracking'
-import '../styles/pages/page-search.scss'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import BoardList from '~/components/BoardList'
+import searchIcon from '~/assets/icons/search-form.svg'
+import AnalyticsTracking from '~/utilities/AnalyticsTracking'
+import '~/styles/pages/page-search.scss'
 
 type SearchFormFields = {
   keyword: string

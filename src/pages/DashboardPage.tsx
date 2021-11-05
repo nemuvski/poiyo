@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import BoardList from '../components/BoardList'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import searchIcon from '../assets/icons/search-form.svg'
-import boardIcon from '../assets/icons/board-button.svg'
 import { useSelector } from 'react-redux'
-import { selectAccount } from '../stores/account/selector'
-import '../styles/pages/page-dashboard.scss'
+import { useNavigate } from 'react-router-dom'
+import BoardList from '~/components/BoardList'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import searchIcon from '~/assets/icons/search-form.svg'
+import boardIcon from '~/assets/icons/board-button.svg'
+import { selectAccount } from '~/stores/account/selector'
+import '~/styles/pages/page-dashboard.scss'
 
 const DashboardPage: React.FC = () => {
   const account = useSelector(selectAccount)
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     setDocumentTitle('ダッシュボード')
@@ -19,7 +19,7 @@ const DashboardPage: React.FC = () => {
   return (
     <div className='page-dashboard'>
       <div className='page-dashboard__links'>
-        <button type='button' className='is-black' onClick={() => history.push('/search')}>
+        <button type='button' className='is-black' onClick={() => navigate('/search')}>
           <img
             aria-hidden='true'
             alt='ボード一覧・検索画面に遷移'
@@ -28,7 +28,7 @@ const DashboardPage: React.FC = () => {
           />
           ボードを探す
         </button>
-        <button type='button' className='is-black' onClick={() => history.push('/create-board')}>
+        <button type='button' className='is-black' onClick={() => navigate('/create-board')}>
           <img aria-hidden='true' alt='ボード作成画面に遷移' title='ボード作成画面に遷移します。' src={boardIcon} />
           ボードを作る
         </button>

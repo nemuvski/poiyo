@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import ArticleInner from '../components/ArticleInner'
-import ArticleSectionContent from '../components/ArticleSectionContent'
-import ArticleSection from '../components/ArticleSection'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import ArticleInner from '~/components/ArticleInner'
+import ArticleSectionContent from '~/components/ArticleSectionContent'
+import ArticleSection from '~/components/ArticleSection'
 
 const PrivacyPage: React.FC = () => {
   useEffect(() => {

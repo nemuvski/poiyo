@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { setDocumentTitle } from '../utilities/DocumentTitle'
-import { firebaseSignOut } from '../utilities/FirebaseAuth'
-import { useFullWideLoading } from '../hooks/useFullWideLoading'
-import ArticleInner from '../components/ArticleInner'
+import { setDocumentTitle } from '~/utilities/DocumentTitle'
+import { firebaseSignOut } from '~/utilities/FirebaseAuth'
+import { useFullWideLoading } from '~/hooks/useFullWideLoading'
+import ArticleInner from '~/components/ArticleInner'
 
 const SignOutPage: React.FC = () => {
   const { setFullWideLoading } = useFullWideLoading(true)

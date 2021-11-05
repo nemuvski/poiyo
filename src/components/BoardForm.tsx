@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { Board, buildBoardRequest } from '~/models/Board'
 import { convertMarkdownTextToHTML } from '~/libs/DOMPurify'
@@ -50,7 +50,7 @@ const fieldRules = {
 }
 
 const BoardForm: React.FC<Props> = ({ board }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const [preview, setPreview] = useState<Preview>({ isActive: false, content: '' })
   const defaultValues: FormFields = {
     title: board ? board.title : '',
@@ -90,7 +90,7 @@ const BoardForm: React.FC<Props> = ({ board }) => {
       patchBoard(buildBoardRequest(title, body, board.ownerAccountId, board.boardId))
         .unwrap()
         .then((updatedBoard) => {
-          history.replace(`/board/${updatedBoard.boardId}`)
+          navigate(`/board/${updatedBoard.boardId}`, { replace: true })
         })
         .catch(() => {
           console.error('ボード更新に失敗しました。')
@@ -103,7 +103,7 @@ const BoardForm: React.FC<Props> = ({ board }) => {
       postBoard(buildBoardRequest(title, body, account.id))
         .unwrap()
         .then((createdBoard) => {
-          history.replace(`/board/${createdBoard.boardId}`)
+          navigate(`/board/${createdBoard.boardId}`, { replace: true })
         })
         .catch(() => {
           console.error('ボード作成に失敗しました。')
