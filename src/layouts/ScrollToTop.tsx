@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import arrowUpIcon from '~/assets/icons/arrow-up.svg'
 import '~/styles/layouts/scroll-to-top.scss'
@@ -29,12 +29,11 @@ const ScrollToTop: React.FC = () => {
     }
   }, [])
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
     })
-  }
+  }, [])
 
   return (
     <button
