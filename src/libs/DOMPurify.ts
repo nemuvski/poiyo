@@ -3,7 +3,7 @@
  */
 
 import DOMPurify, { Config } from 'dompurify'
-import marked from 'marked'
+import { marked } from 'marked'
 
 type InnerHTML = {
   __html: string
