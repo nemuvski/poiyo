@@ -1,16 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectFullWideLoading } from '~/stores/fullWideLoading/selector'
-import { useChangeLocation } from '~/hooks/useChangeLocation'
-import Header from '~/layouts/Header'
-import Router from '~/components/routes/Router'
-import Footer from '~/layouts/Footer'
-import ScrollToTop from '~/layouts/ScrollToTop'
+import AppRouter from '~/components/routes/AppRouter'
 import FullWideLoading from '~/components/FullWideLoading'
+import { useChangeLocation } from '~/hooks/useChangeLocation'
 import { useFixedScroll } from '~/hooks/useFixedScroll'
 import { useAuth } from '~/hooks/useAuth'
 import { useSetUpSentry } from '~/hooks/useSetUpSentry'
-import '~/styles/layouts/main.scss'
 
 const App: React.FC = () => {
   useFixedScroll()
@@ -25,16 +21,9 @@ const App: React.FC = () => {
   }
 
   return (
-    <>
-      <Header />
-      <main className='main'>
-        <div className='main__inner'>
-          <Router />
-        </div>
-      </main>
-      <ScrollToTop />
-      <Footer />
-    </>
+    <React.Suspense fallback={<FullWideLoading />}>
+      <AppRouter />
+    </React.Suspense>
   )
 }
 
