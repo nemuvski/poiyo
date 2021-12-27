@@ -13,14 +13,14 @@ const EditBoardPage: React.FC = () => {
   const [board, setBoard] = useState<Board | undefined>()
 
   useEffect(() => {
-    const state: BoardLocationState | undefined = location.state
+    const state: BoardLocationState | undefined = location.state as BoardLocationState | undefined
     if (state && state.board) {
-      setBoard(location.state.board)
+      setBoard(state.board)
     } else {
       // ボード詳細ページから遷移していないパターンであるため、ダッシュボード画面へ飛ばす.
       navigate('/dashboard', { replace: true })
     }
-  }, [location.state, navigate])
+  }, [location, navigate])
 
   return (
     <ArticleInner>
