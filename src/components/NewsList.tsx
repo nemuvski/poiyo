@@ -5,6 +5,7 @@ import '~/styles/components/news-list.scss'
 
 const NewsList: React.FC = () => {
   const newsList = useRef([
+    new News('2021-12-28', '✨ 定期メンテナンス'),
     new News('2021-12-13', '✨ 定期メンテナンス'),
     new News('2021-11-14', '✨ 定期メンテナンス'),
     new News('2021-11-05', '🐛 軽微なバグ修正, その他メンテナンス'),
