@@ -9,7 +9,6 @@ import boardIcon from '~/assets/icons/board-feature.svg'
 import searchIcon from '~/assets/icons/search-feature.svg'
 import penIcon from '~/assets/icons/pen-feature.svg'
 import NewsList from '~/components/NewsList'
-import { firebaseSignIn } from '~/utilities/FirebaseAuth'
 import '~/styles/pages/page-front.scss'
 
 const FrontPage: React.FC = () => {
@@ -47,11 +46,12 @@ const FrontPage: React.FC = () => {
             に同意した上でサインインしてください。
           </p>
           <div className='page-front__signin-wrapper'>
-            <button onClick={() => firebaseSignIn()} className='is-white page-front__signin-button'>
+            <button disabled className='is-white page-front__signin-button'>
               <img src={googleIcon} alt='Google' />
               <span>Googleでサインイン</span>
             </button>
           </div>
+          <p style={{ textAlign: 'center' }}>※ 現在サインインはできません。</p>
         </ArticleSection>
 
         <ArticleSection>

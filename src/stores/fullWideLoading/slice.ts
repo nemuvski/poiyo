@@ -5,7 +5,7 @@ export interface FullWideLoadingState {
 }
 
 const initialState: FullWideLoadingState = {
-  isActive: true,
+  isActive: false,
 }
 
 export const fullWideLoadingSlice = createSlice({

@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
             </ul>
           </nav>
         </div>
-        <p className='footer__copyright'>© 2021 Poiyo</p>
+        <p className='footer__copyright'>© 2021–2022 Poiyo</p>
       </div>
     </footer>
   )
